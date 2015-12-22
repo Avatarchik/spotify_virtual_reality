@@ -32,9 +32,10 @@ public class PlaceControl : MonoBehaviour {
 
 	// start the audio of the selected index
 	public void playAudio() {
-		AudioSource audio = GetComponent<AudioSource>();
-		audio.clip = audios[this.index];
-		audio.Play();
+		if (audioSource.clip != audios [this.index]) {
+			audioSource.clip = audios [this.index];
+			audioSource.Play ();
+		}
 	}
 
 	// apply the texture of the selected place
