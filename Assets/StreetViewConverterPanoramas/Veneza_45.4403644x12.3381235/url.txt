@@ -1,0 +1,3 @@
+Powered by StreetViewConverter v1.5.03 from https://www.assetstore.unity3d.com/en/#!/content/28512
+Support: sss1024@gmail.com 
+https://www.google.co.uk/maps/place/45%C2%B026%2725.2%22N+12%C2%B020%2717.0%22E/@45.4403644,12.3381235,3a,90y,329.07h,89.48t/data=!3m7!1e1!3m5!1sgCX7eS7tCyeKRFnhxJoJSw!2e0!6s%2F%2Fgeo1.ggpht.com%2Fcbk%3Fpanoid%3DgCX7eS7tCyeKRFnhxJoJSw%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D349.85403%26pitch%3D0!7i13312!8i6656!4m2!3m1!1s0x0:0x0
