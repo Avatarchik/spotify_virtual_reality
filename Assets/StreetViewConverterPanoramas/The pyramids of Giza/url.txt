@@ -1,3 +1,0 @@
-Powered by StreetViewConverter v1.5.03 from https://www.assetstore.unity3d.com/en/#!/content/28512
-Support: sss1024@gmail.com 
-https://www.google.co.uk/maps/place/Al+Haram,+Giza+Governorate,+Egypt/@29.974922,31.1319333,3a,75y,89.3h,86.22t/data=!3m7!1e1!3m5!1sN1ZVDbDbmrbcOWO_S0-q4A!2e0!6s%2F%2Fgeo3.ggpht.com%2Fcbk%3Fpanoid%3DN1ZVDbDbmrbcOWO_S0-q4A%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D100%26h%3D80%26yaw%3D120.99702%26pitch%3D0!7i13312!8i6656!4m2!3m1!1s0x145846765e2334ff:0x29022126e13689c5

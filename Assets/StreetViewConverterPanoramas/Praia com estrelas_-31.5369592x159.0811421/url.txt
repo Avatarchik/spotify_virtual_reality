@@ -1,3 +1,0 @@
-Powered by StreetViewConverter v1.5.03 from https://www.assetstore.unity3d.com/en/#!/content/28512
-Support: sss1024@gmail.com 
-https://www.google.com/maps/place/115%2FLOT+115+Lagoon+Rd,+Lord+Howe+Island+2898,+Australia/@-31.5369592,159.0811421,3a,90y,151.97h,102.92t/data=!3m8!1e1!3m6!1s-_awjprkuH_s%2FU6fIg2psb0I%2FAAAAAAACCao%2FoT0liTd2puU!2e4!3e11!6s%2F%2Flh3.googleusercontent.com%2F-_awjprkuH_s%2FU6fIg2psb0I%2FAAAAAAACCao%2FoT0liTd2puU%2Fw203-h101-n-k-no%2F!7i11064!8i5532!4m2!3m1!1s0x6c7c1a6238fba65d:0x4cdaa3ef6bcd0950

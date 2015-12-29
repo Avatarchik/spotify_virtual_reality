@@ -1,3 +1,0 @@
-Powered by StreetViewConverter v1.5.03 from https://www.assetstore.unity3d.com/en/#!/content/28512
-Support: sss1024@gmail.com 
-https://www.google.com.br/maps/place/Takinoue,+Monbetsu+District,+Hokkaido+Prefecture,+Jap%C3%A3o/@44.1972182,143.0770302,3a,75y,283.42h,85.55t/data=!3m8!1e1!3m6!1s-IF7OKuPMpvE%2FVVlJv-Dt_4I%2FAAAAAAAAAOM%2FgNiSwz96Nsc!2e4!3e11!6s%2F%2Flh4.googleusercontent.com%2F-IF7OKuPMpvE%2FVVlJv-Dt_4I%2FAAAAAAAAAOM%2FgNiSwz96Nsc%2Fw234-h117-n-k-no%2F!7i2508!8i1254!4m2!3m1!1s0x5f0d6fe8a9efc991:0x87a14fecf88bb467!6m1!1e1?hl=pt-BR
