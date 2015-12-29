@@ -1,3 +1,0 @@
-Powered by StreetViewConverter v1.5.03 from https://www.assetstore.unity3d.com/en/#!/content/28512
-Support: sss1024@gmail.com 
-https://www.google.com.br/maps/@37.622427,-112.1659716,3a,75y,330.14h,76.26t/data=!3m8!1e1!3m6!1s-6NA7Ywnr4ak%2FVEU6cHT9tLI%2FAAAAAAAAE_M%2FDUYOcvUgrF8!2e4!3e11!6s%2F%2Flh6.googleusercontent.com%2F-6NA7Ywnr4ak%2FVEU6cHT9tLI%2FAAAAAAAAE_M%2FDUYOcvUgrF8%2Fw203-h101-n-k-no%2F!7i10000!8i5000

@@ -1,0 +1,3 @@
+Powered by StreetViewConverter v1.5.03 from https://www.assetstore.unity3d.com/en/#!/content/28512
+Support: sss1024@gmail.com 
+https://www.google.com.br/maps/@-23.4413349,151.9155056,3a,75y,273.58h,81.44t/data=!3m8!1e1!3m6!1sOh9wU_Z2AwNoUk2onNWl_g!2e0!3e2!6s%2F%2Fgeo0.ggpht.com%2Fcbk%3Fpanoid%3DOh9wU_Z2AwNoUk2onNWl_g%26output%3Dthumbnail%26cb_client%3Dmaps_sv.tactile.gps%26thumb%3D2%26w%3D203%26h%3D100%26yaw%3D265.5%26pitch%3D0!7i13312!8i6656?hl=pt-BR
