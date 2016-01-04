@@ -2,9 +2,6 @@
 using System.Collections;
 
 public class PlaceControl : MonoBehaviour {
-	public Material[] mats;
-	public AudioClip[] audios;
-
 	// current material index
 	private int index = 0;
 
@@ -16,8 +13,8 @@ public class PlaceControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		material = GetComponent<Renderer> ().material;
-		audioSource = GetComponent<AudioSource>();
+		this.material = GetComponent<Renderer> ().material;
+		this.audioSource = GetComponent<AudioSource>();
 
 		this.applyMaterial ();
 		this.playAudio ();
@@ -32,10 +29,11 @@ public class PlaceControl : MonoBehaviour {
 
 	// start the audio of the selected index
 	public void playAudio() {
-		/*if (audioSource.clip != audios [this.index]) {
-			audioSource.clip = audios [this.index];
+		AudioClip audioClip = (AudioClip)Resources.Load("Audio/" + getMaterialName(this.index), typeof(AudioClip));
+		if (audioSource.clip != audioClip) {
+			audioSource.clip = audioClip;
 			audioSource.Play ();
-		}*/
+		}
 	}
 
 	private string getMaterialName(int index) {
@@ -90,7 +88,6 @@ public class PlaceControl : MonoBehaviour {
 	public void applyMaterial() {
 		Material material = (Material)Resources.Load("Materials/StreetView/" + getMaterialName(this.index), typeof(Material));
 		GetComponent<Renderer> ().material = material;
-		//GetComponent<Renderer> ().material = mats [this.index];
 	}
 
 }
