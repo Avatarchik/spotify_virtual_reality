@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class CameraChanger : MonoBehaviour {
-	public PlaceControl placeControl;
+	//public PlaceControl placeControl;
 	public Camera camera1;
 	public Camera camera2;
 	// Use this for initialization
@@ -16,9 +16,9 @@ public class CameraChanger : MonoBehaviour {
 		if (Input.GetKeyUp (KeyCode.Return)) {
 			changeCamera ();
 		}
-		if(placeControl.shouldChangeCamera()) {
-			changeCamera ();
-		}
+		//if(placeControl.shouldChangeCamera()) {
+		//	changeCamera ();
+		//}
 	}
 
 	public void changeCamera() {
@@ -26,7 +26,7 @@ public class CameraChanger : MonoBehaviour {
 			camera1.enabled = !camera1.enabled;
 			camera2.enabled = !camera2.enabled;
 
-			placeControl.applyMaterial ();
+			//placeControl.applyMaterial ();
 		
 	}
 }

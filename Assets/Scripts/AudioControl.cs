@@ -9,6 +9,8 @@ public class AudioControl : MonoBehaviour {
 
 	float fadeTime = 5;
 
+	float timeStart;
+
 	// Use this for initialization
 	void Start () {
 		this.audioSource = GetComponent<AudioSource>();
@@ -16,24 +18,34 @@ public class AudioControl : MonoBehaviour {
 	}
 
 	void Update() {
-		
-		if (audioSource.volume < 1 && audioSource.volume != 0) {
+		if (Time.time > this.timeStart + 4) {
+			// we need to fade music out
 			t += Time.deltaTime;
-			audioSource.volume = Mathf.Lerp (0, 1, t / fadeTime);
-		}
-		else if(audioSource.volume == 1) {
-			audioSource.volume = 0;
+			audioSource.volume = Mathf.Lerp (1, 0, t / 1);
+		} else if (Time.time < this.timeStart + 3.9) {
+			// we need to fade music in
+			t += Time.deltaTime;
+			audioSource.volume = Mathf.Lerp (0, 1, t / 4);
+		} else {
+			t = 0;
 		}
 	}
 		
 
 	// start the audio of the selected index
-	public void playAudio(AudioClip audioClip) {
+	public void playAudio(string audioName) {
+		AudioClip audioClip = (AudioClip)Resources.Load("Audio/Songs/" + audioName, typeof(AudioClip));
+
 		if (audioSource.clip != audioClip) {
 			audioSource.clip = audioClip;
-			audioSource.volume = 0.01f;
+			audioSource.volume = 0;
 			this.t = 0;
+			this.timeStart = Time.time;
 			audioSource.Play ();
 		}
+	}
+
+	public bool audioFinish() {
+		return audioSource.isPlaying;
 	}
 }
