@@ -6,12 +6,12 @@ public class PlaceControl : MonoBehaviour {
 	private string materialName = "";
 
 	// the material of this component
-	private Material material;
+	private Renderer renderer;
 
 
 	// Use this for initialization
 	void Start () {
-		this.material = GetComponent<Renderer> ().material;
+		this.renderer = GetComponent<Renderer> ();
 	}
 
 	// set the index of the place that we want to be
@@ -24,7 +24,7 @@ public class PlaceControl : MonoBehaviour {
 	// apply the texture of the selected place
 	public void applyMaterial() {
 		Material material = (Material)Resources.Load("Materials/StreetView/" + materialName, typeof(Material));
-		this.material = material;
+		renderer.material = material;
 	}
 
 }
