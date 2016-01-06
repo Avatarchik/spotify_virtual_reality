@@ -4,6 +4,9 @@ using System.Collections;
 public class JourneySingleton : Singleton<JourneySingleton>  {
 	Hashtable placeHashTable = new Hashtable();
 
+	private Place currentPlace;
+	private PinControl currentPin;
+
 	protected JourneySingleton() {
 		addPlace ("Champion_Island", 0);
 		addPlace ("Isla_Mujeres", 3);
@@ -29,7 +32,37 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		placeHashTable.Add(place.getName(), place);
 	}
 
+	public Place getPlace(float position) {
+		foreach (DictionaryEntry pair in placeHashTable)
+		{
+			Place place = (Place)pair.Value;
+			if (Mathf.Abs (position - place.getPosition ()) < 2) {
+				return place;
+			}
+		}
+		return null;
+	}
 
+	public Place getPlace(string name) {
+		if (placeHashTable.Contains (name)) {
+			return (Place) placeHashTable [name];
+		}
+		return null;
+	}
 
+	public void setCurrentPlace(string name) {
+		if (placeHashTable.Contains (name)) {
+			this.currentPlace = (Place)placeHashTable [name];
+		} else {
+			this.currentPlace = null;
+		}
+	}
 
+	public void setCurrentPlace(Place place) {
+		this.currentPlace = place;
+	}
+
+	public Place getCurrentPlace() {
+		return this.currentPlace;
+	}
 }

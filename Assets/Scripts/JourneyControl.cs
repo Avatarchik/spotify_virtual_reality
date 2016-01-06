@@ -21,7 +21,7 @@ public class JourneyControl : MonoBehaviour {
 
 	private int state = STATE_NAVIGATING;
 
-	string currentJourneyName;
+	//string currentJourneyName;
 
 	private float timeWhenJourneyStarts;
 
@@ -52,7 +52,7 @@ public class JourneyControl : MonoBehaviour {
 			if (audioControl.audioFinish ()) {
 				journeyCount++;
 				if (journeyCount < 2) {
-					setJourneyPlace ("Iceberg");
+					setJourneyPlace (JourneySingleton.Instance.getPlace("Elefantinho"));
 					startJourney ();
 				} else {
 					goToGlobe ();
@@ -68,31 +68,26 @@ public class JourneyControl : MonoBehaviour {
 		this.state = STATE_NAVIGATING;
 	}
 
-	public void setInitial(string name) {
-		
+	public void setInitial(Place place) {
 		this.state = STATE_NAVIGATING;
-			
-		setJourneyPlace (name);
-
+		setJourneyPlace (place);
 		timeWhenSelected = Time.time;
 	}
 
 	public void randomizeNext() {
 	}
 
-	private void setJourneyPlace(string name) {
-
-
-		currentJourneyName = name;
+	private void setJourneyPlace(Place place) {
+		JourneySingleton.Instance.setCurrentPlace (place);
 
 		// start the audio of the selected index
-		this.audioControl.playAudio(currentJourneyName);
-		this.placeControl.setPlace (currentJourneyName);
+		this.audioControl.playAudio(place.getName());
+		this.placeControl.setPlace (place.getName());
 	}
 
 	public void startJourney() {
 		globeControl.exitGlobe ();
 		this.placeControl.applyMaterial ();
-		this.audioControl.playFullAudio (currentJourneyName);
+		this.audioControl.playFullAudio (JourneySingleton.Instance.getCurrentPlace().getName());
 	}
 }
