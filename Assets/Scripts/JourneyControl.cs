@@ -42,7 +42,7 @@ public class JourneyControl : MonoBehaviour {
 			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 11) {
 				timeWhenSelected = 0;
 				this.startJourney ();
-				//cameraChanger.changeCamera ();
+				cameraChanger.changeCamera ();
 				this.state = STATE_JOURNEY;
 				Debug.Log ("cameraChanger.changeCamera");
 
@@ -58,12 +58,16 @@ public class JourneyControl : MonoBehaviour {
 					goToGlobe ();
 				}
 			}
+			if (Input.GetKeyUp (KeyCode.Return)) {
+				goToGlobe ();
+			}
 			break;
 		}
 	}
 
 	public void goToGlobe() {
 		globeControl.returnToGlobe ();
+		audioControl.stop ();
 		cameraChanger.changeCamera ();
 		this.state = STATE_NAVIGATING;
 	}
@@ -72,6 +76,7 @@ public class JourneyControl : MonoBehaviour {
 		if (place == null) {
 			this.state = STATE_NAVIGATING;
 			audioControl.stop ();
+			JourneySingleton.Instance.setCurrentPlace (place);
 			return;
 		}
 		this.state = STATE_PRE_SELECTED;

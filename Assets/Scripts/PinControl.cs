@@ -3,7 +3,17 @@ using System.Collections;
 
 public class PinControl : MonoBehaviour {
 
-	//private string pinName = "Pin_1_Light";
+	private const int STATE_PIN_IS_OFF = 0;
+	private const int STATE_PIN_IS_ON = 1;
+	private const int STATE_PIN_IS_TURNING_ON = 2;
+	private const int STATE_PIN_IS_TURNING_OFF = 3;
+	private const int STATE_PIN_IS_SHINNING = 4;
+	private const int STATE_PIN_IS_SHRINKING = 5;
+	private int state = STATE_PIN_IS_OFF;
+
+	private float PIN_ON_MID_INTENSITY = 4f;
+	private float PIN_ON_SHRINK_INTENSITY = 2f;
+	private float PIN_ON_HIGH_INTENSITY = 8f;
 
 	Fader fader;
 	GameObject lightGameObj;
@@ -23,13 +33,7 @@ public class PinControl : MonoBehaviour {
 
 	}
 
-	private const int STATE_PIN_IS_OFF = 0;
-	private const int STATE_PIN_IS_ON = 1;
-	private const int STATE_PIN_IS_TURNING_ON = 2;
-	private const int STATE_PIN_IS_TURNING_OFF = 3;
-	private const int STATE_PIN_IS_SHINNING = 4;
-	private const int STATE_PIN_IS_SHRINKING = 5;
-	private int state = STATE_PIN_IS_OFF;
+
 
 
 	// Update is called once per frame
@@ -76,9 +80,7 @@ public class PinControl : MonoBehaviour {
 
 	}
 
-	public float PIN_ON_MID_INTENSITY = 1f;
-	public float PIN_ON_SHRINK_INTENSITY = 0.5f;
-	public float PIN_ON_HIGH_INTENSITY = 2.5f;
+
 
 	public void turnOnPinLight() {
 		this.audioSource.clip = audioClipPinEnter;
@@ -92,6 +94,7 @@ public class PinControl : MonoBehaviour {
 		if (this.light.intensity != 0) {
 			fader = new Fader (light, light.intensity, 0, 0.3f);
 			state = STATE_PIN_IS_TURNING_OFF;
+			this.audioSource.Stop ();
 		}
 	}
 

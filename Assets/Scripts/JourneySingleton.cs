@@ -22,7 +22,6 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Northern_Lights", 102);
 		addPlace ("Egito", 116);
 		addPlace ("Elefantinhos", 122);
-		addPlace ("Northern_Lights", 130);
 		addPlace ("Kaindy", 140);
 		addPlace ("Ta Prohm", 194);
 	} // guarantee this will be always a singleton only - can't use the constructor!
@@ -60,7 +59,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 
 	public void setCurrentPlace(Place place) {
 		this.currentPlace = place;
-		Debug.Log ("Current Place: " + place.getName ());
+		//Debug.Log ("Current Place: " + place == null? "Sem place" : place.getName ());
 	}
 
 	public Place getCurrentPlace() {

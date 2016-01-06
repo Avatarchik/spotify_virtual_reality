@@ -16,10 +16,11 @@ public class GlobeControl : MonoBehaviour {
 		if (updateGlobe) {
 			transform.Rotate (Vector3.up * speed * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime);
 	
-			Place place = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
-			if (JourneySingleton.Instance.getCurrentPlace() != place) {
-				journeyControl.setInitial(place);
-				updatePin (JourneySingleton.Instance.getCurrentPlace(), place);
+			Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
+			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
+			if (currentPlace != newPlace) {
+				journeyControl.setInitial(newPlace);
+				updatePin (currentPlace, newPlace);
 			}
 		}
 	}
@@ -51,6 +52,7 @@ public class GlobeControl : MonoBehaviour {
 
 	public void returnToGlobe() {
 		updateGlobe = true;
+		JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
 	}
 

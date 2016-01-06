@@ -44,7 +44,7 @@ public class AudioControl : MonoBehaviour {
 		AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
 
 		isFullAudio = false;
-		if (audioSource.clip != audioClip) {
+		if (audioSource.clip != audioClip || audioSource.isPlaying == false) {
 			audioSource.clip = audioClip;
 			audioSource.volume = 0;
 			this.t = 0;
