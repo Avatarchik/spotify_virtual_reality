@@ -14,7 +14,7 @@ public class GlobeControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (updateGlobe) {
-			transform.Rotate (Vector3.up * speed * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime);
+			transform.Rotate (-(Vector3.up * speed * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime));
 	
 			Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
 			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
