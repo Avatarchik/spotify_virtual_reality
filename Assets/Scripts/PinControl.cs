@@ -126,7 +126,7 @@ public class PinControl : MonoBehaviour {
 
 		public bool update() {
 
-			while (t < fadeTime) {
+			if (t < fadeTime) {
 				t += Time.deltaTime;
 				l.intensity = Mathf.Lerp(fadeStart, fadeEnd, t / fadeTime);
 				return false;
