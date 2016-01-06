@@ -81,6 +81,8 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	private void setJourneyPlace(string name) {
+
+
 		currentJourneyName = name;
 
 		// start the audio of the selected index
