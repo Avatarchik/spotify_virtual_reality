@@ -6,6 +6,11 @@ public class GlobeControl : MonoBehaviour {
 	public int speed;
 	private int index;
 
+	private AudioSource audioSource;
+	void Start() {
+		this.audioSource = GetComponent<AudioSource>();
+	}
+
 	// Update is called once per frame
 	void Update () {
 		transform.Rotate(Vector3.up * speed * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime);
@@ -24,12 +29,18 @@ public class GlobeControl : MonoBehaviour {
 		PinControl pinControl = Pin_1.GetComponent<PinControl> ();
 		if (currentPinIndex == 3) {
 			pinControl.turnOnPinLight ();
-		} else {
+		} else if(oldPinIndex == 3){
 			pinControl.turnOffPinLight ();
 		}
 	}
 
+	public void stopAmbientMusic() {
+		audioSource.Stop ();
+	}
 
+	public void startAmbientMusic() {
+		audioSource.Play ();
+	}
 
 	public static string getLocationName(int index) {
 			switch (index) {

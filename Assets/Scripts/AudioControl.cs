@@ -11,6 +11,8 @@ public class AudioControl : MonoBehaviour {
 
 	float timeStart;
 
+	bool isFullAudio = false;
+
 	// Use this for initialization
 	void Start () {
 		this.audioSource = GetComponent<AudioSource>();
@@ -18,16 +20,26 @@ public class AudioControl : MonoBehaviour {
 	}
 
 	void Update() {
-		if (Time.time > this.timeStart + 4) {
-			// we need to fade music out
-			t += Time.deltaTime;
-			audioSource.volume = Mathf.Lerp (1, 0, t / 1);
-		} else if (Time.time < this.timeStart + 3.9) {
-			// we need to fade music in
-			t += Time.deltaTime;
-			audioSource.volume = Mathf.Lerp (0, 1, t / 4);
+		if (isFullAudio == true) {
+			if (Time.time < this.timeStart + 2) {
+				// we need to fade music in
+				t += Time.deltaTime;
+				audioSource.volume = Mathf.Lerp (0, 1, t / 2);
+			} 
 		} else {
-			t = 0;
+			if (audioSource.volume != 0 && Time.time > this.timeStart + 2 + 2) {
+				// we need to fade music out
+				t += Time.deltaTime;
+				audioSource.volume = Mathf.Lerp (1, 0, t / 2);
+
+			} else if (audioSource.volume != 1 && Time.time < this.timeStart + 2) {
+				// we need to fade music in
+				t += Time.deltaTime;
+				audioSource.volume = Mathf.Lerp (0, 1, t / 2);
+			} 
+			else {
+				t = 0;
+			}
 		}
 	}
 		
@@ -35,7 +47,7 @@ public class AudioControl : MonoBehaviour {
 	// start the audio of the selected index
 	public void playAudio(string audioName) {
 		AudioClip audioClip = (AudioClip)Resources.Load("Audio/Songs/" + audioName, typeof(AudioClip));
-
+		isFullAudio = false;
 		if (audioSource.clip != audioClip) {
 			audioSource.clip = audioClip;
 			audioSource.volume = 0;
@@ -45,7 +57,25 @@ public class AudioControl : MonoBehaviour {
 		}
 	}
 
+	// start the audio of the selected index
+	public void playFullAudio(string audioName) {
+		AudioClip audioClip = (AudioClip)Resources.Load("Audio/Songs/" + audioName, typeof(AudioClip));
+		isFullAudio = true;
+
+			audioSource.clip = audioClip;
+			audioSource.volume = 0;
+			this.t = 0;
+			this.timeStart = Time.time;
+			audioSource.Play ();
+
+	}
+
+
+
 	public bool audioFinish() {
-		return audioSource.isPlaying;
+		if (audioSource.time >= audioSource.clip.length) {
+			return true;
+		}
+		return false;
 	}
 }
