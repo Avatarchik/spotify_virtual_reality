@@ -42,7 +42,7 @@ public class JourneyControl : MonoBehaviour {
 			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 11) {
 				timeWhenSelected = 0;
 				this.startJourney ();
-				cameraChanger.changeCamera ();
+				//cameraChanger.changeCamera ();
 				this.state = STATE_JOURNEY;
 				Debug.Log ("cameraChanger.changeCamera");
 
