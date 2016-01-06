@@ -52,17 +52,26 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 
 	public void setCurrentPlace(string name) {
 		if (placeHashTable.Contains (name)) {
-			this.currentPlace = (Place)placeHashTable [name];
+			setCurrentPlace((Place)placeHashTable [name]);
 		} else {
-			this.currentPlace = null;
+			setCurrentPlace((Place)null);
 		}
 	}
 
 	public void setCurrentPlace(Place place) {
 		this.currentPlace = place;
+		Debug.Log ("Current Place: " + place.getName ());
 	}
 
 	public Place getCurrentPlace() {
 		return this.currentPlace;
+	}
+
+	public void setCurrentPin(PinControl pin) {
+		this.currentPin = pin;
+	}
+
+	public PinControl getCurrentPin() {
+		return this.currentPin;
 	}
 }

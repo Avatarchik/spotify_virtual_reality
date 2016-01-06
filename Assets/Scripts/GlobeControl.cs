@@ -19,22 +19,25 @@ public class GlobeControl : MonoBehaviour {
 			Place place = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
 			if (JourneySingleton.Instance.getCurrentPlace() != place) {
 				journeyControl.setInitial(place);
-				updatePin (JourneySingleton.Instance.getCurrentPlace().getName(), place.getName());
+				updatePin (JourneySingleton.Instance.getCurrentPlace(), place);
 			}
 		}
 	}
 
-	private void updatePin(string oldPlaceName, string currentPlaceName) {
-		if (oldPlaceName != null) {
-			GameObject oldPin = GameObject.Find ("Pin_" + oldPlaceName);
+	private void updatePin(Place oldPlace, Place currentPlace) {
+		if (oldPlace != null) {
+			GameObject oldPin = GameObject.Find ("Pin_" + oldPlace.getName());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOffPinLight ();
 		}
 
-		if (currentPlaceName != null) {
-			GameObject oldPin = GameObject.Find ("Pin_" + currentPlaceName);
+		if (currentPlace != null) {
+			GameObject oldPin = GameObject.Find ("Pin_" + currentPlace.getName());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOnPinLight ();
+			JourneySingleton.Instance.setCurrentPin (pinControl);
+		} else {
+			JourneySingleton.Instance.setCurrentPin (null);
 		}
 	}
 

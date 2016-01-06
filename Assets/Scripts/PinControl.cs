@@ -13,7 +13,7 @@ public class PinControl : MonoBehaviour {
 	AudioClip audioClipPinSelected;
 	// Use this for initialization
 	void Start () {
-		this.lightGameObj = this.gameObject.transform.Find ("Pin_1_Light").gameObject;
+		this.lightGameObj = this.gameObject.transform.Find ("Light").gameObject;
 		this.light = this.lightGameObj.GetComponent<Light>();
 		this.audioSource = this.lightGameObj.GetComponent<AudioSource>();
 
@@ -90,7 +90,7 @@ public class PinControl : MonoBehaviour {
 	public void turnOffPinLight() {
 		state = STATE_PIN_IS_OFF;
 		if (this.light.intensity != 0) {
-			fader = new Fader (light, PIN_ON_MID_INTENSITY, 0, 0.3f);
+			fader = new Fader (light, light.intensity, 0, 0.3f);
 			state = STATE_PIN_IS_TURNING_OFF;
 		}
 	}

@@ -16,8 +16,9 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	private const int STATE_NAVIGATING = 0;
-	private const int STATE_PRE_SELECTED = 1;
-	private const int STATE_JOURNEY = 2;
+	private const int STATE_PRE_SELECTED = 2;
+	private const int STATE_SELECTED = 3;
+	private const int STATE_JOURNEY = 4;
 
 	private int state = STATE_NAVIGATING;
 
@@ -30,15 +31,14 @@ public class JourneyControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		switch (state) {
-		case STATE_NAVIGATING:
+		case STATE_PRE_SELECTED:
 			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 5.5f) {
-				GameObject Pin_1 = GameObject.Find ("Pin_1");
-				PinControl pinControl = Pin_1.GetComponent<PinControl> ();
+				PinControl pinControl = JourneySingleton.Instance.getCurrentPin();
 				pinControl.makePinShine ();
-				this.state = STATE_PRE_SELECTED;
+				this.state = STATE_SELECTED;
 			}
 			break;
-		case STATE_PRE_SELECTED:
+		case STATE_SELECTED:
 			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 11) {
 				timeWhenSelected = 0;
 				this.startJourney ();
@@ -69,7 +69,12 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	public void setInitial(Place place) {
-		this.state = STATE_NAVIGATING;
+		if (place == null) {
+			this.state = STATE_NAVIGATING;
+			audioControl.stop ();
+			return;
+		}
+		this.state = STATE_PRE_SELECTED;
 		setJourneyPlace (place);
 		timeWhenSelected = Time.time;
 	}
