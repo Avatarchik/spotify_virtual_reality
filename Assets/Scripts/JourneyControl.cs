@@ -63,7 +63,8 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	public void goToGlobe() {
-		globeControl.startAmbientMusic ();
+		globeControl.returnToGlobe ();
+		cameraChanger.changeCamera ();
 		this.state = STATE_NAVIGATING;
 	}
 
@@ -88,7 +89,7 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	public void startJourney() {
-		globeControl.stopAmbientMusic ();
+		globeControl.exitGlobe ();
 		this.placeControl.applyMaterial ();
 		this.audioControl.playFullAudio (currentJourneyName);
 	}

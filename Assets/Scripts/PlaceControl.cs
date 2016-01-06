@@ -24,7 +24,7 @@ public class PlaceControl : MonoBehaviour {
 	// apply the texture of the selected place
 	public void applyMaterial() {
 		Material material = (Material)Resources.Load("Materials/StreetView/" + materialName, typeof(Material));
-		GetComponent<Renderer> ().material = material;
+		this.material = material;
 	}
 
 }

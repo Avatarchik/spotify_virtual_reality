@@ -5,6 +5,7 @@ public class GlobeControl : MonoBehaviour {
 	public JourneyControl journeyControl;
 	public int speed;
 	private int index;
+	private bool updateGlobe = true;
 
 	private AudioSource audioSource;
 	void Start() {
@@ -13,14 +14,16 @@ public class GlobeControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		transform.Rotate(Vector3.up * speed * Input.GetAxis("Mouse ScrollWheel") * Time.deltaTime);
+		if (updateGlobe) {
+			transform.Rotate (Vector3.up * speed * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime);
 	
 
-		int index = (int)gameObject.transform.rotation.eulerAngles.y / 10;
-		if (this.index != index) {
-			journeyControl.setInitial(getLocationName (index));
-			updatePin (this.index, index);
-			this.index = index;
+			int index = (int)gameObject.transform.rotation.eulerAngles.y / 10;
+			if (this.index != index) {
+				journeyControl.setInitial (getLocationName (index));
+				updatePin (this.index, index);
+				this.index = index;
+			}
 		}
 	}
 
@@ -34,12 +37,22 @@ public class GlobeControl : MonoBehaviour {
 		}
 	}
 
-	public void stopAmbientMusic() {
+	private void stopAmbientMusic() {
 		audioSource.Stop ();
 	}
 
-	public void startAmbientMusic() {
+	private void startAmbientMusic() {
 		audioSource.Play ();
+	}
+
+	public void returnToGlobe() {
+		updateGlobe = true;
+		this.startAmbientMusic ();
+	}
+
+	public void exitGlobe() {
+		updateGlobe = false;
+		this.stopAmbientMusic ();
 	}
 
 	public static string getLocationName(int index) {

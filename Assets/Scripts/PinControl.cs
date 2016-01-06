@@ -3,7 +3,7 @@ using System.Collections;
 
 public class PinControl : MonoBehaviour {
 
-	private string pinName = "Pin_1_Light";
+	//private string pinName = "Pin_1_Light";
 
 	Fader fader;
 	GameObject lightGameObj;
