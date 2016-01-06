@@ -4,7 +4,7 @@ using System.Collections;
 public class JourneyControl : MonoBehaviour {
 	private AudioControl audioControl;
 	private PlaceControl placeControl;
-	private GlobeControl globeControl;
+	public GlobeControl globeControl;
 	public CameraChanger cameraChanger;
 
 	private float timeWhenSelected = 0;
