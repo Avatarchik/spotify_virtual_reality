@@ -47,7 +47,7 @@ public class JourneyControl : MonoBehaviour {
 			}
 			break;
 		case STATE_SELECTED_NOISE:
-			if (Time.time > timeWhenSelected + 10f) {
+			if (Time.time > timeWhenSelected + 9f) {
 				if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_NEUTRAL) {
 					movieControlGlobe.fadeIn ();
 				}
@@ -59,7 +59,7 @@ public class JourneyControl : MonoBehaviour {
 			break;
 
 		case STATE_SELECTED:
-			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 17) {
+			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 13) {
 				timeWhenSelected = 0;
 				this.startJourney ();
 				cameraChanger.changeCamera ();

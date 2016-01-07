@@ -32,7 +32,7 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		} 
 
 		if (state == STATE_FADING_IN || state == STATE_FADING_OUT) {
-			float fadeTime = 8;
+			float fadeTime = 4;
 			if (t < fadeTime) {
 				t += Time.deltaTime;
 				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeTime);
@@ -47,15 +47,13 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 
 			
-		if (movie.isPlaying) {
-				movie.Pause();
-			}
-			else {
-				movie.Play();
-			}
+
 	}
 
 	public void fadeIn() {
+		Renderer r = GetComponent<Renderer>();
+		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+		movie.Play();
 		GetComponent<AudioSource> ().Play ();
 		t = 0;
 		goToAlpha = 1f;
@@ -64,6 +62,10 @@ public class PlayMovieOnSpace : MonoBehaviour {
 	}
 
 	public void fadeOut() {
+		Renderer r = GetComponent<Renderer>();
+		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+		movie.Play();
+
 		t = 0;
 		goToAlpha = 0;
 		currentAlpha = 1f;
