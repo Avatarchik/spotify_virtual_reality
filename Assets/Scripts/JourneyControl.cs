@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.VR;
 
 public class JourneyControl : MonoBehaviour {
 	private AudioControl audioControl;
@@ -36,7 +37,14 @@ public class JourneyControl : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		switch (state) {
+
+        if (Input.GetKeyUp(KeyCode.B))
+        {
+            Debug.Log("VR Recenter");
+            InputTracking.Recenter();
+        }
+
+        switch (state) {
 		case STATE_PRE_SELECTED:
 			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 5.5f) {
 				PinControl pinControl = JourneySingleton.Instance.getCurrentPin();
