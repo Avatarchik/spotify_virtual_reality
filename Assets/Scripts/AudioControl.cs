@@ -5,53 +5,13 @@ using System.Collections;
 public class AudioControl : MonoBehaviour {
 	// the audio source attached to this component
 	private AudioSource audioSource;
-
 	float t = 0.0f;
-
-	float fadeTime = 5;
-
 	float timeStart;
-
 	bool isFullAudio = false;
-
-	Hashtable hashSoundTable = new Hashtable ();
-
-
-	AudioClip audioClip1;
-	AudioClip audioClip2;
-
 	// Use this for initialization
 	void Start () {
-		this.audioSource = GetComponent<AudioSource>();
+		this.audioSource = GetComponent<AudioSource> ();
 		this.t = 0;
-
-		//audioClip1 = (AudioClip)Resources.Load("Audio/Songs/egito", typeof(AudioClip));
-		//audioClip2 = (AudioClip)Resources.Load("Audio/Songs/Yosemite", typeof(AudioClip));
-		addSound ("Boiando");
-		addSound ("Castelo");
-		addSound ("Champion_Island");
-		addSound ("Egito");
-		addSound ("Elefantinhos");
-		addSound ("Geleira");
-		addSound ("Grecia");
-		addSound ("Iceberg");
-		addSound ("Isla_Mujeres");
-		addSound ("Islandia");
-		addSound ("Natal_Arte");
-		addSound ("Northern_Lights");
-		addSound ("Pine_Lined_Road");
-		addSound ("Grecia");
-		addSound ("Salar");
-		addSound ("Tartaruguinha");
-		addSound ("Times");
-		addSound ("Veneza");
-		addSound ("Volcano_Hawaii");
-		addSound ("Yosemite");
-
-	}
-
-	private void addSound(string name) {
-		hashSoundTable.Add(name, (AudioClip)Resources.Load("Audio/Songs/" + name, typeof(AudioClip)));
 	}
 
 	void Update() {
@@ -81,10 +41,10 @@ public class AudioControl : MonoBehaviour {
 
 	// start the audio of the selected index
 	public void playAudio(string audioName) {
-		AudioClip audioClip = (AudioClip)hashSoundTable [audioName];
+		AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
 
 		isFullAudio = false;
-		if (audioSource.clip != audioClip) {
+		if (audioSource.clip != audioClip || audioSource.isPlaying == false) {
 			audioSource.clip = audioClip;
 			audioSource.volume = 0;
 			this.t = 0;
@@ -95,7 +55,7 @@ public class AudioControl : MonoBehaviour {
 
 	// start the audio of the selected index
 	public void playFullAudio(string audioName) {
-		AudioClip audioClip = (AudioClip)hashSoundTable [audioName];
+		AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
 		isFullAudio = true;
 
 			audioSource.clip = audioClip;
@@ -113,5 +73,9 @@ public class AudioControl : MonoBehaviour {
 			return true;
 		}
 		return false;
+	}
+
+	public void stop() {
+		this.audioSource.Stop ();
 	}
 }

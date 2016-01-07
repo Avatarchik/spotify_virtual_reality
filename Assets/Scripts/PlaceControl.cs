@@ -27,4 +27,8 @@ public class PlaceControl : MonoBehaviour {
 		renderer.material = material;
 	}
 
+
+	public void fadeIn() {
+
+	}
 }

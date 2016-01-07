@@ -14,27 +14,31 @@ public class GlobeControl : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		if (updateGlobe) {
-			transform.Rotate (Vector3.up * speed * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime);
+			transform.Rotate (-(Vector3.up * speed * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime));
 	
-			Place place = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
-			if (JourneySingleton.Instance.getCurrentPlace() != place) {
-				journeyControl.setInitial(place);
-				updatePin (JourneySingleton.Instance.getCurrentPlace().getName(), place.getName());
+			Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
+			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
+			if (currentPlace != newPlace) {
+				journeyControl.setInitial(newPlace);
+				updatePin (currentPlace, newPlace);
 			}
 		}
 	}
 
-	private void updatePin(string oldPlaceName, string currentPlaceName) {
-		if (oldPlaceName != null) {
-			GameObject oldPin = GameObject.Find ("Pin_" + oldPlaceName);
+	private void updatePin(Place oldPlace, Place currentPlace) {
+		if (oldPlace != null) {
+			GameObject oldPin = GameObject.Find ("Pin_" + oldPlace.getName());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOffPinLight ();
 		}
 
-		if (currentPlaceName != null) {
-			GameObject oldPin = GameObject.Find ("Pin_" + currentPlaceName);
+		if (currentPlace != null) {
+			GameObject oldPin = GameObject.Find ("Pin_" + currentPlace.getName());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOnPinLight ();
+			JourneySingleton.Instance.setCurrentPin (pinControl);
+		} else {
+			JourneySingleton.Instance.setCurrentPin (null);
 		}
 	}
 
@@ -48,6 +52,7 @@ public class GlobeControl : MonoBehaviour {
 
 	public void returnToGlobe() {
 		updateGlobe = true;
+		JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
 	}
 
