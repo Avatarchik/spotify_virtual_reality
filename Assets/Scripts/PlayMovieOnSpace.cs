@@ -31,20 +31,30 @@ public class PlayMovieOnSpace : MonoBehaviour {
 			fadeOut ();
 		} 
 
+		Renderer r = GetComponent<Renderer>();
+		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+
 		if (state == STATE_FADING_IN || state == STATE_FADING_OUT) {
 			float fadeTime = 4;
 			if (t < fadeTime) {
 				t += Time.deltaTime;
 				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeTime);
 				setAlpha (alpha);
+
+				if (alpha < 0.1) {
+					r.enabled = false;
+				} else {
+					r.enabled = true;
+				}
 			} else {
 				GetComponent<AudioSource> ().Stop ();
 				state = STATE_FADED;
 			}
+
+
 		}
 
-		Renderer r = GetComponent<Renderer>();
-		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+
 
 			
 
@@ -74,6 +84,8 @@ public class PlayMovieOnSpace : MonoBehaviour {
 
 	public void reset() {
 		this.state = STATE_NEUTRAL;
+		Renderer r = GetComponent<Renderer>();
+		r.enabled = false;
 	}
 
 	public int getState() {
@@ -83,6 +95,7 @@ public class PlayMovieOnSpace : MonoBehaviour {
 	private void setAlpha(float alpha) {
 		Renderer r = GetComponent<Renderer>();
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+
 
 		Color oldColor = r.material.color;
 		Color newColor = new Color(oldColor.r, oldColor.b, oldColor.g, alpha);          

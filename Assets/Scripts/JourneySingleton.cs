@@ -24,6 +24,9 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Elefantinhos", 122);
 		addPlace ("Kaindy", 140);
 		addPlace ("Ta Prohm", 194);
+
+		addPlace ("Yosemite", 340);
+		addPlace ("Bryce_Canyon", 350);
 	} // guarantee this will be always a singleton only - can't use the constructor!
 
 	private void addPlace(string name, float position) {
