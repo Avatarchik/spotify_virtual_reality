@@ -34,6 +34,9 @@ public class JourneyControl : MonoBehaviour {
 	private float timeWhenJourneyStarts;
 
 	int journeyCount = 0;
+
+	const int MAX_PLACES = 3;
+	private string []journeyPlaces = new string[MAX_PLACES];
 	
 	// Update is called once per frame
 	void Update () {
@@ -69,7 +72,12 @@ public class JourneyControl : MonoBehaviour {
 		case STATE_SELECTED:
 			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 13) {
 				timeWhenSelected = 0;
+
+
 				this.startJourney ();
+
+				randomizeNext ();
+
 				cameraChanger.changeCamera ();
 				this.state = STATE_JOURNEY_START;
 				Debug.Log ("cameraChanger.changeCamera");
@@ -82,10 +90,11 @@ public class JourneyControl : MonoBehaviour {
 			this.state = STATE_JOURNEY;
 			break;
 		case STATE_JOURNEY:
-			if (audioControl.audioFinish ()) {
+			
+			if (audioControl.audioFinish () || Input.GetKeyUp (KeyCode.N)) {
 				journeyCount++;
-				if (journeyCount < 2) {
-					setJourneyPlace (JourneySingleton.Instance.getPlace("Elefantinho"));
+				if (journeyCount < MAX_PLACES) {
+					setJourneyPlace (JourneySingleton.Instance.getPlace(journeyPlaces[journeyCount]));
 					startJourney ();
 				} else {
 					goToGlobe ();
@@ -118,7 +127,17 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	public void randomizeNext() {
+		journeyPlaces [0] = JourneySingleton.Instance.getCurrentPlace ().getName ();
+
+		//TODO: check if the random is the same
+		Place place = JourneySingleton.Instance.getRandomPlace ();
+		journeyPlaces [1] = place.getName ();
+
+		place = JourneySingleton.Instance.getRandomPlace ();
+		journeyPlaces [2] = place.getName ();
 	}
+
+
 
 	private void setJourneyPlace(Place place) {
 		JourneySingleton.Instance.setCurrentPlace (place);
@@ -126,6 +145,7 @@ public class JourneyControl : MonoBehaviour {
 		// start the audio of the selected index
 		this.audioControl.playAudio(place.getName());
 		this.placeControl.setPlace (place.getName());
+
 	}
 
 	public void startJourney() {

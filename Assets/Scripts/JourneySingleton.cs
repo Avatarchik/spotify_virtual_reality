@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class JourneySingleton : Singleton<JourneySingleton>  {
-	Hashtable placeHashTable = new Hashtable();
+	Dictionary<string, Place> placeHashTable = new Dictionary<string, Place> ();
 
 	private Place currentPlace;
 	private PinControl currentPin;
@@ -29,15 +29,21 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Bryce_Canyon", 350);
 	} // guarantee this will be always a singleton only - can't use the constructor!
 
+	public Place getRandomPlace() {
+		int index = (int)Random.Range (0, placeHashTable.Count);
+		List<string> keys = new List<string>(placeHashTable.Keys);
+		return (Place)placeHashTable [keys[index]];
+	}
+
 	private void addPlace(string name, float position) {
 		Place place = new Place(name, position);
 		placeHashTable.Add(place.getName(), place);
 	}
 
 	public Place getPlace(float position) {
-		foreach (DictionaryEntry pair in placeHashTable)
+		foreach(KeyValuePair<string, Place> pairPlace in placeHashTable)
 		{
-			Place place = (Place)pair.Value;
+			Place place = pairPlace.Value;
 			if (Mathf.Abs (position - place.getPosition ()) < 2) {
 				return place;
 			}
@@ -46,14 +52,14 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	}
 
 	public Place getPlace(string name) {
-		if (placeHashTable.Contains (name)) {
+		if (placeHashTable.ContainsKey (name)) {
 			return (Place) placeHashTable [name];
 		}
 		return null;
 	}
 
 	public void setCurrentPlace(string name) {
-		if (placeHashTable.Contains (name)) {
+		if (placeHashTable.ContainsKey (name)) {
 			setCurrentPlace((Place)placeHashTable [name]);
 		} else {
 			setCurrentPlace((Place)null);
