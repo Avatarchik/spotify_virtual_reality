@@ -63,6 +63,7 @@ public class PlayMovieOnSpace : MonoBehaviour {
 	public void fadeIn() {
 		Renderer r = GetComponent<Renderer>();
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+		movie.Stop ();
 		movie.Play();
 		GetComponent<AudioSource> ().Play ();
 		t = 0;
