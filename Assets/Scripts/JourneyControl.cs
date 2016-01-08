@@ -9,6 +9,7 @@ public class JourneyControl : MonoBehaviour {
 	public CameraChanger cameraChanger;
 	public PlayMovieOnSpace movieControlGlobe;
 	public PlayMovieOnSpace movieControlStreetView;
+	public JourneyEndControl journeyEndControl;
 
 	private float timeWhenSelected = 0;
 
@@ -108,6 +109,7 @@ public class JourneyControl : MonoBehaviour {
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
 				} else {
+					journeyEndControl.end ();
 					goToGlobe ();
 				}
 			}
