@@ -31,4 +31,5 @@ public class PlaceControl : MonoBehaviour {
 	public void fadeIn() {
 
 	}
+		
 }

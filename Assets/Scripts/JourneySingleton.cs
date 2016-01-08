@@ -12,7 +12,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Isla_Mujeres", 3);
 		addPlace ("Times", 14);
 		addPlace ("Salar", 30);
-		addPlace ("Natal_Arte", 55);
+		addPlace ("Natal_Arte", 55, "Natal", "Natal", "Song", "Artist");
 		//addPlace ("Islandia", 78); -- music missing
 		addPlace ("Castelo", 85);
 		addPlace ("Veneza", 97);
@@ -49,9 +49,9 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		return (Place)placeHashTable [keys[index]];
 	}
 
-	private void addPlace(string name, float position) {
-		Place place = new Place(name, position);
-		placeHashTable.Add(place.getName(), place);
+	private void addPlace(string code, float position, string name = null, string location = null, string songTitle = null, string songArtist = null) {
+		Place place = new Place(code, position, name, location, songTitle, songArtist);
+		placeHashTable.Add(place.getCode(), place);
 	}
 
 	public Place getPlace(float position) {
@@ -69,16 +69,16 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		return null;
 	}
 
-	public Place getPlace(string name) {
-		if (placeHashTable.ContainsKey (name)) {
-			return (Place) placeHashTable [name];
+	public Place getPlace(string code) {
+		if (placeHashTable.ContainsKey (code)) {
+			return (Place) placeHashTable [code];
 		}
 		return null;
 	}
 
-	public void setCurrentPlace(string name) {
-		if (placeHashTable.ContainsKey (name)) {
-			setCurrentPlace((Place)placeHashTable [name]);
+	public void setCurrentPlace(string code) {
+		if (placeHashTable.ContainsKey (code)) {
+			setCurrentPlace((Place)placeHashTable [code]);
 		} else {
 			setCurrentPlace((Place)null);
 		}
