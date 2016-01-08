@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System.Collections.Generic;
 public class JourneySingleton : Singleton<JourneySingleton>  {
-	Hashtable placeHashTable = new Hashtable();
+	Dictionary<string, Place> placeHashTable = new Dictionary<string, Place> ();
 
 	private Place currentPlace;
 	private PinControl currentPin;
@@ -13,7 +13,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Times", 14);
 		addPlace ("Salar", 30);
 		addPlace ("Natal_Arte", 55);
-		addPlace ("Islandia", 78);
+		//addPlace ("Islandia", 78); -- music missing
 		addPlace ("Castelo", 85);
 		addPlace ("Veneza", 97);
 		addPlace ("Baby_Calf", 98);
@@ -22,12 +22,32 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Northern_Lights", 102);
 		addPlace ("Egito", 116);
 		addPlace ("Elefantinhos", 122);
-		addPlace ("Kaindy", 140);
-		addPlace ("Ta Prohm", 194);
+		addPlace ("Castle", 150);
+		addPlace ("Kaindy", 160);
+		addPlace ("India", 173);
+		addPlace ("Ta_Prohm", 194);
+		addPlace ("Montanhas_Laranjas", 209);
+		addPlace ("Cachu_Verdao", 230);
+		addPlace ("Heron_Island", 240);
+		//addPlace ("", 245);
+
+		addPlace ("Praia_Com_Estrelas", 250);
+		addPlace ("No_Meio_Da_Floresta", 255);
+
+		addPlace ("Tartaruguinha", 267);
+		addPlace ("Boiando", 271);
+
+		addPlace ("Volcano_Hawaii", 298);
 
 		addPlace ("Yosemite", 340);
 		addPlace ("Bryce_Canyon", 350);
 	} // guarantee this will be always a singleton only - can't use the constructor!
+
+	public Place getRandomPlace() {
+		int index = (int)Random.Range (0, placeHashTable.Count);
+		List<string> keys = new List<string>(placeHashTable.Keys);
+		return (Place)placeHashTable [keys[index]];
+	}
 
 	private void addPlace(string name, float position) {
 		Place place = new Place(name, position);
@@ -35,10 +55,14 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	}
 
 	public Place getPlace(float position) {
-		foreach (DictionaryEntry pair in placeHashTable)
+		foreach(KeyValuePair<string, Place> pairPlace in placeHashTable)
 		{
-			Place place = (Place)pair.Value;
-			if (Mathf.Abs (position - place.getPosition ()) < 2) {
+			Place place = pairPlace.Value;
+			float diff = Mathf.Abs (place.getPosition () - position);
+			if (diff > 180) {
+				diff -= 360;
+			}
+			if (Mathf.Abs(diff) < 2) {
 				return place;
 			}
 		}
@@ -46,14 +70,14 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	}
 
 	public Place getPlace(string name) {
-		if (placeHashTable.Contains (name)) {
+		if (placeHashTable.ContainsKey (name)) {
 			return (Place) placeHashTable [name];
 		}
 		return null;
 	}
 
 	public void setCurrentPlace(string name) {
-		if (placeHashTable.Contains (name)) {
+		if (placeHashTable.ContainsKey (name)) {
 			setCurrentPlace((Place)placeHashTable [name]);
 		} else {
 			setCurrentPlace((Place)null);
