@@ -28,6 +28,7 @@ public class JourneyControl : MonoBehaviour {
 	private const int STATE_JOURNEY = 6;
 	private const int STATE_PREPARE_TO_NEXT_PLACE = 7;
 	private const int STATE_PREPARE_TO_RETURN_TO_GLOBE = 8;
+	private const int STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS = 9;
 
 	private int oldState = -1;
 	private int state = STATE_NAVIGATING;
@@ -102,9 +103,15 @@ public class JourneyControl : MonoBehaviour {
 				this.state = STATE_JOURNEY_START;
 			}
 			break;
+		case STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS:
+			if(Time.time > timeStateSelected + 4.5f) {
+				goToGlobe ();
+				movieControlGlobe.fadeOut ();
+				journeyEndControl.end ();
+			}
+			break;
 		case STATE_PREPARE_TO_RETURN_TO_GLOBE:
 			if(Time.time > timeStateSelected + 4.5f) {
-				journeyEndControl.end ();
 				goToGlobe ();
 				movieControlGlobe.fadeOut ();
 			}
@@ -117,8 +124,9 @@ public class JourneyControl : MonoBehaviour {
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
 				} else {
-					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE;
+					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
 					prepareToGoToGlobe ();
+
 				}
 			}
 			if (Input.GetAxis ("Mouse ScrollWheel") != 0) {
