@@ -22,8 +22,22 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Northern_Lights", 102);
 		addPlace ("Egito", 116);
 		addPlace ("Elefantinhos", 122);
-		addPlace ("Kaindy", 140);
-		addPlace ("Ta Prohm", 194);
+		addPlace ("Castle", 150);
+		addPlace ("Kaindy", 160);
+		addPlace ("India", 173);
+		addPlace ("Ta_Prohm", 194);
+		addPlace ("Montanhas_Laranjas", 209);
+		addPlace ("Cachu_Verdao", 230);
+		addPlace ("Heron_Island", 240);
+		//addPlace ("", 245);
+
+		addPlace ("Praia_Com_Estrelas", 250);
+		addPlace ("No_Meio_Da_Floresta", 255);
+
+		addPlace ("Tartaruguinha", 267);
+		addPlace ("Boiando", 271);
+
+		addPlace ("Volcano_Hawaii", 298);
 
 		addPlace ("Yosemite", 340);
 		addPlace ("Bryce_Canyon", 350);
@@ -44,7 +58,11 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		foreach(KeyValuePair<string, Place> pairPlace in placeHashTable)
 		{
 			Place place = pairPlace.Value;
-			if (Mathf.Abs (position - place.getPosition ()) < 2) {
+			float diff = Mathf.Abs (place.getPosition () - position);
+			if (diff > 180) {
+				diff -= 360;
+			}
+			if (Mathf.Abs(diff) < 2) {
 				return place;
 			}
 		}
