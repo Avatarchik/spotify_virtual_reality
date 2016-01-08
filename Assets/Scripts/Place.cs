@@ -2,21 +2,36 @@
 using System.Collections;
 
 public class Place {
-	string name;
+	string code;
 	float position;
 	AudioClip audioClip;
 	Material material;
 
-	public Place(string name, float position) {
-		this.name = name;
+	string name;
+	string location;
+
+	string songTitle;
+	string songArtist;
+
+
+	public Place(string code, float position) {
+		init (code, position, "", "", "", "");
+	}
+
+	public Place(string code, float position, string name, string location, string songTitle, string songArtist) {
+		init (code, position, name, location, songTitle, songArtist);
+	}
+
+	private void init(string code, float position, string name, string location, string songTitle, string songArtist) {
+		this.code = code;
 		this.position = position;
 
 		loadSound ();
 		loadMaterial ();
 	}
 
-	public string getName() {
-		return this.name;
+	public string getCode() {
+		return this.code;
 	}
 
 	public float getPosition() {
@@ -24,7 +39,7 @@ public class Place {
 	}
 
 	public void loadSound() {
-		this.audioClip = (AudioClip)Resources.Load("Audio/Songs/" + name, typeof(AudioClip));
+		this.audioClip = (AudioClip)Resources.Load("Audio/Songs/" + code, typeof(AudioClip));
 	}
 
 	public void loadMaterial() {

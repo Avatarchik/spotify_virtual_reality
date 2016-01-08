@@ -146,14 +146,14 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	public void randomizeNext() {
-		journeyPlaces [0] = JourneySingleton.Instance.getCurrentPlace ().getName ();
+		journeyPlaces [0] = JourneySingleton.Instance.getCurrentPlace ().getCode ();
 
 		//TODO: check if the random is the same
 		Place place = JourneySingleton.Instance.getRandomPlace ();
-		journeyPlaces [1] = place.getName ();
+		journeyPlaces [1] = place.getCode ();
 
 		place = JourneySingleton.Instance.getRandomPlace ();
-		journeyPlaces [2] = place.getName ();
+		journeyPlaces [2] = place.getCode ();
 	}
 
 
@@ -162,14 +162,14 @@ public class JourneyControl : MonoBehaviour {
 		JourneySingleton.Instance.setCurrentPlace (place);
 
 		// start the audio of the selected index
-		this.audioControl.playAudio(place.getName());
-		this.placeControl.setPlace (place.getName());
+		this.audioControl.playAudio(place.getCode());
+		this.placeControl.setPlace (place.getCode());
 
 	}
 
 	public void startJourney() {
 		globeControl.exitGlobe ();
 		this.placeControl.applyMaterial ();
-		this.audioControl.playFullAudio (JourneySingleton.Instance.getCurrentPlace().getName());
+		this.audioControl.playFullAudio (JourneySingleton.Instance.getCurrentPlace().getCode());
 	}
 }

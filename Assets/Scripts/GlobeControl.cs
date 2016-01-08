@@ -27,13 +27,13 @@ public class GlobeControl : MonoBehaviour {
 
 	private void updatePin(Place oldPlace, Place currentPlace) {
 		if (oldPlace != null) {
-			GameObject oldPin = GameObject.Find ("Pin_" + oldPlace.getName());
+			GameObject oldPin = GameObject.Find ("Pin_" + oldPlace.getCode());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOffPinLight ();
 		}
 
 		if (currentPlace != null) {
-			GameObject oldPin = GameObject.Find ("Pin_" + currentPlace.getName());
+			GameObject oldPin = GameObject.Find ("Pin_" + currentPlace.getCode());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOnPinLight ();
 			JourneySingleton.Instance.setCurrentPin (pinControl);
