@@ -8,19 +8,30 @@ public class AudioControl : MonoBehaviour {
 	float t = 0.0f;
 	float timeStart;
 	bool isFullAudio = false;
+	bool isFadeIn = true;
 	// Use this for initialization
 	void Start () {
 		this.audioSource = GetComponent<AudioSource> ();
 		this.t = 0;
 	}
 
+
+
 	void Update() {
 		if (isFullAudio == true) {
-			if (Time.time < this.timeStart + 2) {
-				// we need to fade music in
-				t += Time.deltaTime;
-				audioSource.volume = Mathf.Lerp (0, 1, t / 2);
-			} 
+			if (isFadeIn) {
+				if (Time.time < this.timeStart + 2) {
+					// we need to fade music in
+					t += Time.deltaTime;
+					audioSource.volume = Mathf.Lerp (0, 1, t / 2);
+				} 
+			} else {
+				if (Time.time < this.timeStart + 5) {
+					// we need to fade music in
+					t += Time.deltaTime;
+					audioSource.volume = Mathf.Lerp (1, 0.1f, t / 3);
+				} 
+			}
 		} else {
 			if (audioSource.volume != 0 && Time.time > this.timeStart + 2 + 2) {
 				// we need to fade music out
@@ -42,7 +53,7 @@ public class AudioControl : MonoBehaviour {
 	// start the audio of the selected index
 	public void playAudio(string audioName) {
 		AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
-
+		isFadeIn = true;
 		isFullAudio = false;
 		if (audioSource.clip != audioClip || audioSource.isPlaying == false) {
 			audioSource.clip = audioClip;
@@ -57,7 +68,7 @@ public class AudioControl : MonoBehaviour {
 	public void playFullAudio(string audioName) {
 		AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
 		isFullAudio = true;
-
+		isFadeIn = true;
 			audioSource.clip = audioClip;
 			audioSource.volume = 0;
 			this.t = 0;
@@ -75,7 +86,20 @@ public class AudioControl : MonoBehaviour {
 		return false;
 	}
 
+	public bool audioIsFinish() {
+		if (audioSource.time >= audioSource.clip.length - 5) {
+			return true;
+		}
+		return false;
+	}
+
 	public void stop() {
 		this.audioSource.Stop ();
+	}
+
+	public void fadeOut() {
+		isFadeIn = false;
+		this.timeStart = Time.time;
+		this.t = 0;
 	}
 }

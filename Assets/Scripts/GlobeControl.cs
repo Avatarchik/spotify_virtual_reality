@@ -60,4 +60,8 @@ public class GlobeControl : MonoBehaviour {
 		updateGlobe = false;
 		this.stopAmbientMusic ();
 	}
+
+	public void turnGlobeRotationOff() {
+		updateGlobe = false;
+	}
 }

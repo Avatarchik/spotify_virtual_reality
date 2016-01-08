@@ -24,9 +24,10 @@ public class JourneyControl : MonoBehaviour {
 	private const int STATE_SELECTED = 4;
 	private const int STATE_JOURNEY_START = 5;
 	private const int STATE_JOURNEY = 6;
+	private const int STATE_PREPARE_TO_NEXT_PLACE = 7;
 
 
-
+	private int oldState = -1;
 	private int state = STATE_NAVIGATING;
 
 	//string currentJourneyName;
@@ -37,6 +38,8 @@ public class JourneyControl : MonoBehaviour {
 
 	const int MAX_PLACES = 3;
 	private string []journeyPlaces = new string[MAX_PLACES];
+
+	private float timeStateSelected;
 	
 	// Update is called once per frame
 	void Update () {
@@ -59,6 +62,7 @@ public class JourneyControl : MonoBehaviour {
 			break;
 		case STATE_SELECTED_NOISE:
 			if (Time.time > timeWhenSelected + 9f) {
+				globeControl.turnGlobeRotationOff ();
 				if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_NEUTRAL) {
 					movieControlGlobe.fadeIn ();
 				}
@@ -89,13 +93,20 @@ public class JourneyControl : MonoBehaviour {
 			placeControl.fadeIn ();
 			this.state = STATE_JOURNEY;
 			break;
+		case STATE_PREPARE_TO_NEXT_PLACE:
+			if(Time.time > timeStateSelected + 4.5f) {
+				setJourneyPlace (JourneySingleton.Instance.getPlace(journeyPlaces[journeyCount]));
+				startJourney ();
+				this.state = STATE_JOURNEY_START;
+			}
+			break;
 		case STATE_JOURNEY:
-			
-			if (audioControl.audioFinish () || Input.GetKeyUp (KeyCode.N)) {
+			if (audioControl.audioIsFinish () || Input.GetKeyUp (KeyCode.N)) {
 				journeyCount++;
 				if (journeyCount < MAX_PLACES) {
-					setJourneyPlace (JourneySingleton.Instance.getPlace(journeyPlaces[journeyCount]));
-					startJourney ();
+					movieControlStreetView.fadeIn ();
+					audioControl.fadeOut ();
+					this.state = STATE_PREPARE_TO_NEXT_PLACE;
 				} else {
 					goToGlobe ();
 				}
@@ -104,6 +115,11 @@ public class JourneyControl : MonoBehaviour {
 				goToGlobe ();
 			}
 			break;
+		}
+
+		if(oldState != state) {
+			oldState = state;
+			timeStateSelected = Time.time; 
 		}
 	}
 
