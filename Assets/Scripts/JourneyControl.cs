@@ -27,7 +27,7 @@ public class JourneyControl : MonoBehaviour {
 	private const int STATE_JOURNEY_START = 5;
 	private const int STATE_JOURNEY = 6;
 	private const int STATE_PREPARE_TO_NEXT_PLACE = 7;
-
+	private const int STATE_PREPARE_TO_RETURN_TO_GLOBE = 8;
 
 	private int oldState = -1;
 	private int state = STATE_NAVIGATING;
@@ -102,6 +102,13 @@ public class JourneyControl : MonoBehaviour {
 				this.state = STATE_JOURNEY_START;
 			}
 			break;
+		case STATE_PREPARE_TO_RETURN_TO_GLOBE:
+			if(Time.time > timeStateSelected + 4.5f) {
+				journeyEndControl.end ();
+				goToGlobe ();
+				movieControlGlobe.fadeOut ();
+			}
+			break;
 		case STATE_JOURNEY:
 			if (audioControl.audioIsFinish () || Input.GetKeyUp (KeyCode.N)) {
 				journeyCount++;
@@ -110,9 +117,14 @@ public class JourneyControl : MonoBehaviour {
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
 				} else {
-					journeyEndControl.end ();
-					goToGlobe ();
+					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE;
+					prepareToGoToGlobe ();
 				}
+			}
+			if (Input.GetAxis ("Mouse ScrollWheel") != 0) {
+				this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE;
+				prepareToGoToGlobe ();
+
 			}
 			if (Input.GetKeyUp (KeyCode.Return)) {
 				goToGlobe ();
@@ -124,6 +136,10 @@ public class JourneyControl : MonoBehaviour {
 			oldState = state;
 			timeStateSelected = Time.time; 
 		}
+	}
+
+	public void prepareToGoToGlobe() {
+		movieControlStreetView.fadeIn ();
 	}
 
 	public void goToGlobe() {
