@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<< HEAD
 guid: 0b7b39a8ae8024b47b3cad012667b3d0
 timeCreated: 1452275111
+=======
+guid: 068e1e8cd2d534f5e85919362afe8c69
+timeCreated: 1452274952
+>>>>>>> fix songs
 licenseType: Free
 DefaultImporter:
   userData: 
