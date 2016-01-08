@@ -29,7 +29,7 @@ public class PinControl : MonoBehaviour {
 
 		audioClipPinEnter = (AudioClip)Resources.Load("Audio/pin_enter", typeof(AudioClip));
 
-		audioClipPinSelected = (AudioClip)Resources.Load("Audio/pin_select", typeof(AudioClip));
+		audioClipPinSelected = (AudioClip)Resources.Load("Audio/pin_select_2", typeof(AudioClip));
 
 	}
 
@@ -84,7 +84,7 @@ public class PinControl : MonoBehaviour {
 
 	public void turnOnPinLight() {
 		this.audioSource.clip = audioClipPinEnter;
-		this.audioSource.Play ();
+		//this.audioSource.Play ();
 		fader = new Fader (light, 0, PIN_ON_MID_INTENSITY, 0.3f);
 		state = STATE_PIN_IS_TURNING_ON;
 	}
