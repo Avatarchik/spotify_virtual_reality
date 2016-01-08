@@ -10,6 +10,7 @@ public class JourneyControl : MonoBehaviour {
 	public PlayMovieOnSpace movieControlGlobe;
 	public PlayMovieOnSpace movieControlStreetView;
 	public JourneyEndControl journeyEndControl;
+	public PlaceTextControl placeTextControl;
 
 	private float timeWhenSelected = 0;
 
@@ -164,6 +165,8 @@ public class JourneyControl : MonoBehaviour {
 		// start the audio of the selected index
 		this.audioControl.playAudio(place.getCode());
 		this.placeControl.setPlace (place.getCode());
+
+		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
 
 	}
 

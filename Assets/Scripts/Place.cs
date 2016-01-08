@@ -14,10 +14,6 @@ public class Place {
 	string songArtist;
 
 
-	public Place(string code, float position) {
-		init (code, position, "", "", "", "");
-	}
-
 	public Place(string code, float position, string name, string location, string songTitle, string songArtist) {
 		init (code, position, name, location, songTitle, songArtist);
 	}
@@ -25,6 +21,10 @@ public class Place {
 	private void init(string code, float position, string name, string location, string songTitle, string songArtist) {
 		this.code = code;
 		this.position = position;
+		this.name = name;
+		this.location = location;
+		this.songTitle = songTitle;
+		this.songArtist = songArtist;
 
 		loadSound ();
 		loadMaterial ();
@@ -49,4 +49,21 @@ public class Place {
 	public AudioClip getSound() {
 		return this.audioClip;
 	}
+
+	public string getName() {
+		return name;
+	}
+
+	public string getLocation() {
+		return location;
+	}
+
+	public string getSongTitle() {
+		return songTitle;
+	}
+
+	public string getSongArtist() {
+		return songArtist;
+	}
+
 }
