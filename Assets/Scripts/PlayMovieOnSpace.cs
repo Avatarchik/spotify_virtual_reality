@@ -75,7 +75,7 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		Renderer r = GetComponent<Renderer>();
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 		movie.Play();
-
+		GetComponent<AudioSource> ().Play ();
 		t = 0;
 		goToAlpha = 0;
 		currentAlpha = 1f;
@@ -85,7 +85,9 @@ public class PlayMovieOnSpace : MonoBehaviour {
 	public void reset() {
 		this.state = STATE_NEUTRAL;
 		Renderer r = GetComponent<Renderer>();
+		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 		r.enabled = false;
+		movie.Stop ();
 	}
 
 	public int getState() {

@@ -13,7 +13,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Times", 14);
 		addPlace ("Salar", 30);
 		addPlace ("Natal_Arte", 55);
-		addPlace ("Islandia", 78);
+		//addPlace ("Islandia", 78); -- music missing
 		addPlace ("Castelo", 85);
 		addPlace ("Veneza", 97);
 		addPlace ("Baby_Calf", 98);

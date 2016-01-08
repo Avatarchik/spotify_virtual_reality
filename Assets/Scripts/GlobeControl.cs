@@ -51,9 +51,20 @@ public class GlobeControl : MonoBehaviour {
 	}
 
 	public void returnToGlobe() {
+		Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
+		journeyControl.setInitial(null);
+		updatePin (currentPlace, null);
+
 		updateGlobe = true;
+
+		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,320,transform.localEulerAngles.z);
+
 		JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
+
+	
+
+
 	}
 
 	public void exitGlobe() {

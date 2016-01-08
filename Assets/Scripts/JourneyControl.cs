@@ -131,6 +131,7 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	public void setInitial(Place place) {
+		journeyCount = 0;
 		if (place == null) {
 			this.state = STATE_NAVIGATING;
 			audioControl.stop ();
