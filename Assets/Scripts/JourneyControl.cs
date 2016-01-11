@@ -2,7 +2,7 @@
 using System.Collections;
 using UnityEngine.VR;
 
-public class JourneyControl : MonoBehaviour {
+public class JourneyControl : BaseMachine {
 	private AudioControl audioControl;
 	private PlaceControl placeControl;
 	public GlobeControl globeControl;
@@ -12,7 +12,6 @@ public class JourneyControl : MonoBehaviour {
 	public JourneyEndControl journeyEndControl;
 	public PlaceTextControl placeTextControl;
 
-	private float timeWhenSelected = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -20,30 +19,24 @@ public class JourneyControl : MonoBehaviour {
 		this.placeControl = GetComponent<PlaceControl> ();
 	}
 
-	private const int STATE_NAVIGATING = 0;
-	private const int STATE_PRE_SELECTED = 2;
-	private const int STATE_SELECTED_NOISE = 3;
-	private const int STATE_SELECTED = 4;
-	private const int STATE_JOURNEY_START = 5;
-	private const int STATE_JOURNEY = 6;
-	private const int STATE_PREPARE_TO_NEXT_PLACE = 7;
-	private const int STATE_PREPARE_TO_RETURN_TO_GLOBE = 8;
-	private const int STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS = 9;
-
-	private int oldState = -1;
-	private int state = STATE_NAVIGATING;
-
-	//string currentJourneyName;
+	private const string STATE_NAVIGATING = "STATE_NAVIGATING";
+	private const string STATE_PRE_SELECTED = "STATE_PRE_SELECTED";
+	private const string STATE_SELECTED_NOISE = "STATE_SELECTED_NOISE";
+	private const string STATE_SELECTED = "STATE_SELECTED";
+	private const string STATE_JOURNEY_START = "STATE_JOURNEY_START";
+	private const string STATE_JOURNEY = "STATE_JOURNEY";
+	private const string STATE_PREPARE_TO_NEXT_PLACE = "STATE_PREPARE_TO_NEXT_PLACE";
+	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE = "STATE_PREPARE_TO_RETURN_TO_GLOBE";
+	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS = "STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS";
 
 	private float timeWhenJourneyStarts;
 
 	int journeyCount = 0;
 
-	const int MAX_PLACES = 3;
+	const int MAX_PLACES = 1;
 	private string []journeyPlaces = new string[MAX_PLACES];
 
-	private float timeStateSelected;
-	
+
 	// Update is called once per frame
 	void Update () {
 
@@ -53,42 +46,29 @@ public class JourneyControl : MonoBehaviour {
             InputTracking.Recenter();
         }
 
-        switch (state) {
+		switch (this.getState()) {
 		case STATE_PRE_SELECTED:
-			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 5.5f) {
+			if(audioControl.isAudioFadedOut()){
 				PinControl pinControl = JourneySingleton.Instance.getCurrentPin();
 				pinControl.makePinShine ();
-
-
 				this.state = STATE_SELECTED_NOISE;
 			}
 			break;
 		case STATE_SELECTED_NOISE:
-			if (Time.time > timeWhenSelected + 9f) {
+			PinControl pinControl1 = JourneySingleton.Instance.getCurrentPin();
+			if(pinControl1.isPinShinning() == false) {
 				globeControl.turnGlobeRotationOff ();
-				if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_NEUTRAL) {
-					movieControlGlobe.fadeIn ();
-				}
-				else if(movieControlGlobe.getState() == PlayMovieOnSpace.STATE_FADED) {
-					this.state = STATE_SELECTED;
-					movieControlGlobe.reset ();
-				}
+				globeControl.resetPin ();
+				movieControlGlobe.fadeIn ();
+				this.state = STATE_SELECTED;
 			}
 			break;
-
 		case STATE_SELECTED:
-			if (timeWhenSelected != 0 && Time.time > timeWhenSelected + 13) {
-				timeWhenSelected = 0;
-
-
+			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
 				this.startJourney ();
-
 				randomizeNext ();
-
 				cameraChanger.changeCamera ();
 				this.state = STATE_JOURNEY_START;
-				Debug.Log ("cameraChanger.changeCamera");
-
 			}
 			break;
 		case STATE_JOURNEY_START:
@@ -97,21 +77,21 @@ public class JourneyControl : MonoBehaviour {
 			this.state = STATE_JOURNEY;
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
-			if(Time.time > timeStateSelected + 4.5f) {
+			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
 				setJourneyPlace (JourneySingleton.Instance.getPlace(journeyPlaces[journeyCount]));
 				startJourney ();
 				this.state = STATE_JOURNEY_START;
 			}
 			break;
 		case STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS:
-			if(Time.time > timeStateSelected + 4.5f) {
+			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
 				goToGlobe ();
 				movieControlGlobe.fadeOut ();
 				journeyEndControl.end ();
 			}
 			break;
 		case STATE_PREPARE_TO_RETURN_TO_GLOBE:
-			if(Time.time > timeStateSelected + 4.5f) {
+			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
 				goToGlobe ();
 				movieControlGlobe.fadeOut ();
 			}
@@ -140,10 +120,7 @@ public class JourneyControl : MonoBehaviour {
 			break;
 		}
 
-		if(oldState != state) {
-			oldState = state;
-			timeStateSelected = Time.time; 
-		}
+		base.Update ();
 	}
 
 	public void prepareToGoToGlobe() {
@@ -167,18 +144,38 @@ public class JourneyControl : MonoBehaviour {
 		}
 		this.state = STATE_PRE_SELECTED;
 		setJourneyPlace (place);
-		timeWhenSelected = Time.time;
+		//timeWhenSelected = Time.time;
 	}
 
 	public void randomizeNext() {
 		journeyPlaces [0] = JourneySingleton.Instance.getCurrentPlace ().getCode ();
 
-		//TODO: check if the random is the same
-		Place place = JourneySingleton.Instance.getRandomPlace ();
-		journeyPlaces [1] = place.getCode ();
+		for (int i = 1; i < MAX_PLACES; i++) {
+			addNewRandomizedPlace (i);
+		}
 
-		place = JourneySingleton.Instance.getRandomPlace ();
-		journeyPlaces [2] = place.getCode ();
+		//TODO: check if the random is the same
+		//Place place = JourneySingleton.Instance.getRandomPlace ();
+		//journeyPlaces [1] = place.getCode ();
+
+		//place = JourneySingleton.Instance.getRandomPlace ();
+		//journeyPlaces [2] = place.getCode ();
+	}
+
+	private void addNewRandomizedPlace(int index) {
+		bool isPlaceOk = false;
+		Place place = null;
+		while (isPlaceOk == false) {
+			place = JourneySingleton.Instance.getRandomPlace ();
+			isPlaceOk = true;
+			for (int i = 0; i <= index; i++) {
+				if (journeyPlaces [i].CompareTo(place.getCode()) == 0) {
+					isPlaceOk = false;
+					break;
+				}
+			}
+		}
+		journeyPlaces [index] = place.getCode ();
 	}
 
 

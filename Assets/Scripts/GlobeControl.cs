@@ -75,4 +75,13 @@ public class GlobeControl : MonoBehaviour {
 	public void turnGlobeRotationOff() {
 		updateGlobe = false;
 	}
+
+	public void resetPin() {
+		Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
+		if (currentPlace != null) {
+			GameObject oldPin = GameObject.Find ("Pin_" + currentPlace.getCode ());
+			PinControl pinControl = oldPin.GetComponent<PinControl> ();
+			pinControl.turnOffPinLight ();
+		}
+	}
 }

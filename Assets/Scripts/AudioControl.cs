@@ -77,7 +77,9 @@ public class AudioControl : MonoBehaviour {
 
 	}
 
-
+	public bool isAudioFadedOut() {
+		return audioSource.volume == 0;
+		}
 
 	public bool audioFinish() {
 		if (audioSource.time >= audioSource.clip.length) {

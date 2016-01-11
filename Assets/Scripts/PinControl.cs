@@ -63,6 +63,7 @@ public class PinControl : MonoBehaviour {
 			if (fader != null) {
 				if (fader.update ()) {
 					fader = null;
+					state = STATE_PIN_IS_ON;
 				}
 			}
 			break;
@@ -80,7 +81,9 @@ public class PinControl : MonoBehaviour {
 
 	}
 
-
+	public bool isPinShinning() {
+		return this.state == STATE_PIN_IS_SHINNING || this.state == STATE_PIN_IS_SHRINKING ;
+	}
 
 	public void turnOnPinLight() {
 		this.audioSource.clip = audioClipPinEnter;
