@@ -153,13 +153,6 @@ public class JourneyControl : BaseMachine {
 		for (int i = 1; i < MAX_PLACES; i++) {
 			addNewRandomizedPlace (i);
 		}
-
-		//TODO: check if the random is the same
-		//Place place = JourneySingleton.Instance.getRandomPlace ();
-		//journeyPlaces [1] = place.getCode ();
-
-		//place = JourneySingleton.Instance.getRandomPlace ();
-		//journeyPlaces [2] = place.getCode ();
 	}
 
 	private void addNewRandomizedPlace(int index) {
@@ -188,10 +181,10 @@ public class JourneyControl : BaseMachine {
 		this.placeControl.setPlace (place.getCode());
 
 		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
-
 	}
 
 	public void startJourney() {
+		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
 		this.placeControl.applyMaterial ();
 		this.audioControl.playFullAudio (JourneySingleton.Instance.getCurrentPlace().getCode());

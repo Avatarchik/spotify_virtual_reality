@@ -18,6 +18,14 @@ public class CameraChanger : MonoBehaviour {
 	public void changeToStreetView() {
 		//0, 0, -4000
 		camera.transform.position = new Vector3(0, 7f, -4000);
+
+
+
+	}
+
+	public void updateCameraRotationStreetView() {
+		Place place = JourneySingleton.Instance.getCurrentPlace ();
+		camera.transform.rotation = Quaternion.Euler(camera.transform.rotation.x,place.getInitialCameraRotation (),camera.transform.rotation.z);
 	}
 
 	public void changeToGlobe() {
