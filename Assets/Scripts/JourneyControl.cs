@@ -8,7 +8,7 @@ public class JourneyControl : MonoBehaviour {
 	public GlobeControl globeControl;
 	public CameraChanger cameraChanger;
 	public PlayMovieOnSpace movieControlGlobe;
-	public PlayMovieOnSpace movieControlStreetView;
+	//public PlayMovieOnSpace movieControlStreetView;
 	public JourneyEndControl journeyEndControl;
 	public PlaceTextControl placeTextControl;
 
@@ -92,7 +92,7 @@ public class JourneyControl : MonoBehaviour {
 			}
 			break;
 		case STATE_JOURNEY_START:
-			movieControlStreetView.fadeOut ();
+			movieControlGlobe.fadeOut ();
 			placeControl.fadeIn ();
 			this.state = STATE_JOURNEY;
 			break;
@@ -120,7 +120,7 @@ public class JourneyControl : MonoBehaviour {
 			if (audioControl.audioIsFinish () || Input.GetKeyUp (KeyCode.N)) {
 				journeyCount++;
 				if (journeyCount < MAX_PLACES) {
-					movieControlStreetView.fadeIn ();
+					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
 				} else {
@@ -147,7 +147,7 @@ public class JourneyControl : MonoBehaviour {
 	}
 
 	public void prepareToGoToGlobe() {
-		movieControlStreetView.fadeIn ();
+		movieControlGlobe.fadeIn ();
 	}
 
 	public void goToGlobe() {

@@ -2,12 +2,12 @@
 using System.Collections;
 
 public class CameraChanger : MonoBehaviour {
-	public Camera camera1;
-	public Camera camera2;
+	public OVRCameraRig camera;
+
+	private bool isCameraOnGlobe = true;
 	// Use this for initialization
 	void Start () {
-		camera1.enabled = true;
-		camera2.enabled = false;
+		
 	}
 
 	// Update is called once per frame
@@ -15,8 +15,24 @@ public class CameraChanger : MonoBehaviour {
 		
 	}
 
+	public void changeToStreetView() {
+		//0, 0, -4000
+		camera.transform.position = new Vector3(0, 7f, -4000);
+	}
+
+	public void changeToGlobe() {
+		//0, 155, -51
+		camera.transform.position = new Vector3(0, 155, -51f);
+
+	}
+
 	public void changeCamera() {
-		camera1.enabled = !camera1.enabled;
-		camera2.enabled = !camera2.enabled;
+		if (isCameraOnGlobe) {
+			isCameraOnGlobe = false;
+			changeToStreetView ();
+		} else {
+			isCameraOnGlobe = true;
+			changeToGlobe ();
+		}
 	}
 }
