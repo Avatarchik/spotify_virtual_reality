@@ -12,9 +12,29 @@ public class CubeAnimation : MonoBehaviour {
 	public Vector3 cycleSpeedMax;
 	Vector3 cycleSpeedRand;
 
-	// Use this for initialization
-	void Start () {
-		randInit.x = Random.Range(-1, 1);
+    public enum MovementStatus{
+        INITIAL_POSITION = 0,
+        RANDOM_MOVE,
+        EXPAND_SPHERIC_MOVE,
+        FINAL_POSITION,
+        FINAL_POSITION_MOVE,
+        INITIAL_POSITION_MOVE,
+    }
+
+    static public MovementStatus moveStatus = MovementStatus.INITIAL_POSITION;
+
+    private Vector3 startPosition;
+    private Vector3 expandingDirection;
+    public float expansionSpeed;
+
+    float timeAux;
+
+    // Use this for initialization
+    void Start () {
+
+        startPosition = this.transform.position;
+        
+        randInit.x = Random.Range(-1, 1);
 		randInit.y = Random.Range(-1, 1);
 		randInit.z = Random.Range(-1, 1);
 
@@ -29,14 +49,73 @@ public class CubeAnimation : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		//        this.transform.position += new Vector3(1,1,1) * Time.deltaTime * animationSpeed;
+        //        this.transform.position += new Vector3(1,1,1) * Time.deltaTime * animationSpeed;
+        
+        switch (moveStatus)
+        {
+            case MovementStatus.INITIAL_POSITION:
+            {
+                this.transform.position = startPosition;
+                expandingDirection = Vector3.zero;
+                setMovement(MovementStatus.RANDOM_MOVE);
+                //setMovement(MovementStatus.EXPAND_SPHERIC_MOVE);
+                break;
+            }
+            case MovementStatus.RANDOM_MOVE:
+            {
+                Vector3 tmpVector;
+                tmpVector.x = Mathf.Sin(randInit.x + (Time.time * cycleSpeedRand.x)) * randDistance.x;
+                tmpVector.y = Mathf.Sin(randInit.y + (Time.time * cycleSpeedRand.y)) * randDistance.y;
+                tmpVector.z = Mathf.Sin(randInit.z + (Time.time * cycleSpeedRand.z)) * randDistance.z;
+                this.transform.position += tmpVector * Time.deltaTime * animationSpeed;
+                break;
+            }
+            case MovementStatus.EXPAND_SPHERIC_MOVE:
+            {
+                if(expandingDirection == Vector3.zero)
+                {
+                    expandingDirection = this.transform.position.normalized;
+//                    timeAux = Time.time;
+                }
 
-		Vector3 tmpVector;
+// TODO - Calculate angle with expandingDirection vector, then animate the rotation with parametric speed.
 
-		tmpVector.x = Mathf.Sin(randInit.x + (Time.time * cycleSpeedRand.x)) * randDistance.x;
-		tmpVector.y = Mathf.Sin(randInit.y + (Time.time * cycleSpeedRand.y)) * randDistance.y;
-		tmpVector.z = Mathf.Sin(randInit.z + (Time.time * cycleSpeedRand.z)) * randDistance.z;
+                this.transform.position += (Time.deltaTime * expansionSpeed * expandingDirection);
 
-		this.transform.position += tmpVector * Time.deltaTime * animationSpeed;
+/*
+                if((Time.time - timeAux) > 3)
+                {
+                        //setMovement(MovementStatus.INITIAL_POSITION);
+                        this.transform.position = startPosition;
+                    }
+                else
+                {
+                    this.transform.position += (Time.deltaTime * expansionSpeed * expandingDirection);
+                }
+*/
+                break;
+            }
+            case MovementStatus.FINAL_POSITION:
+            {
+
+                break;
+            }
+            case MovementStatus.FINAL_POSITION_MOVE:
+            {
+
+                break;
+            }
+            case MovementStatus.INITIAL_POSITION_MOVE:
+            {
+
+                break;
+            }
+        }
 	}
+
+    public static void setMovement(MovementStatus status)
+    {
+        moveStatus = status;
+    }
 }
+
