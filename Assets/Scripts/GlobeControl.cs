@@ -54,9 +54,17 @@ public class GlobeControl : MonoBehaviour {
 		}
 
 		if (updateGlobe) {
-			transform.Rotate (-(Vector3.up * speed * inputRotation));
-	
-			Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y, pinSelectionRange);
+
+            transform.Rotate(0, (speed * inputRotation * (-1)), 0, Space.Self);
+            //transform.Rotate (-(this.transform.up * speed * inputRotation));
+            //transform.Rotate (-(this.transform.up.normalized * speed * inputRotation));
+            //transform.rotation = Quaternion.AngleAxis(transform.rotation.y + speed * inputRotation, Vector3.up);
+            //transform.Rotate(0, 1, 0);
+            //transform.rotation = Quaternion.Euler(0, 90, 0);
+
+            //transform.RotateAroundLocal(Vector3.up, speed * inputRotation);
+
+            Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y, pinSelectionRange);
 			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
 			if (currentPlace != newPlace) {
 				journeyControl.setInitial(newPlace);
