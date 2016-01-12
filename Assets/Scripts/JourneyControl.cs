@@ -113,7 +113,7 @@ public class JourneyControl : BaseMachine {
 
 				}
 			}
-			if (Input.GetAxis ("Mouse ScrollWheel") != 0) {
+			if (globeControl.isGlobeRotating()) {
 				this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE;
 				prepareToGoToGlobe ();
 

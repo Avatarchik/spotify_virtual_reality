@@ -1,10 +1,41 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+
 
 public class GlobeControl : MonoBehaviour {
 	public JourneyControl journeyControl;
 	public int speed;
 	private bool updateGlobe = true;
+	public float minGlobeForce;
+
+	private class CircularSumQueue {
+		float sum = 0;
+		int maxSize;
+		Queue<float> queue = new Queue<float>();
+
+		public CircularSumQueue(int maxSize) {
+			this.maxSize = maxSize;
+		}
+
+		public void addItem(float value) {
+			checkAndRemoveItem ();
+			queue.Enqueue (value);
+			sum += value;
+		}
+
+		public void checkAndRemoveItem() {
+			if (queue.Count >= maxSize - 1) {
+				sum -= queue.Dequeue ();
+			}
+		}
+
+		public float getSum() {
+			return sum;
+		}
+	}
+
+	CircularSumQueue circularSumQueue = new CircularSumQueue(10);
 
 	private AudioSource audioSource;
 	void Start() {
@@ -13,8 +44,16 @@ public class GlobeControl : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		float inputRotation = Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime;
+
+		circularSumQueue.addItem (Mathf.Abs(inputRotation));
+
+		if (circularSumQueue.getSum () > minGlobeForce) {
+			Debug.Log ("circularSumQueue.getSum () = " + circularSumQueue.getSum ());
+		}
+
 		if (updateGlobe) {
-			transform.Rotate (-(Vector3.up * speed * Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime));
+			transform.Rotate (-(Vector3.up * speed * inputRotation));
 	
 			Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
 			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
@@ -23,6 +62,13 @@ public class GlobeControl : MonoBehaviour {
 				updatePin (currentPlace, newPlace);
 			}
 		}
+	}
+
+	public bool isGlobeRotating() {
+		if(circularSumQueue.getSum () > minGlobeForce) {
+			return true;
+		}
+		return false;
 	}
 
 	private void updatePin(Place oldPlace, Place currentPlace) {
@@ -61,10 +107,6 @@ public class GlobeControl : MonoBehaviour {
 
 		JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
-
-	
-
-
 	}
 
 	public void exitGlobe() {
