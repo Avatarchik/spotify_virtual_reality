@@ -8,16 +8,16 @@ public class JourneyControl : BaseMachine {
 	public GlobeControl globeControl;
 	public CameraChanger cameraChanger;
 	public PlayMovieOnSpace movieControlGlobe;
-	//public PlayMovieOnSpace movieControlStreetView;
 	public JourneyEndControl journeyEndControl;
 	public PlaceTextControl placeTextControl;
 
 
-	// Use this for initialization
-	void Start () {
-		this.audioControl = GetComponent<AudioControl> ();
-		this.placeControl = GetComponent<PlaceControl> ();
-	}
+	private float timeWhenJourneyStarts;
+
+	int journeyCount = 0;
+
+	const int MAX_PLACES = 1;
+	private string []journeyPlaces = new string[MAX_PLACES];
 
 	private const string STATE_NAVIGATING = "STATE_NAVIGATING";
 	private const string STATE_PRE_SELECTED = "STATE_PRE_SELECTED";
@@ -29,34 +29,38 @@ public class JourneyControl : BaseMachine {
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE = "STATE_PREPARE_TO_RETURN_TO_GLOBE";
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS = "STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS";
 
-	private float timeWhenJourneyStarts;
+	public JourneyControl(): base(true) {
 
-	int journeyCount = 0;
+	}
 
-	const int MAX_PLACES = 1;
-	private string []journeyPlaces = new string[MAX_PLACES];
-
+	// Use this for initialization
+	void Start () {
+		this.audioControl = GetComponent<AudioControl> ();
+		this.placeControl = GetComponent<PlaceControl> ();
+	}
 
 	// Update is called once per frame
 	void Update () {
+		base.Update ();
+        
 
-        if (Input.GetKeyUp(KeyCode.B))
-        {
+		if (Input.GetKeyUp(KeyCode.B)){
             Debug.Log("VR Recenter");
             InputTracking.Recenter();
         }
 
-		switch (this.getState()) {
+
+		switch (this.getState ()) {
 		case STATE_PRE_SELECTED:
-			if(audioControl.isAudioFadedOut()){
-				PinControl pinControl = JourneySingleton.Instance.getCurrentPin();
+			if (audioControl.getState() == STATE_INITIAL) {
+				PinControl pinControl = JourneySingleton.Instance.getCurrentPin ();
 				pinControl.makePinShine ();
 				this.state = STATE_SELECTED_NOISE;
 			}
 			break;
 		case STATE_SELECTED_NOISE:
-			PinControl pinControl1 = JourneySingleton.Instance.getCurrentPin();
-			if(pinControl1.isPinShinning() == false) {
+			PinControl pinControl1 = JourneySingleton.Instance.getCurrentPin ();
+			if (pinControl1.isPinShinning () == false) {
 				globeControl.turnGlobeRotationOff ();
 				globeControl.resetPin ();
 				movieControlGlobe.fadeIn ();
@@ -78,7 +82,7 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
-				setJourneyPlace (JourneySingleton.Instance.getPlace(journeyPlaces[journeyCount]));
+				setJourneyPlace (JourneySingleton.Instance.getPlace (journeyPlaces [journeyCount]));
 				startJourney ();
 				this.state = STATE_JOURNEY_START;
 			}
@@ -97,7 +101,7 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		case STATE_JOURNEY:
-			if (audioControl.audioIsFinish () || Input.GetKeyUp (KeyCode.N)) {
+			if (audioControl.audioIsFinishing () || Input.GetKeyUp (KeyCode.N)) {
 				journeyCount++;
 				if (journeyCount < MAX_PLACES) {
 					movieControlGlobe.fadeIn ();
@@ -119,8 +123,6 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		}
-
-		base.Update ();
 	}
 
 	public void prepareToGoToGlobe() {
@@ -144,7 +146,6 @@ public class JourneyControl : BaseMachine {
 		}
 		this.state = STATE_PRE_SELECTED;
 		setJourneyPlace (place);
-		//timeWhenSelected = Time.time;
 	}
 
 	public void randomizeNext() {
@@ -177,7 +178,7 @@ public class JourneyControl : BaseMachine {
 		JourneySingleton.Instance.setCurrentPlace (place);
 
 		// start the audio of the selected index
-		this.audioControl.playAudio(place.getCode());
+		this.audioControl.playAudio();
 		this.placeControl.setPlace (place.getCode());
 
 		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
@@ -187,6 +188,6 @@ public class JourneyControl : BaseMachine {
 		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
 		this.placeControl.applyMaterial ();
-		this.audioControl.playFullAudio (JourneySingleton.Instance.getCurrentPlace().getCode());
+		this.audioControl.playFullAudio ();
 	}
 }
