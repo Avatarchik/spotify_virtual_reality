@@ -6,20 +6,22 @@ public class AudioControl : BaseMachine {
 	// the audio source attached to this component
 	private AudioSource audioSource;
 	bool isFullAudio = false;
+	protected const string STATE_FADE_IN = "STATE_FADE_IN";
+	protected const string STATE_FADE_OUT = "STATE_FADE_OUT";
+	protected const string STATE_PLAY = "STATE_PLAY";
+	private const float FADE_IN_TIME = 2f;
+	private const float FADE_OUT_TIME = 2f;
+	private Place currentPlace;
+
+
+	public AudioControl(): base(false) {
+
+	}
 
 	// Use this for initialization
 	void Start () {
 		this.audioSource = GetComponent<AudioSource> ();
 	}
-
-	protected const string STATE_FADE_IN = "STATE_FADE_IN";
-	protected const string STATE_FADE_OUT = "STATE_FADE_OUT";
-	protected const string STATE_PLAY = "STATE_PLAY";
-
-	Place currentPlace;
-
-	private const float FADE_IN_TIME = 2f;
-	private const float FADE_OUT_TIME = 2f;
 
 	void Update() {
 		base.Update ();
@@ -49,27 +51,11 @@ public class AudioControl : BaseMachine {
 			}
 			break;
 		}
-
-
-		/*if (isFullAudio == true) {
-			
-		} else {
-			if (audioSource.volume != 0 && Time.time > this.timeStart + 2 + 2) {
-				// we need to fade music out
-				t += Time.deltaTime;
-				audioSource.volume = Mathf.Lerp (1, 0, t / 2);
-
-			} else if (audioSource.volume != 1 && Time.time < this.timeStart + 2) {
-				// we need to fade music in
-				t += Time.deltaTime;
-				audioSource.volume = Mathf.Lerp (0, 1, t / 2);
-			} 
-			else {
-				t = 0;
-			}
-		}*/
 	}
 		
+	/**
+	 * Checks when the audio volume should be faded out 
+	 */
 	private bool shouldStartFadeOut() {
 		if (audioSource.time > currentPlace.getSongMaxTime () - FADE_IN_TIME - FADE_OUT_TIME) {
 			return true;
@@ -78,7 +64,9 @@ public class AudioControl : BaseMachine {
 	}
 
 
-	// start the audio of the selected index
+	/**
+	 * start to play a short audio of the selected index
+	 */
 	public void playAudio() {
 		currentPlace = JourneySingleton.Instance.getCurrentPlace ();
 		AudioClip audioClip = currentPlace.getSound ();
@@ -93,7 +81,9 @@ public class AudioControl : BaseMachine {
 		}
 	}
 
-	// start the audio of the selected index
+	/**
+	 * starts to play the audio of the selected index (full audio version)
+	 */
 	public void playFullAudio() {
 		AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
 		isFullAudio = true;
@@ -102,9 +92,11 @@ public class AudioControl : BaseMachine {
 		audioSource.clip = audioClip;
 		audioSource.volume = 0;
 		audioSource.Play ();
-
 	}
 
+	/**
+	 * starts to fade the music out
+	 */
 	public void fadeOut() {
 		state = STATE_FADE_OUT;
 	}
@@ -113,13 +105,19 @@ public class AudioControl : BaseMachine {
 		return audioSource.volume == 0;
 	}
 
+	/**
+	 * Audio finish?
+	 */
 	public bool audioFinish() {
-		if (audioSource.time >= audioSource.clip.length) {
+		if (audioSource.time >= currentPlace.getSongMaxTime()) {
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Checks if the current audio is finishing
+	 */
 	public bool audioIsFinishing() {
 		if (audioSource.time >= (currentPlace.getSongMaxTime() - FADE_IN_TIME - FADE_OUT_TIME)) {
 			return true;
@@ -127,6 +125,9 @@ public class AudioControl : BaseMachine {
 		return false;
 	}
 
+	/**
+	 * Stop the current audio
+	 */
 	public void stop() {
 		this.audioSource.Stop ();
 	}
