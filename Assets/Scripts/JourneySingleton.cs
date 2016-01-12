@@ -54,7 +54,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		placeHashTable.Add(place.getCode(), place);
 	}
 
-	public Place getPlace(float position) {
+	public Place getPlace(float position, float range) {
 		foreach(KeyValuePair<string, Place> pairPlace in placeHashTable)
 		{
 			Place place = pairPlace.Value;
@@ -62,7 +62,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 			if (diff > 180) {
 				diff -= 360;
 			}
-			if (Mathf.Abs(diff) < 2) {
+			if (Mathf.Abs(diff) < range) {
 				return place;
 			}
 		}

@@ -15,6 +15,7 @@ public class JourneyControl : BaseMachine {
 	private float timeWhenJourneyStarts;
 	public float journeyMaxTime = 3*60;
 
+
 	int journeyCount = 0;
 
 	const int TOTAL_RANDOM_PLACES = 20;

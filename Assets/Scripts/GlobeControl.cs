@@ -8,6 +8,7 @@ public class GlobeControl : MonoBehaviour {
 	public int speed;
 	private bool updateGlobe = true;
 	public float minGlobeForce;
+	public float pinSelectionRange = 2;
 
 	private class CircularSumQueue {
 		float sum = 0;
@@ -55,7 +56,7 @@ public class GlobeControl : MonoBehaviour {
 		if (updateGlobe) {
 			transform.Rotate (-(Vector3.up * speed * inputRotation));
 	
-			Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y);
+			Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y, pinSelectionRange);
 			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
 			if (currentPlace != newPlace) {
 				journeyControl.setInitial(newPlace);
