@@ -46,17 +46,21 @@ public class JourneyControl : BaseMachine {
             InputTracking.Recenter();
         }
 
-		switch (this.getState()) {
+
+
+		base.Update ();
+
+		switch (this.getState ()) {
 		case STATE_PRE_SELECTED:
-			if(audioControl.isAudioFadedOut()){
-				PinControl pinControl = JourneySingleton.Instance.getCurrentPin();
+			if (audioControl.isAudioFadedOut ()) {
+				PinControl pinControl = JourneySingleton.Instance.getCurrentPin ();
 				pinControl.makePinShine ();
 				this.state = STATE_SELECTED_NOISE;
 			}
 			break;
 		case STATE_SELECTED_NOISE:
-			PinControl pinControl1 = JourneySingleton.Instance.getCurrentPin();
-			if(pinControl1.isPinShinning() == false) {
+			PinControl pinControl1 = JourneySingleton.Instance.getCurrentPin ();
+			if (pinControl1.isPinShinning () == false) {
 				globeControl.turnGlobeRotationOff ();
 				globeControl.resetPin ();
 				movieControlGlobe.fadeIn ();
@@ -78,7 +82,7 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
-				setJourneyPlace (JourneySingleton.Instance.getPlace(journeyPlaces[journeyCount]));
+				setJourneyPlace (JourneySingleton.Instance.getPlace (journeyPlaces [journeyCount]));
 				startJourney ();
 				this.state = STATE_JOURNEY_START;
 			}
@@ -97,7 +101,7 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		case STATE_JOURNEY:
-			if (audioControl.audioIsFinish () || Input.GetKeyUp (KeyCode.N)) {
+			if (audioControl.audioIsFinishing () || Input.GetKeyUp (KeyCode.N)) {
 				journeyCount++;
 				if (journeyCount < MAX_PLACES) {
 					movieControlGlobe.fadeIn ();
@@ -119,8 +123,6 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		}
-
-		base.Update ();
 	}
 
 	public void prepareToGoToGlobe() {
@@ -177,7 +179,7 @@ public class JourneyControl : BaseMachine {
 		JourneySingleton.Instance.setCurrentPlace (place);
 
 		// start the audio of the selected index
-		this.audioControl.playAudio(place.getCode());
+		this.audioControl.playAudio();
 		this.placeControl.setPlace (place.getCode());
 
 		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
@@ -187,6 +189,6 @@ public class JourneyControl : BaseMachine {
 		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
 		this.placeControl.applyMaterial ();
-		this.audioControl.playFullAudio (JourneySingleton.Instance.getCurrentPlace().getCode());
+		this.audioControl.playFullAudio ();
 	}
 }

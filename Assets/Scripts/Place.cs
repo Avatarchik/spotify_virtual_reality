@@ -14,16 +14,14 @@ public class Place {
 	string songArtist;
 
 	float initialCameraRotation;
+	float songMaxTime;
 
 
-	public Place(string code, float position, float initialCameraRotation, string name, string location, string songTitle, string songArtist) {
-		init (code, position, initialCameraRotation, name, location, songTitle, songArtist);
-	}
-
-	private void init(string code, float position, float initialCameraRotation, string name, string location, string songTitle, string songArtist) {
+	public Place(string code, float position, float initialCameraRotation, float songMaxTime, string name, string location, string songTitle, string songArtist) {
 		this.code = code;
 		this.position = position;
 		this.initialCameraRotation = initialCameraRotation;
+		this.songMaxTime = songMaxTime;
 		this.name = name;
 		this.location = location;
 		this.songTitle = songTitle;
@@ -71,6 +69,10 @@ public class Place {
 
 	public float getInitialCameraRotation() {
 		return initialCameraRotation;
+	}
+
+	public float getSongMaxTime() {
+		return songMaxTime;
 	}
 
 }
