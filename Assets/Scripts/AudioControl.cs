@@ -9,8 +9,9 @@ public class AudioControl : BaseMachine {
 	protected const string STATE_FADE_IN = "STATE_FADE_IN";
 	protected const string STATE_FADE_OUT = "STATE_FADE_OUT";
 	protected const string STATE_PLAY = "STATE_PLAY";
-	private const float FADE_IN_TIME = 2f;
-	private const float FADE_OUT_TIME = 2f;
+	public float fadeInTime = 2f;
+	public float fadeOutTime = 2f;
+	public float musicPlayTime = 1f;
 	private Place currentPlace;
 
 
@@ -27,10 +28,10 @@ public class AudioControl : BaseMachine {
 		base.Update ();
 		switch (this.getState ()) {
 		case STATE_FADE_IN:
-			if (this.getTimeSinceStateWasSelected () < FADE_IN_TIME) {
-				audioSource.volume = Mathf.Lerp (0, 1, this.getTimeSinceStateWasSelected () / FADE_IN_TIME);
+			if (this.getTimeSinceStateWasSelected () < fadeInTime) {
+				audioSource.volume = Mathf.Lerp (0, 1, this.getTimeSinceStateWasSelected () / fadeInTime);
 			} 
-			else if (this.getTimeSinceStateWasSelected () > FADE_IN_TIME + 1) {
+			else if (this.getTimeSinceStateWasSelected () > fadeInTime + musicPlayTime) {
 				if (isFullAudio) {
 					state = STATE_PLAY;
 				} else {
@@ -39,8 +40,8 @@ public class AudioControl : BaseMachine {
 			}
 			break;
 		case STATE_FADE_OUT:
-			if (this.getTimeSinceStateWasSelected () < FADE_OUT_TIME) {
-				audioSource.volume = Mathf.Lerp (1, 0, this.getTimeSinceStateWasSelected () / FADE_OUT_TIME);
+			if (this.getTimeSinceStateWasSelected () < fadeOutTime) {
+				audioSource.volume = Mathf.Lerp (1, 0, this.getTimeSinceStateWasSelected () / fadeOutTime);
 			} else {
 				state = STATE_INITIAL;
 			}
@@ -57,7 +58,7 @@ public class AudioControl : BaseMachine {
 	 * Checks when the audio volume should be faded out 
 	 */
 	private bool shouldStartFadeOut() {
-		if (audioSource.time > currentPlace.getSongMaxTime () - FADE_IN_TIME - FADE_OUT_TIME) {
+		if (audioSource.time > currentPlace.getSongMaxTime () - fadeInTime - fadeOutTime) {
 			return true;
 		}
 		return false;
@@ -119,7 +120,7 @@ public class AudioControl : BaseMachine {
 	 * Checks if the current audio is finishing
 	 */
 	public bool audioIsFinishing() {
-		if (audioSource.time >= (currentPlace.getSongMaxTime() - FADE_IN_TIME - FADE_OUT_TIME)) {
+		if (audioSource.time >= (currentPlace.getSongMaxTime() - fadeInTime - fadeOutTime)) {
 			return true;
 		}
 		return false;

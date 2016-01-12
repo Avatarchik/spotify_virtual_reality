@@ -15,6 +15,9 @@ public class PinControl : MonoBehaviour {
 	private float PIN_ON_SHRINK_INTENSITY = 2f;
 	private float PIN_ON_HIGH_INTENSITY = 8f;
 
+	public float fadePinShrink = 1f;
+	public float fadePinShine = 5f;
+
 	Fader fader;
 	GameObject lightGameObj;
 	Light light;
@@ -105,13 +108,13 @@ public class PinControl : MonoBehaviour {
 		state = STATE_PIN_IS_SHRINKING;
 
 		// shrink pin first
-		fader = new Fader (light, PIN_ON_MID_INTENSITY, PIN_ON_SHRINK_INTENSITY, 1f);
+		fader = new Fader (light, PIN_ON_MID_INTENSITY, PIN_ON_SHRINK_INTENSITY, fadePinShrink);
 	}
 
 	private void internalMakePinShine() {
 		this.audioSource.clip = audioClipPinSelected;
 		this.audioSource.Play ();
-		fader = new Fader (light, PIN_ON_SHRINK_INTENSITY, PIN_ON_HIGH_INTENSITY, 5f);
+		fader = new Fader (light, PIN_ON_SHRINK_INTENSITY, PIN_ON_HIGH_INTENSITY, fadePinShine);
 	}
 
 	private class Fader {

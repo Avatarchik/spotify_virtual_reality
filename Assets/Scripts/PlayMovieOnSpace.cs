@@ -20,7 +20,7 @@ public class PlayMovieOnSpace : MonoBehaviour {
 
 	private int state = STATE_NEUTRAL;
 
-	float fadeTime = 2;
+	public float fadeInOutTime = 2;
 
 	// Update is called once per frame
 	void Update () {
@@ -37,9 +37,9 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 
 		if (state == STATE_FADING_IN || state == STATE_FADING_OUT) {
-			if (t < fadeTime) {
+			if (t < fadeInOutTime) {
 				t += Time.deltaTime;
-				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeTime);
+				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeInOutTime);
 				setAlpha (alpha);
 
 				if (alpha < 0.1) {
@@ -54,11 +54,6 @@ public class PlayMovieOnSpace : MonoBehaviour {
 
 
 		}
-
-
-
-			
-
 	}
 
 	public void fadeIn() {
@@ -100,10 +95,8 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		Renderer r = GetComponent<Renderer>();
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 
-
 		Color oldColor = r.material.color;
 		Color newColor = new Color(oldColor.r, oldColor.b, oldColor.g, alpha);          
 		r.material.SetColor("_Color", newColor);      
-
 	}
 }

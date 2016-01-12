@@ -57,7 +57,7 @@ public class CubeAnimation : MonoBehaviour {
             {
                 this.transform.position = startPosition;
                 expandingDirection = Vector3.zero;
-                setMovement(MovementStatus.RANDOM_MOVE);
+                //setMovement(MovementStatus.RANDOM_MOVE);
                 //setMovement(MovementStatus.EXPAND_SPHERIC_MOVE);
                 break;
             }
