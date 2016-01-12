@@ -12,8 +12,12 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Isla_Mujeres", 3, 199);
 		addPlace ("Times", 14, 325);
 		addPlace ("Salar", 30, 270);
+
+		addPlace ("Iceberg", 40);
+		addPlace ("Geleira", 45);
+
 		addPlace ("Natal_Arte", 55, 270, 10, "Natal", "Natal", "Song", "Artist");
-		//addPlace ("Islandia", 78); -- music missing
+		addPlace ("Islandia", 78); //-- music missing
 		addPlace ("Castelo", 85, 260);
 		addPlace ("Veneza", 97, 180);
 		addPlace ("Baby_Calf", 98, 45);
@@ -27,11 +31,14 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("India", 173, 280);
 		addPlace ("Ta_Prohm", 194, 90);
 		addPlace ("Montanhas_Laranjas", 209, 170);
+		addPlace ("Takinoue", 220);
 		addPlace ("Cachu_Verdao", 230, 180);
 		addPlace ("Heron_Island", 240, 180);
 		//addPlace ("", 245);
 
-		addPlace ("Praia_Com_Estrelas", 250, 0);
+		addPlace ("Praia_Com_Estrelas", 245, 0);
+
+		addPlace ("Pinguins", 250, 245);
 		addPlace ("No_Meio_Da_Floresta", 255, 270);
 
 		addPlace ("Tartaruguinha", 267, 145);
@@ -41,6 +48,9 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 
 		addPlace ("Yosemite", 340, 180);
 		addPlace ("Bryce_Canyon", 350, 235);
+
+
+
 	} // guarantee this will be always a singleton only - can't use the constructor!
 
 	public Place getRandomPlace() {
