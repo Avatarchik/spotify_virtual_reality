@@ -16,8 +16,8 @@ public class JourneyControl : BaseMachine {
 
 	int journeyCount = 0;
 
-	const int MAX_PLACES = 1;
-	private string []journeyPlaces = new string[MAX_PLACES];
+	const int TOTAL_RANDOM_PLACES = 20;
+	private string []journeyPlaces = new string[TOTAL_RANDOM_PLACES];
 
 	private const string STATE_NAVIGATING = "STATE_NAVIGATING";
 	private const string STATE_PRE_SELECTED = "STATE_PRE_SELECTED";
@@ -79,6 +79,7 @@ public class JourneyControl : BaseMachine {
 			movieControlGlobe.fadeOut ();
 			placeControl.fadeIn ();
 			this.state = STATE_JOURNEY;
+			timeWhenJourneyStarts = Time.time;
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
@@ -101,23 +102,19 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		case STATE_JOURNEY:
-			if (audioControl.audioIsFinishing () || Input.GetKeyUp (KeyCode.N)) {
+			if (audioControl.audioIsFinishing () || globeControl.isGlobeRotating()) {
 				journeyCount++;
-				if (journeyCount < MAX_PLACES) {
+				if (journeyCount < TOTAL_RANDOM_PLACES || timeWhenJourneyStarts < 60*3) {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
 				} else {
 					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
 					prepareToGoToGlobe ();
-
 				}
 			}
-			if (globeControl.isGlobeRotating()) {
-				this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE;
-				prepareToGoToGlobe ();
+				
 
-			}
 			if (Input.GetKeyUp (KeyCode.Return)) {
 				goToGlobe ();
 			}
@@ -151,7 +148,7 @@ public class JourneyControl : BaseMachine {
 	public void randomizeNext() {
 		journeyPlaces [0] = JourneySingleton.Instance.getCurrentPlace ().getCode ();
 
-		for (int i = 1; i < MAX_PLACES; i++) {
+		for (int i = 1; i < TOTAL_RANDOM_PLACES; i++) {
 			addNewRandomizedPlace (i);
 		}
 	}
@@ -162,7 +159,7 @@ public class JourneyControl : BaseMachine {
 		while (isPlaceOk == false) {
 			place = JourneySingleton.Instance.getRandomPlace ();
 			isPlaceOk = true;
-			for (int i = 0; i <= index; i++) {
+			for (int i = 0; i < index; i++) {
 				if (journeyPlaces [i].CompareTo(place.getCode()) == 0) {
 					isPlaceOk = false;
 					break;

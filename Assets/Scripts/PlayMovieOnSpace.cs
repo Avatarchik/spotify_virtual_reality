@@ -20,6 +20,8 @@ public class PlayMovieOnSpace : MonoBehaviour {
 
 	private int state = STATE_NEUTRAL;
 
+	float fadeTime = 2;
+
 	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown (KeyCode.Q)) {
@@ -35,7 +37,6 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 
 		if (state == STATE_FADING_IN || state == STATE_FADING_OUT) {
-			float fadeTime = 4;
 			if (t < fadeTime) {
 				t += Time.deltaTime;
 				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeTime);
