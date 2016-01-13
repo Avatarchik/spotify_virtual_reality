@@ -111,7 +111,16 @@ public class CubeAnimation : MonoBehaviour {
                 break;
             }
         }
+
+		// just a small color test.. remove it
+		Renderer r = GetComponent<Renderer>();
+		Color newColor = new Color(0, 255, 0);     
+		tempo += Time.time;
+		r.material.color = Color.Lerp (r.material.color, newColor, tempo/10000);
+
 	}
+
+	float tempo = 0;
 
     public static void setMovement(MovementStatus status)
     {
