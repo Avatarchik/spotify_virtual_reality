@@ -18,10 +18,11 @@ public class CameraChanger : MonoBehaviour {
 	public void changeToStreetView() {
 		//0, 0, -4000
 		camera.transform.position = new Vector3(0, 7f, -4000);
+        camera.transform.localScale = new Vector3(1, 1, 1);
 
 
 
-	}
+    }
 
 	public void updateCameraRotationStreetView() {
 		Place place = JourneySingleton.Instance.getCurrentPlace ();
@@ -31,8 +32,9 @@ public class CameraChanger : MonoBehaviour {
 	public void changeToGlobe() {
 		//0, 155, -51
 		camera.transform.position = new Vector3(0, 155, -51f);
+        camera.transform.localScale = new Vector3(100, 100, 100);
 
-	}
+    }
 
 	public void changeCamera() {
 		if (isCameraOnGlobe) {
