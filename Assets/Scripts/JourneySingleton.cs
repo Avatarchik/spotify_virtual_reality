@@ -16,7 +16,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Iceberg", 40, 200);
 		addPlace ("Geleira", 45, 230);
 
-		addPlace ("Natal_Arte", 55, 270, 10, "Natal", "Natal", "Song", "Artist");
+		addPlace ("Natal_Arte", 55, 270, 30, "Natal", "Natal", "Song", "Artist");
 		addPlace ("Islandia", 78, 190); //-- music missing
 		addPlace ("Castelo", 85, 260);
 		addPlace ("Veneza", 97, 180);
@@ -59,7 +59,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		return (Place)placeHashTable [keys[index]];
 	}
 
-	private void addPlace(string code, float position, float initialCameraPosition = 0, float songMaxTime = 30, string name = null, string location = null, string songTitle = null, string songArtist = null) {
+	private void addPlace(string code, float position, float initialCameraPosition = 0, float songMaxTime = 35, string name = null, string location = null, string songTitle = null, string songArtist = null) {
 		Place place = new Place(code, position, initialCameraPosition, songMaxTime, name, location, songTitle, songArtist);
 		placeHashTable.Add(place.getCode(), place);
 	}

@@ -33,7 +33,7 @@ public class CameraChanger : MonoBehaviour {
 		//0, 155, -51
 		camera.transform.position = new Vector3(0, 155, -51f);
         camera.transform.localScale = new Vector3(100, 100, 100);
-
+        camera.transform.rotation = Quaternion.Euler(camera.transform.rotation.x, 0, camera.transform.rotation.z);
     }
 
 	public void changeCamera() {

@@ -20,7 +20,8 @@ public class PlayMovieOnSpace : MonoBehaviour {
 
 	private int state = STATE_NEUTRAL;
 
-	public float fadeInOutTime = 2;
+    public float fadeInTime = 1;
+    public float fadeOutTime = 2;
 
 	// Update is called once per frame
 	void Update () {
@@ -36,10 +37,10 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		Renderer r = GetComponent<Renderer>();
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 
-		if (state == STATE_FADING_IN || state == STATE_FADING_OUT) {
-			if (t < fadeInOutTime) {
+		if (state == STATE_FADING_IN) {
+			if (t < fadeInTime) {
 				t += Time.deltaTime;
-				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeInOutTime);
+				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeInTime);
 				setAlpha (alpha);
 
 				if (alpha < 0.1) {
@@ -54,11 +55,35 @@ public class PlayMovieOnSpace : MonoBehaviour {
 
 
 		}
-	}
+        else if (state == STATE_FADING_OUT)
+        {
+            if (t < fadeOutTime)
+            {
+                t += Time.deltaTime;
+                float alpha = Mathf.Lerp(currentAlpha, goToAlpha, t / fadeOutTime);
+                setAlpha(alpha);
+
+                if (alpha < 0.1)
+                {
+                    r.enabled = false;
+                }
+                else {
+                    r.enabled = true;
+                }
+            }
+            else {
+                GetComponent<AudioSource>().Stop();
+                state = STATE_FADED;
+            }
+
+
+        }
+    }
 
 	public void fadeIn() {
 		Renderer r = GetComponent<Renderer>();
-		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+        r.enabled = true;
+        MovieTexture movie = (MovieTexture)r.material.mainTexture;
 		movie.Stop ();
 		movie.Play();
 		GetComponent<AudioSource> ().Play ();
@@ -70,7 +95,8 @@ public class PlayMovieOnSpace : MonoBehaviour {
 
 	public void fadeOut() {
 		Renderer r = GetComponent<Renderer>();
-		MovieTexture movie = (MovieTexture)r.material.mainTexture;
+        r.enabled = true;
+        MovieTexture movie = (MovieTexture)r.material.mainTexture;
 		movie.Play();
 		GetComponent<AudioSource> ().Play ();
 		t = 0;

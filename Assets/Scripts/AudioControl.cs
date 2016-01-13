@@ -6,12 +6,13 @@ public class AudioControl : BaseMachine {
 	// the audio source attached to this component
 	private AudioSource audioSource;
 	bool isFullAudio = false;
-	protected const string STATE_FADE_IN = "STATE_FADE_IN";
-	protected const string STATE_FADE_OUT = "STATE_FADE_OUT";
-	protected const string STATE_PLAY = "STATE_PLAY";
+	public const string STATE_FADE_IN = "STATE_FADE_IN";
+    public const string STATE_FADE_OUT = "STATE_FADE_OUT";
+    public const string STATE_PLAY = "STATE_PLAY";
 	public float fadeInTime = 2f;
 	public float fadeOutTime = 2f;
 	public float musicPlayTime = 1f;
+    public float fadeMinLevel = 0.3f;
 	private Place currentPlace;
 
 
@@ -41,7 +42,7 @@ public class AudioControl : BaseMachine {
 			break;
 		case STATE_FADE_OUT:
 			if (this.getTimeSinceStateWasSelected () < fadeOutTime) {
-				audioSource.volume = Mathf.Lerp (1, 0, this.getTimeSinceStateWasSelected () / fadeOutTime);
+				audioSource.volume = Mathf.Lerp (1, fadeMinLevel, this.getTimeSinceStateWasSelected () / fadeOutTime);
 			} else {
 				state = STATE_INITIAL;
 			}
@@ -86,13 +87,13 @@ public class AudioControl : BaseMachine {
 	 * starts to play the audio of the selected index (full audio version)
 	 */
 	public void playFullAudio() {
-		AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
+		//AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
 		isFullAudio = true;
 		state = STATE_FADE_IN;
 
-		audioSource.clip = audioClip;
-		audioSource.volume = 0;
-		audioSource.Play ();
+		//audioSource.clip = audioClip;
+		//audioSource.volume = 0;
+		//audioSource.Play ();
 	}
 
 	/**

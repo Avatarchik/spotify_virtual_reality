@@ -112,9 +112,13 @@ public class GlobeControl : MonoBehaviour {
 
 		updateGlobe = true;
 
-		transform.localEulerAngles = new Vector3(transform.localEulerAngles.x,320,transform.localEulerAngles.z);
 
-		JourneySingleton.Instance.setCurrentPlace ((Place)null);
+        float rotate = 320 - gameObject.transform.rotation.eulerAngles.y;
+
+        transform.Rotate(0, rotate, 0, Space.Self);
+        //transform.rotation = new Quaternion(transform.rotation.x, 320, transform.rotation.z, transform.rotation.w);
+
+        JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
 	}
 

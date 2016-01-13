@@ -13,7 +13,7 @@ public class JourneyControl : BaseMachine {
 
 
 	private float timeWhenJourneyStarts;
-	public float journeyMaxTime = 3*60;
+	public float journeyMaxTime = 3*30;
 
 
 	int journeyCount = 0;
@@ -54,7 +54,7 @@ public class JourneyControl : BaseMachine {
 
 		switch (this.getState ()) {
 		case STATE_PRE_SELECTED:
-			if (audioControl.getState() == STATE_INITIAL) {
+            if (audioControl.getState() == AudioControl.STATE_FADE_OUT) {
 				PinControl pinControl = JourneySingleton.Instance.getCurrentPin ();
 				pinControl.makePinShine ();
 				this.state = STATE_SELECTED_NOISE;
@@ -76,13 +76,13 @@ public class JourneyControl : BaseMachine {
 				randomizeNext ();
 				cameraChanger.changeCamera ();
 				this.state = STATE_JOURNEY_START;
-			}
+                timeWhenJourneyStarts = Time.time;
+            }
 			break;
 		case STATE_JOURNEY_START:
 			movieControlGlobe.fadeOut ();
 			placeControl.fadeIn ();
 			this.state = STATE_JOURNEY;
-			timeWhenJourneyStarts = Time.time;
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
@@ -106,8 +106,10 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_JOURNEY:
 			if (audioControl.audioIsFinishing () || globeControl.isGlobeRotating()) {
-				journeyCount++;
-				if (journeyCount < TOTAL_RANDOM_PLACES || timeWhenJourneyStarts < journeyMaxTime) {
+                    float timeDiff = Time.time - timeWhenJourneyStarts;
+
+                journeyCount++;
+				if (journeyCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime) {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
@@ -145,7 +147,7 @@ public class JourneyControl : BaseMachine {
 			JourneySingleton.Instance.setCurrentPlace (place);
 			return;
 		}
-		this.state = STATE_PRE_SELECTED;
+        this.state = STATE_PRE_SELECTED;
 		setJourneyPlace (place);
 	}
 
