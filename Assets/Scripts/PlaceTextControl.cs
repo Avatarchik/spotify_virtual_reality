@@ -1,7 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlaceTextControl : MonoBehaviour {
+	public Text songName;
+	public Text songArtist;
+	public Text placeName;
+	public Text placeLocation;
+
 
 	// Use this for initialization
 	void Start () {
@@ -13,10 +19,7 @@ public class PlaceTextControl : MonoBehaviour {
 	}
 
 	public void setText(string place, string location, string song, string artist) {
-		setText ("Text_Song_Name", place);
-		setText ("Text_Song_Group", location);
-		setText ("Text_Location_Sub", song);
-		setText ("Text_Location", artist);
+		
 	}
 
 	private void setText(string element, string text) {
