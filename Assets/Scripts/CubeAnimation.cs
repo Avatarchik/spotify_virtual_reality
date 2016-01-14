@@ -47,8 +47,15 @@ public class CubeAnimation : MonoBehaviour {
 		cycleSpeedRand.z = Random.Range(cycleSpeedMin.z, cycleSpeedMax.z);
 	}
 
+	private void debugPosition() {
+		Debug.Log (this.name + " - " + startPosition.ToString ());
+	}
+
 	// Update is called once per frame
 	void Update () {
+		if(Input.GetKey(KeyCode.D)) {
+			debugPosition ();
+		}
         //        this.transform.position += new Vector3(1,1,1) * Time.deltaTime * animationSpeed;
         
         switch (moveStatus)
