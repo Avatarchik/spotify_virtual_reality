@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class CubeAnimation : MonoBehaviour {
+public class CubeAnimation : BaseMachine {
 
 	public float animationSpeed;
 	public Vector3 distanceMax;
@@ -13,17 +13,18 @@ public class CubeAnimation : MonoBehaviour {
 	Vector3 cycleSpeedRand;
     public Vector3 finaPosition;
     public Vector3 finaRotation;
-    public enum MovementStatus{
-        INITIAL_POSITION = 0,
-        RANDOM_MOVE,
-        EXPAND_SPHERIC_MOVE,
-        FINAL_POSITION,
-        FINAL_POSITION_MOVE,
-        INITIAL_POSITION_MOVE,
-    }
+   
+	public const string STATE_INITIAL_POSITION = "INITIAL_POSITION";
+	public const string STATE_RANDOM_MOVE = "RANDOM_MOVE";
+	public const string STATE_EXPAND_SPHERIC_MOVE = "EXPAND_SPHERIC_MOVE";
+	public const string STATE_FINAL_POSITION = "FINAL_POSITION";
+	public const string STATE_FINAL_POSITION_MOVE = "FINAL_POSITION_MOVE";
+	public const string STATE_INITIAL_POSITION_MOVE = "FINAL_INITIAL_POSITION_MOVE";
 
-    static public MovementStatus moveStatus = MovementStatus.INITIAL_POSITION;
-
+	public CubeAnimation(): base(false) {
+		state = STATE_INITIAL_POSITION;
+	}
+		
     private Vector3 startPosition;
     private Vector3 startRotation;
     private Vector3 expandingDirection;
@@ -33,6 +34,7 @@ public class CubeAnimation : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+		gameObject.tag = "Walls";
 
         startPosition = this.transform.position;
         startRotation = this.transform.eulerAngles;
@@ -57,22 +59,24 @@ public class CubeAnimation : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
+		base.Update ();
+
 		if(Input.GetKey(KeyCode.D)) {
 			debugPosition ();
 		}
         //        this.transform.position += new Vector3(1,1,1) * Time.deltaTime * animationSpeed;
         
-        switch (moveStatus)
+        switch (state)
         {
-            case MovementStatus.INITIAL_POSITION:
+            case STATE_INITIAL_POSITION:
             {
                 this.transform.position = startPosition;
                 expandingDirection = Vector3.zero;
-                setMovement(MovementStatus.RANDOM_MOVE);
+				setMovement(STATE_RANDOM_MOVE);
                 //setMovement(MovementStatus.EXPAND_SPHERIC_MOVE);
                 break;
             }
-            case MovementStatus.RANDOM_MOVE:
+		case STATE_RANDOM_MOVE:
             {
                 Vector3 tmpVector;
                 tmpVector.x = Mathf.Sin(randInit.x + (Time.time * cycleSpeedRand.x)) * randDistance.x;
@@ -81,7 +85,7 @@ public class CubeAnimation : MonoBehaviour {
                 this.transform.position += tmpVector * Time.deltaTime * animationSpeed;
                 break;
             }
-            case MovementStatus.EXPAND_SPHERIC_MOVE:
+		case STATE_EXPAND_SPHERIC_MOVE:
             {
                 if(expandingDirection == Vector3.zero)
                 {
@@ -106,19 +110,36 @@ public class CubeAnimation : MonoBehaviour {
 */
                 break;
             }
-            case MovementStatus.FINAL_POSITION:
+		case STATE_FINAL_POSITION:
             {
+				/*float time = 5;
+				if (this.getTimeSinceStateWasSelected () < time) {
+					transform.position = Vector3.Lerp(startPosition, finaPosition, this.getTimeSinceStateWasSelected () / time);
+				} */
+
+				transform.position = finaPosition;
+				//transform.rotation.eulerAngles = finaRotation;
+
+				state = STATE_FINAL_POSITION_MOVE;
 
                 break;
             }
-            case MovementStatus.FINAL_POSITION_MOVE:
+		case STATE_FINAL_POSITION_MOVE:
             {
-
+				if (this.getTimeSinceStateWasSelected () > 5) {
+					state = STATE_INITIAL_POSITION_MOVE;
+				}
                 break;
             }
-            case MovementStatus.INITIAL_POSITION_MOVE:
+		case STATE_INITIAL_POSITION_MOVE:
             {
 
+				float time = 5;
+				if (this.getTimeSinceStateWasSelected () < time) {
+					transform.position = Vector3.Lerp (finaPosition, startPosition, this.getTimeSinceStateWasSelected () / time);
+				} else {
+					state = STATE_RANDOM_MOVE;
+				}
                 break;
             }
         }
@@ -133,9 +154,17 @@ public class CubeAnimation : MonoBehaviour {
 
 	float tempo = 0;
 
-    public static void setMovement(MovementStatus status)
+	public void setMovement(string status)
     {
-        moveStatus = status;
+		this.state = status;
     }
+
+	public static void changeAllWallsStatus(string status) {
+		GameObject[] walls = GameObject.FindGameObjectsWithTag("Walls");
+
+		foreach (GameObject wall in walls) {
+			wall.gameObject.GetComponent<CubeAnimation> ().setMovement (status);
+		}
+	}
 }
 

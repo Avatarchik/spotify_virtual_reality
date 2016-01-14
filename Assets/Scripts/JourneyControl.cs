@@ -66,7 +66,7 @@ public class JourneyControl : BaseMachine {
 				globeControl.turnGlobeRotationOff ();
 				globeControl.resetPin ();
 				movieControlGlobe.fadeIn ();
-				CubeAnimation.setMovement (CubeAnimation.MovementStatus.EXPAND_SPHERIC_MOVE);
+				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_EXPAND_SPHERIC_MOVE);
 				this.state = STATE_SELECTED;
 			}
 			break;
@@ -89,6 +89,7 @@ public class JourneyControl : BaseMachine {
 				setJourneyPlace (JourneySingleton.Instance.getPlace (journeyPlaces [journeyCount]));
 				startJourney ();
 				this.state = STATE_JOURNEY_START;
+				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_INITIAL_POSITION);
 			}
 			break;
 		case STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS:
@@ -96,6 +97,7 @@ public class JourneyControl : BaseMachine {
 				goToGlobe ();
 				movieControlGlobe.fadeOut ();
 				journeyEndControl.end ();
+				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_FINAL_POSITION);
 			}
 			break;
 		case STATE_PREPARE_TO_RETURN_TO_GLOBE:
@@ -106,8 +108,7 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_JOURNEY:
 			if (audioControl.audioIsFinishing () || globeControl.isGlobeRotating()) {
-                    float timeDiff = Time.time - timeWhenJourneyStarts;
-
+                float timeDiff = Time.time - timeWhenJourneyStarts;
                 journeyCount++;
 				if (journeyCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime) {
 					movieControlGlobe.fadeIn ();
@@ -118,8 +119,7 @@ public class JourneyControl : BaseMachine {
 					prepareToGoToGlobe ();
 				}
 			}
-
-
+				
 			if (Input.GetKeyUp (KeyCode.Return)) {
 				goToGlobe ();
 			}
@@ -132,7 +132,7 @@ public class JourneyControl : BaseMachine {
 	}
 
 	public void goToGlobe() {
-		CubeAnimation.setMovement (CubeAnimation.MovementStatus.INITIAL_POSITION);
+		
 		globeControl.returnToGlobe ();
 		audioControl.stop ();
 		cameraChanger.changeCamera ();
