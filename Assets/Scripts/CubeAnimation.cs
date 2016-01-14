@@ -24,6 +24,7 @@ public class CubeAnimation : MonoBehaviour {
     static public MovementStatus moveStatus = MovementStatus.INITIAL_POSITION;
 
     private Vector3 startPosition;
+    private Vector3 startRotation;
     private Vector3 expandingDirection;
     public float expansionSpeed;
 
@@ -33,7 +34,9 @@ public class CubeAnimation : MonoBehaviour {
     void Start () {
 
         startPosition = this.transform.position;
-        
+        startRotation = this.transform.eulerAngles;
+
+
         randInit.x = Random.Range(-1, 1);
 		randInit.y = Random.Range(-1, 1);
 		randInit.z = Random.Range(-1, 1);
@@ -48,7 +51,7 @@ public class CubeAnimation : MonoBehaviour {
 	}
 
 	private void debugPosition() {
-		Debug.Log (this.name + " - " + startPosition.ToString ());
+		Debug.Log ("Cube: " + this.name + " - Position: " + startPosition.ToString () + " - Rotation: " + startRotation.ToString());
 	}
 
 	// Update is called once per frame
