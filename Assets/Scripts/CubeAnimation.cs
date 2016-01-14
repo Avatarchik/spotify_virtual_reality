@@ -12,6 +12,7 @@ public class CubeAnimation : MonoBehaviour {
 	public Vector3 cycleSpeedMax;
 	Vector3 cycleSpeedRand;
     public Vector3 finaPosition;
+    public Vector3 finaRotation;
     public enum MovementStatus{
         INITIAL_POSITION = 0,
         RANDOM_MOVE,
