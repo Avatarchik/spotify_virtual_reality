@@ -32,7 +32,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("India", 169, 280, defaultTime, "", "", "", "");
 		addPlace ("Ta_Prohm", 194, 90, defaultTime, "", "", "", "");
 		addPlace ("Montanhas_Laranjas", 215, 170, defaultTime, "", "", "", "");
-		addPlace ("Takinoue", 225, defaultTime, "", "", "", "");
+		addPlace ("Takinoue", 225, 0, defaultTime, "", "", "", "");
 		addPlace ("Cachu_Verdao", 230, 180, defaultTime, "", "", "", "");
 		addPlace ("Heron_Island", 240, 180, defaultTime, "", "", "", "");
 		addPlace ("Praia_Com_Estrelas", 245, 0, defaultTime, "", "", "", "");
