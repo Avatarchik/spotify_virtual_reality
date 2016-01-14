@@ -136,6 +136,7 @@ public class JourneyControl : BaseMachine {
 		globeControl.returnToGlobe ();
 		audioControl.stop ();
 		cameraChanger.changeCamera ();
+		placeTextControl.setActive (false);
 		this.state = STATE_NAVIGATING;
 	}
 
@@ -190,6 +191,7 @@ public class JourneyControl : BaseMachine {
 	public void startJourney() {
 		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
+		placeTextControl.setActive (true);
 		this.placeControl.applyMaterial ();
 		this.audioControl.playFullAudio ();
 	}

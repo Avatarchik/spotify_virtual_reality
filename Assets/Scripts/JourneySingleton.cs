@@ -7,49 +7,43 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	private Place currentPlace;
 	private PinControl currentPin;
 
+	private float defaultTime = 30;
+
 	protected JourneySingleton() {
-		addPlace ("Champion_Island", 0, 225);
-		addPlace ("Isla_Mujeres", 3, 199);
-		addPlace ("Times", 14, 325);
-		addPlace ("Salar", 30, 270);
-
-		addPlace ("Iceberg", 40, 200);
-		addPlace ("Geleira", 45, 230);
-
-		addPlace ("Natal_Arte", 55, 270, 30, "Natal", "Natal", "Song", "Artist");
-		addPlace ("Islandia", 78, 190); //-- music missing
-		addPlace ("Castelo", 85, 260);
-		addPlace ("Veneza", 97, 180);
-		addPlace ("Baby_Calf", 98, 45);
-		addPlace ("Pine_Lined_Road", 99, 260);
-		addPlace ("Grecia", 101, 0);
-		addPlace ("Northern_Lights", 102, 180);
-		addPlace ("Egito", 116, 335);
-		addPlace ("Elefantinhos", 122, 190);
-		addPlace ("Castle", 150, 0);
-		addPlace ("Kaindy", 160, 200);
-		addPlace ("India", 173, 280);
-		addPlace ("Ta_Prohm", 194, 90);
-		addPlace ("Montanhas_Laranjas", 209, 170);
-		addPlace ("Takinoue", 220);
-		addPlace ("Cachu_Verdao", 230, 180);
-		addPlace ("Heron_Island", 240, 180);
-		//addPlace ("", 245);
-
-		addPlace ("Praia_Com_Estrelas", 245, 0);
-
-		addPlace ("Pinguins", 250, 245);
-		addPlace ("No_Meio_Da_Floresta", 255, 270);
-
-		addPlace ("Tartaruguinha", 267, 145);
-		addPlace ("Boiando", 271, 160);
-
-		addPlace ("Volcano_Hawaii", 298, 180);
-
-		addPlace ("Yosemite", 340, 180);
-		addPlace ("Bryce_Canyon", 350, 235);
+		addPlace ("Isla_Mujeres", 3, 199, defaultTime, "Catlin Seaview Survey", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder");
+		addPlace ("Times", 13, 325, defaultTime, "Times Square", "New York", "empire state of mind", "jayz");
+		addPlace ("Salar", 30, 270, defaultTime, "Salar", "", "White", "Frank Ocean- (feat. John Mayer)");
+		addPlace ("Iceberg", 40, 200, defaultTime, "Auyuittuq National Park", "", "Wake Up", "arcade");
+		addPlace ("Geleira", 45, 230, defaultTime, "", "Groelandia", "Easy", "Son Lux");
+		addPlace ("Natal_Arte", 55, 270, defaultTime, "Arte em Natal", "Natal", "Song", "Artist");
+		addPlace ("Islandia", 75, 190, defaultTime, "", "Islandia", "Elephant Gun", "Beirut"); //-- music missing
+		addPlace ("Castelo", 86, 260, defaultTime, "", "Inglaterra", "Somebody to love", "Queen");
+		addPlace ("Veneza", 97, 180, defaultTime, "", "Itália", "James Bond Theme", "Moby");
+		addPlace ("Baby_Calf", 98, 45, defaultTime, "", "Noruega", "", "");
+		addPlace ("Pine_Lined_Road", 99, 260, defaultTime, "Pine-Lined Road", "Slovakia", "Sunny Road", "Emiliana Torrini");
+		addPlace ("Northern_Lights", 101, 180, defaultTime, "Northern Lights", "Rússia", "Aurora", "Runaway");
 
 
+		addPlace ("Grecia", 102, 0, defaultTime, "", "Grécia", "Hanging on", "Ellie Goulding");
+		addPlace ("Egito", 118, 335, defaultTime, "", "Egito", "Walk like an egyptian", "The Bangles");
+		addPlace ("Elefantinhos", 122, 190, defaultTime, "", "", "", "");
+		addPlace ("Castle", 145, 0, defaultTime, "", "", "", "");
+		addPlace ("Kaindy", 152, 200, defaultTime, "", "", "", "");
+		addPlace ("India", 169, 280, defaultTime, "", "", "", "");
+		addPlace ("Ta_Prohm", 194, 90, defaultTime, "", "", "", "");
+		addPlace ("Montanhas_Laranjas", 215, 170, defaultTime, "", "", "", "");
+		addPlace ("Takinoue", 225, defaultTime, "", "", "", "");
+		addPlace ("Cachu_Verdao", 230, 180, defaultTime, "", "", "", "");
+		addPlace ("Heron_Island", 240, 180, defaultTime, "", "", "", "");
+		addPlace ("Praia_Com_Estrelas", 245, 0, defaultTime, "", "", "", "");
+		addPlace ("Pinguins", 250, 245, defaultTime, "", "", "", "");
+		addPlace ("No_Meio_Da_Floresta", 264, 270, defaultTime, "", "", "", "");
+		addPlace ("Tartaruguinha", 267, 145, defaultTime, "", "", "", "");
+		addPlace ("Boiando", 271, 160, defaultTime, "", "", "", "");
+		addPlace ("Volcano_Hawaii", 292, 180, defaultTime, "", "", "", "");
+		addPlace ("Yosemite", 340, 180, defaultTime, "", "", "", "");
+		addPlace ("Bryce_Canyon", 350, 235, defaultTime, "", "", "", "");
+		addPlace ("Champion_Island", 358, 225, defaultTime, "", "", "", "");
 
 	} // guarantee this will be always a singleton only - can't use the constructor!
 
@@ -87,7 +81,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 				return place;
 			}
 		}
-		return placeHashTable ["Champion_Island"];
+		return placeHashTable ["Isla_Mujeres"];
 	}
 
 	public Place getPlace(string code) {
@@ -107,7 +101,6 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 
 	public void setCurrentPlace(Place place) {
 		this.currentPlace = place;
-		//Debug.Log ("Current Place: " + place == null? "Sem place" : place.getName ());
 	}
 
 	public Place getCurrentPlace() {
