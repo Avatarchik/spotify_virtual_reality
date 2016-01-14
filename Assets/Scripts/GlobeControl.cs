@@ -36,12 +36,16 @@ public class GlobeControl : MonoBehaviour {
 		}
 	}
 
-	CircularSumQueue circularSumQueue = new CircularSumQueue(10);
+	CircularSumQueue circularSumQueue = new CircularSumQueue(30);
 
 	private AudioSource audioSource;
 	void Start() {
 		this.audioSource = GetComponent<AudioSource>();
 	}
+
+	bool modeRandom = false;
+
+	float lastGlobeRotation = 0;
 
 	// Update is called once per frame
 	void Update () {
@@ -49,23 +53,27 @@ public class GlobeControl : MonoBehaviour {
 
 		circularSumQueue.addItem (Mathf.Abs(inputRotation));
 
-		if (circularSumQueue.getSum () > minGlobeForce) {
-			Debug.Log ("circularSumQueue.getSum () = " + circularSumQueue.getSum ());
-		}
-
 		if (updateGlobe) {
-
+			float deltaRotation = Mathf.Abs(transform.rotation.eulerAngles.y - lastGlobeRotation);
             transform.Rotate(0, (speed * inputRotation * (-1)), 0, Space.Self);
-            //transform.Rotate (-(this.transform.up * speed * inputRotation));
-            //transform.Rotate (-(this.transform.up.normalized * speed * inputRotation));
-            //transform.rotation = Quaternion.AngleAxis(transform.rotation.y + speed * inputRotation, Vector3.up);
-            //transform.Rotate(0, 1, 0);
-            //transform.rotation = Quaternion.Euler(0, 90, 0);
-
-            //transform.RotateAroundLocal(Vector3.up, speed * inputRotation);
-
+			lastGlobeRotation = transform.rotation.eulerAngles.y;
             Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y, pinSelectionRange);
 			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
+
+			/*if (modeRandom == false && circularSumQueue.getSum () > 0.6 && inputRotation != 0 ) {
+				Debug.Log ("Mode random: " + circularSumQueue.getSum ());
+				modeRandom = true;
+			}
+			if (modeRandom == true && Mathf.Abs(inputRotation) <= 0 && newPlace == null && deltaRotation == 0) {
+				modeRandom = false;
+				Debug.Log ("Mode random false ");
+				Debug.Log ("1: " + gameObject.transform.rotation.eulerAngles.y);
+
+				Place place = JourneySingleton.Instance.getNextPlace (gameObject.transform.rotation.eulerAngles.y);
+				rotateGlobeToRotation (place.getPosition ());
+				Debug.Log ("2: " + place.getPosition ());
+			}*/
+
 			if (currentPlace != newPlace) {
 				journeyControl.setInitial(newPlace);
 				updatePin (currentPlace, newPlace);
@@ -113,13 +121,16 @@ public class GlobeControl : MonoBehaviour {
 		updateGlobe = true;
 
 
-        float rotate = 320 - gameObject.transform.rotation.eulerAngles.y;
-
-        transform.Rotate(0, rotate, 0, Space.Self);
-        //transform.rotation = new Quaternion(transform.rotation.x, 320, transform.rotation.z, transform.rotation.w);
+		rotateGlobeToRotation (320);
 
         JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
+	}
+
+	private void rotateGlobeToRotation(float rotation) {
+		float rotate = rotation - gameObject.transform.rotation.eulerAngles.y;
+
+		transform.Rotate(0, rotate, 0, Space.Self);
 	}
 
 	public void exitGlobe() {

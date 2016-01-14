@@ -31,7 +31,7 @@ public class JourneyControl : BaseMachine {
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE = "STATE_PREPARE_TO_RETURN_TO_GLOBE";
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS = "STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS";
 
-	public JourneyControl(): base(true) {
+	public JourneyControl(): base(false) {
 
 	}
 

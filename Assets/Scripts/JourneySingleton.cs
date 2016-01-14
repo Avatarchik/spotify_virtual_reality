@@ -79,6 +79,17 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		return null;
 	}
 
+	public Place getNextPlace(float position) {
+		foreach(KeyValuePair<string, Place> pairPlace in placeHashTable)
+		{
+			Place place = pairPlace.Value;
+			if (place.getPosition () > position) {
+				return place;
+			}
+		}
+		return placeHashTable ["Champion_Island"];
+	}
+
 	public Place getPlace(string code) {
 		if (placeHashTable.ContainsKey (code)) {
 			return (Place) placeHashTable [code];
