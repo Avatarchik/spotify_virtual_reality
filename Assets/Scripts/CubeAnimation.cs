@@ -21,6 +21,8 @@ public class CubeAnimation : BaseMachine {
 	public const string STATE_FINAL_POSITION_MOVE = "FINAL_POSITION_MOVE";
 	public const string STATE_INITIAL_POSITION_MOVE = "FINAL_INITIAL_POSITION_MOVE";
 
+	public float wallFinalToInitialPositionTime = 5;
+
 	public CubeAnimation(): base(false) {
 		state = STATE_INITIAL_POSITION;
 	}
@@ -134,9 +136,10 @@ public class CubeAnimation : BaseMachine {
 		case STATE_INITIAL_POSITION_MOVE:
             {
 
-				float time = 5;
-				if (this.getTimeSinceStateWasSelected () < time) {
-					transform.position = Vector3.Lerp (finaPosition, startPosition, this.getTimeSinceStateWasSelected () / time);
+
+				if (this.getTimeSinceStateWasSelected () < wallFinalToInitialPositionTime) {
+					float lerp = Mathfx.Hermite (0, wallFinalToInitialPositionTime, this.getTimeSinceStateWasSelected ()/wallFinalToInitialPositionTime);
+					transform.position = Vector3.Lerp (finaPosition, startPosition, lerp/wallFinalToInitialPositionTime);
 				} else {
 					state = STATE_RANDOM_MOVE;
 				}
