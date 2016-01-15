@@ -42,7 +42,7 @@ public class GlobeControl : MonoBehaviour {
 	/**
 	 * If the globe rotation is locked
 	 */ 
-	private bool lockGlobe = true;
+	private bool isGlobeLocked = false;
 
 	/**
 	 * Min globe force to actually change the globe position when the user is on street view
@@ -70,7 +70,7 @@ public class GlobeControl : MonoBehaviour {
 
 		circularSumQueue.addItem (Mathf.Abs(inputRotation));
 
-		if (lockGlobe == false) {
+		if (isGlobeLocked == false) {
 			float deltaRotation = Mathf.Abs(transform.rotation.eulerAngles.y - lastGlobeRotation);
 			transform.Rotate(0, (rotationSpeed * inputRotation * (-1)), 0, Space.Self);
 			lastGlobeRotation = transform.rotation.eulerAngles.y;
@@ -150,7 +150,7 @@ public class GlobeControl : MonoBehaviour {
 		journeyControl.setInitial(null);
 		updatePin (currentPlace, null);
 
-		lockGlobe = true;
+		isGlobeLocked = false;
 
 		rotateGlobeToRotation (0);
 
@@ -171,7 +171,7 @@ public class GlobeControl : MonoBehaviour {
 	 * Exit the globe to street view
 	 */ 
 	public void exitGlobe() {
-		lockGlobe = false;
+		turnGlobeRotationOff ();
 		this.stopAmbientMusic ();
 	}
 
@@ -179,7 +179,7 @@ public class GlobeControl : MonoBehaviour {
 	 * Lock the globe rotation
 	 */ 
 	public void turnGlobeRotationOff() {
-		lockGlobe = false;
+		isGlobeLocked = true;
 	}
 
 	/**

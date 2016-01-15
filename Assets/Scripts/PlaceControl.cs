@@ -27,7 +27,9 @@ public class PlaceControl : MonoBehaviour {
 		renderer.material = material;
 	}
 
-
+	/**
+	 * TODO: Fade in the street view?
+	 */ 
 	public void fadeIn() {
 
 	}
