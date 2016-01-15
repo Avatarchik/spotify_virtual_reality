@@ -16,8 +16,10 @@ public class Place {
 	float initialCameraRotation;
 	float songMaxTime;
 
+	string color;
 
-	public Place(string code, float position, float initialCameraRotation, float songMaxTime, string name, string location, string songTitle, string songArtist) {
+
+	public Place(string code, float position, float initialCameraRotation, float songMaxTime, string name, string location, string songTitle, string songArtist, string color) {
 		this.code = code;
 		this.position = position;
 		this.initialCameraRotation = initialCameraRotation;
@@ -26,7 +28,7 @@ public class Place {
 		this.location = location;
 		this.songTitle = songTitle;
 		this.songArtist = songArtist;
-
+		this.color = color;
 		loadSound ();
 		loadMaterial ();
 	}
@@ -75,4 +77,7 @@ public class Place {
 		return songMaxTime;
 	}
 
+	public string getColor() {
+		return color;
+	}
 }

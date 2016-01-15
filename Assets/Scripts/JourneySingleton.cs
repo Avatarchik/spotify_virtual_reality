@@ -10,38 +10,38 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	private float defaultTime = 30;
 
 	protected JourneySingleton() {
-		addPlace ("Isla_Mujeres", 3, 199, defaultTime, "Catlin Seaview Survey", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder");
-		addPlace ("Times", 13, 325, defaultTime, "Times Square", "New York", "empire state of mind", "jayz");
-		addPlace ("Salar", 30, 270, defaultTime, "Salar", "", "White", "Frank Ocean- (feat. John Mayer)");
-		addPlace ("Iceberg", 40, 200, defaultTime, "Auyuittuq National Park", "", "Wake Up", "arcade");
-		addPlace ("Geleira", 45, 230, defaultTime, "", "Groelandia", "Easy", "Son Lux");
-		addPlace ("Natal_Arte", 55, 270, defaultTime, "Arte em Natal", "Natal", "Song", "Artist");
-		addPlace ("Islandia", 75, 190, defaultTime, "", "Islandia", "Elephant Gun", "Beirut"); //-- music missing
-		addPlace ("Castelo", 86, 260, defaultTime, "", "Inglaterra", "Somebody to love", "Queen");
-		addPlace ("Veneza", 97, 180, defaultTime, "", "Itália", "James Bond Theme", "Moby");
-		addPlace ("Baby_Calf", 98, 45, defaultTime, "", "Noruega", "", "");
-		addPlace ("Pine_Lined_Road", 99, 260, defaultTime, "Pine-Lined Road", "Slovakia", "Sunny Road", "Emiliana Torrini");
-		addPlace ("Northern_Lights", 101, 180, defaultTime, "Northern Lights", "Rússia", "Aurora", "Runaway");
-		addPlace ("Grecia", 102, 0, defaultTime, "", "Grécia", "Hanging on", "Ellie Goulding");
-		addPlace ("Egito", 118, 335, defaultTime, "", "Egito", "Walk like an egyptian", "The Bangles");
-		addPlace ("Elefantinhos", 122, 190, defaultTime, "", "Kenya", "Circle-of-Life", "");
-		addPlace ("Castle", 145, 0, defaultTime, "", "Irão", "", "Bad Girls - M.I.A");
-		addPlace ("Kaindy", 152, 200, defaultTime, "", "Cazaquistão", "Into The Wild", "LP - ");
-		addPlace ("India", 169, 280, defaultTime, "", "India", "", "Mumford & Sons, Laura Marling, & Dharohar Project - Mehendi Rachi ");
-		addPlace ("Ta_Prohm", 194, 90, defaultTime, "", "Camboja", "", "Entrance, washed out (Kripalu Calm)");
-		addPlace ("Montanhas_Laranjas", 215, 170, defaultTime, "", "Austrália", "", "Tame Impala - Elephant ");
-		addPlace ("Takinoue", 225, 0, defaultTime, "", "Japão", "", "Zelda's Lullaby - Taylor Davis");
-		addPlace ("Cachu_Verdao", 230, 180, defaultTime, "", "Tasmânia", "", "Lupa J - Quiet Here ");
-		addPlace ("Heron_Island", 240, 180, defaultTime, "", "Austrália", "", "All Saints - Pure Shores");
-		addPlace ("Praia_Com_Estrelas", 245, 0, defaultTime, "", "", "True to myself ", "Ziggy Marley ");
-		addPlace ("Pinguins", 250, 245, defaultTime, "", "", "I Like To Move It", "Will.I.Am");
-		addPlace ("No_Meio_Da_Floresta", 264, 270, defaultTime, "", "Novazelândia", "", "Jasmine - Jai Paul");
-		addPlace ("Tartaruguinha", 267, 145, defaultTime, "", "Midway Islands", "Moonrise Swing", "La familia de Ukeleles");
-		addPlace ("Boiando", 271, 160, defaultTime, "", "Samoa Americana", "I'm Getting Ready", "Michael Kiwanuka");
-		addPlace ("Volcano_Hawaii", 292, 180, defaultTime, "", "Havaí", "", "Kuana Torres Kahele, Napua Greig, James Ford Murphy - Lava ");
-		addPlace ("Yosemite", 340, 180, defaultTime, "", "USA", "Hello", "Adele ");
-		addPlace ("Bryce_Canyon", 350, 235, defaultTime, "", "USA", "", "Bon Iver - Flume");
-		addPlace ("Champion_Island", 358, 225, defaultTime, "", "", "", " So good at being in trouble - Unknown mortal Orchestra");
+		addPlace ("Isla_Mujeres", 3, 199, defaultTime, "Museo Subacuatico de Arte", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder", "#E0E1E1");
+		addPlace ("Times", 13, 325, defaultTime, "Times Square", "Nova Iorque, EUA", "Empire State of Mind", "Jay Z, Alicia Keys", "#5be9ff");
+		addPlace ("Salar", 30, 270, defaultTime, "Salar de Uyuni", "Bolívia", "White", "Frank Ocean, John Mayer", "#FEFFC5");
+		addPlace ("Iceberg", 40, 200, defaultTime, "Parque Nacional Auyuittuq", "Nunavut, Canadá", "Wake Up", "Arcade Fire", "#448887");
+		addPlace ("Geleira", 45, 230, defaultTime, "Geleira de Ilulissat", "Groenlândia", "Easy", "Son Lux", "#E8DACD");
+		addPlace ("Natal_Arte", 55, 270, defaultTime, "Natal na Copa", "Natal, Brasil", "Eu Quero é Botar Meu Bloco na Rua", "Sérgio Sampaio", "#10B0A1");
+		addPlace ("Islandia", 75, 190, defaultTime, "Skógafoss", "Islândia", "Elephant Gun", "Beirut", "#808A24"); //-- music missing
+		addPlace ("Castelo", 86, 260, defaultTime, "Castelo de Raglan", "País de Gales, Reino Unido", "Somebody to Love", "Queen", "#A38D75");
+		addPlace ("Veneza", 97, 180, defaultTime, "Canal de Veneza", "Veneza, Itália", "James Bond Theme", "Moby", "#db3469");
+		addPlace ("Baby_Calf", 98, 45, defaultTime, "Östergötland", "Suécia", "Drive On", "Johnny Cash", "#A3A262");
+		addPlace ("Pine_Lined_Road", 99, 260, defaultTime, "Rodovia 537", "Vysoké Tatry, Eslováquia", "Sunny Road", "Emiliana Torrini", "#4E5D26");
+		addPlace ("Northern_Lights", 101, 180, defaultTime, "Lago Pitkäjärvi", "Finlândia", "Runaway", "Aurora", "#31d6af");
+		addPlace ("Grecia", 102, 0, defaultTime, "Ilha de Hydra", "Grécia", "Hanging on", "Ellie Goulding", "#e8b47d");
+		addPlace ("Egito", 118, 335, defaultTime, "Pirâmides de Gizé", "Cairo, Egito", "Walk Like an Egyptian", "The Bangles", "#a3580e");
+		addPlace ("Elefantinhos", 122, 190, defaultTime, "Samburu National Reserve", "Quênia", "Circle of Life", "Carmen Twillie, Lebo M.", "#A89786");
+		addPlace ("Castle", 145, 0, defaultTime, "Castelo de Saryazd", "Irã", "Bad Girls", "M.I.A", "#AAA5A0");
+		addPlace ("Kaindy", 152, 200, defaultTime, "Lago Kaindy", "Cazaquistão", "Into The Wild", "LP", "#358993");
+		addPlace ("India", 169, 280, defaultTime, "Man Singh Observatório", "Índia", "Mumford & Sons, Dharohar Project", "Mehendi Rachi", "#cc6a1a");
+		addPlace ("Ta_Prohm", 194, 90, defaultTime, "Ta Prohm", "Siem Reap, Camboja", "Entrance", "Washed Out", "#d69335");
+		addPlace ("Montanhas_Laranjas", 215, 170, defaultTime, "Parque Nacional Karlamilyi", "Austrália", "Elephant", "Tame Impala", "#F46E3C");
+		addPlace ("Takinoue", 225, 0, defaultTime, "Parque Takinoue", "Hokkaidou , Japão", "Zelda's Lullaby", "Taylor Davis", "#D673B6");
+		addPlace ("Cachu_Verdao", 230, 180, defaultTime, "Wes Beckett Falls", "Tasmânia, Austrália", "Lupa J", "Quiet Here", "#2CAE24");
+		addPlace ("Heron_Island", 240, 180, defaultTime, "Ilha Heron", "Queensland, Austrália", "Pure Shores", "All Saints", "#5A92C1");
+		addPlace ("Praia_Com_Estrelas", 245, 0, defaultTime, "Ilha de Lord Howe", "Tasmânia, Austrália", "True to myself ", "Ziggy Marley", "#F1FBFE");
+		addPlace ("Pinguins", 250, 245, defaultTime, "Cape Royds", "Ilha de Ross, Antártida", "I Like To Move It", "Will.I.Am", "#E9E9EB");
+		addPlace ("No_Meio_Da_Floresta", 264, 270, defaultTime, "Trilha de Kepler", "Parque Nacional de Fiordland, Nova Zelândia", "Jasmine", "Jai Paul", "#006b4a");
+		addPlace ("Tartaruguinha", 267, 145, defaultTime, "Atol Pearl e Hermes", "Havaí, EUA", "Moonrise Swing", "La familia de Ukeleles", "#009b67");
+		addPlace ("Boiando", 271, 160, defaultTime, "Tafeu Cove", "Samoa Americana, EUA", "I'm Getting Ready", "Michael Kiwanuka", "#209CCF");
+		addPlace ("Volcano_Hawaii", 292, 180, defaultTime, "Vulcão Kilauea", "Havaí, EUA", "Lava", "Kuana Torres Kahele, Napua Greig, James Ford Murphy", "#ECF3EB");
+		addPlace ("Yosemite", 340, 180, defaultTime, "Parque Nacional de Yosemite", "Califórnia, EUA", "Hello", "Adele ", "#7CA0DC");
+		addPlace ("Bryce_Canyon", 350, 235, defaultTime, "Parque Nacional de Bryce Canyon", "Utah, EUA", "Flume", "Bon Iver", "#ED6938");
+		addPlace ("Champion_Island", 358, 225, defaultTime, "Ilha Champion", "Galápagos, Equador", "Unknown Mortal Orchestra", " So Good at Being in Trouble", "#1485AF");
 
 	} // guarantee this will be always a singleton only - can't use the constructor!
 
@@ -51,8 +51,8 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		return (Place)placeHashTable [keys[index]];
 	}
 
-	private void addPlace(string code, float position, float initialCameraPosition = 0, float songMaxTime = 35, string name = null, string location = null, string songTitle = null, string songArtist = null) {
-		Place place = new Place(code, position, initialCameraPosition, songMaxTime, name, location, songTitle, songArtist);
+	private void addPlace(string code, float position, float initialCameraPosition = 0, float songMaxTime = 35, string name = null, string location = null, string songTitle = null, string songArtist = null, string color = null) {
+		Place place = new Place(code, position, initialCameraPosition, songMaxTime, name, location, songTitle, songArtist, color);
 		placeHashTable.Add(place.getCode(), place);
 	}
 
