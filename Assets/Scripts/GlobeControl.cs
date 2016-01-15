@@ -152,7 +152,7 @@ public class GlobeControl : MonoBehaviour {
 
 		isGlobeLocked = false;
 
-		rotateGlobeToRotation (0);
+		putGlobeOnRotation (0);
 
         JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
@@ -165,6 +165,13 @@ public class GlobeControl : MonoBehaviour {
 		float rotate = rotation - gameObject.transform.rotation.eulerAngles.y;
 
 		transform.Rotate(0, rotate, 0, Space.Self);
+	}
+
+	/**
+	 * Rotate the globe to the required rotation
+	 */ 
+	private void putGlobeOnRotation(float rotation) {
+		transform.Rotate(0, rotation, 0, Space.Self);
 	}
 
 	/**

@@ -36,6 +36,10 @@ public class JourneyControl : BaseMachine {
 	 */
 	int journeyPlacesCount = 0;
 
+	/**
+	 * total journey place
+	 */ 
+	public int totalPlacesOnJourney = 3;
 
 	/**
 	 * The journey max time
@@ -120,10 +124,10 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		case STATE_JOURNEY:
-			if (audioControl.audioIsFinishing () || globeControl.isGlobeRotating()) {
+			if (audioControl.audioIsFinishing () || (globeControl.isGlobeRotating() && audioControl.minTimeRespected() == true)) {
                 float timeDiff = Time.time - timeWhenJourneyStarts;
 				journeyPlacesCount++;
-				if (journeyPlacesCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime) {
+				if (journeyPlacesCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime && journeyPlacesCount < totalPlacesOnJourney) {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;

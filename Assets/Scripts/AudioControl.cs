@@ -134,5 +134,11 @@ public class AudioControl : BaseMachine {
 		this.audioSource.Stop ();
 	}
 
+	public bool minTimeRespected() {
+		if (audioSource.time > 5) {
+			return true;
+		}
+		return false;
+	}
 
 }
