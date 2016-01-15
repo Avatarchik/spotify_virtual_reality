@@ -158,7 +158,7 @@ public class JourneyControl : BaseMachine {
 		globeControl.returnToGlobe ();
 		audioControl.stop ();
 		cameraChanger.changeToGlobe();
-		placeTextControl.setActive (false);
+		//placeTextControl.setActive (false);
 		this.state = STATE_NAVIGATING;
 	}
 
@@ -172,7 +172,7 @@ public class JourneyControl : BaseMachine {
 		this.audioControl.playAudio();
 		this.placeControl.setPlace (place.getCode());
 
-		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
+		//placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
 	}
 
 	/**
@@ -198,7 +198,7 @@ public class JourneyControl : BaseMachine {
 	public void startJourney() {
 		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
-		placeTextControl.setActive (true);
+		//placeTextControl.setActive (true);
 		this.placeControl.applyMaterial ();
 		this.audioControl.playFullAudio ();
 	}
