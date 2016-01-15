@@ -80,7 +80,7 @@ public class JourneyControl : BaseMachine {
 		case STATE_SELECTED_NOISE:
 			PinControl pinControl1 = JourneySingleton.Instance.getCurrentPin ();
 			if (pinControl1.isPinShinning () == false) {
-				globeControl.turnGlobeRotationOff ();
+				globeControl.lockGlobeRotation (true);
 				globeControl.resetPin ();
 				movieControlGlobe.fadeIn ();
 				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_EXPAND_SPHERIC_MOVE);
@@ -152,6 +152,8 @@ public class JourneyControl : BaseMachine {
 		if (Input.GetMouseButton(1)){
 			Debug.Log("VR Recenter");
 			InputTracking.Recenter();
+			PinControl.setAllPinsVisibility (true);
+			globeControl.lockGlobeRotation (false);
 		}
 	}
 

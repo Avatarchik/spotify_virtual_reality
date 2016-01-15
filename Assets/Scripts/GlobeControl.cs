@@ -150,12 +150,12 @@ public class GlobeControl : MonoBehaviour {
 		journeyControl.setInitial(null);
 		updatePin (currentPlace, null);
 
-		isGlobeLocked = false;
-
 		putGlobeOnRotation (0);
 
         JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
+
+		PinControl.setAllPinsVisibility (false);
 	}
 
 	/**
@@ -178,15 +178,15 @@ public class GlobeControl : MonoBehaviour {
 	 * Exit the globe to street view
 	 */ 
 	public void exitGlobe() {
-		turnGlobeRotationOff ();
+		lockGlobeRotation (true);
 		this.stopAmbientMusic ();
 	}
 
 	/**
 	 * Lock the globe rotation
 	 */ 
-	public void turnGlobeRotationOff() {
-		isGlobeLocked = true;
+	public void lockGlobeRotation(bool lockGlobe) {
+		isGlobeLocked = lockGlobe;
 	}
 
 	/**

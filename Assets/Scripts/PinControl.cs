@@ -39,8 +39,14 @@ public class PinControl : MonoBehaviour {
 
     GameObject pyramid_1;
     GameObject pyramid_2;
+
+	static GameObject[] pins;
     // Use this for initialization
     void Start () {
+		if (pins == null) {
+			pins = GameObject.FindGameObjectsWithTag ("Pins");
+		}
+
 		this.lightGameObj = this.gameObject.transform.Find ("Light").gameObject;
 		this.light = this.lightGameObj.GetComponent<Light>();
 		this.audioSource = this.lightGameObj.GetComponent<AudioSource>();
@@ -240,6 +246,16 @@ public class PinControl : MonoBehaviour {
 			}
 
 			return true;
+		}
+	}
+
+	public void setVisibility(bool visible){
+		this.gameObject.SetActive (visible);
+	}
+
+	public static void setAllPinsVisibility(bool visible) {
+		foreach (GameObject pin in pins) {
+			pin.gameObject.GetComponent<PinControl> ().setVisibility (visible);
 		}
 	}
 
