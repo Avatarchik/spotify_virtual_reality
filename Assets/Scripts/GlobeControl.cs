@@ -4,12 +4,6 @@ using System.Collections.Generic;
 
 
 public class GlobeControl : MonoBehaviour {
-	public JourneyControl journeyControl;
-	public int speed;
-	private bool updateGlobe = true;
-	public float minGlobeForce;
-	public float pinSelectionRange = 2;
-
 	private class CircularSumQueue {
 		float sum = 0;
 		int maxSize;
@@ -36,16 +30,39 @@ public class GlobeControl : MonoBehaviour {
 		}
 	}
 
-	CircularSumQueue circularSumQueue = new CircularSumQueue(30);
-
+	private CircularSumQueue circularSumQueue = new CircularSumQueue(30);
 	private AudioSource audioSource;
+	public JourneyControl journeyControl;
+
+	/**
+	 * Globe rotation speed
+	 */ 
+	public int rotationSpeed;
+
+	/**
+	 * If the globe rotation is locked
+	 */ 
+	private bool lockGlobe = true;
+
+	/**
+	 * Min globe force to actually change the globe position when the user is on street view
+	 */ 
+	public float minGlobeForce;
+
+	/**
+	 * The degrees to consider if the pin is selected
+	 */ 
+	public float pinSelectionRange = 2;
+
+	bool modeRandom = false;
+	float lastGlobeRotation = 0;
+
+
 	void Start() {
 		this.audioSource = GetComponent<AudioSource>();
 	}
 
-	bool modeRandom = false;
 
-	float lastGlobeRotation = 0;
 
 	// Update is called once per frame
 	void Update () {
@@ -53,9 +70,9 @@ public class GlobeControl : MonoBehaviour {
 
 		circularSumQueue.addItem (Mathf.Abs(inputRotation));
 
-		if (updateGlobe) {
+		if (lockGlobe == false) {
 			float deltaRotation = Mathf.Abs(transform.rotation.eulerAngles.y - lastGlobeRotation);
-            transform.Rotate(0, (speed * inputRotation * (-1)), 0, Space.Self);
+			transform.Rotate(0, (rotationSpeed * inputRotation * (-1)), 0, Space.Self);
 			lastGlobeRotation = transform.rotation.eulerAngles.y;
             Place newPlace = JourneySingleton.Instance.getPlace (gameObject.transform.rotation.eulerAngles.y, pinSelectionRange);
 			Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
@@ -81,6 +98,9 @@ public class GlobeControl : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * Return if the globe is still in movement
+	 */
 	public bool isGlobeRotating() {
 		if(circularSumQueue.getSum () > minGlobeForce) {
 			return true;
@@ -88,6 +108,9 @@ public class GlobeControl : MonoBehaviour {
 		return false;
 	}
 
+	/**
+	 * Update the current selected pin
+	 */ 
 	private void updatePin(Place oldPlace, Place currentPlace) {
 		if (oldPlace != null) {
 			GameObject oldPin = GameObject.Find ("Pin_" + oldPlace.getCode());
@@ -105,43 +128,63 @@ public class GlobeControl : MonoBehaviour {
 		}
 	}
 
+	/**
+	 * Stop the ambient musick
+	 */
 	private void stopAmbientMusic() {
 		audioSource.Stop ();
 	}
 
+	/**
+	 * Start the ambient music
+	 */ 
 	private void startAmbientMusic() {
 		audioSource.Play ();
 	}
 
+	/**
+	 * Return to globe after a street view journey
+	 */ 
 	public void returnToGlobe() {
 		Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
 		journeyControl.setInitial(null);
 		updatePin (currentPlace, null);
 
-		updateGlobe = true;
+		lockGlobe = true;
 
-
-		rotateGlobeToRotation (320);
+		rotateGlobeToRotation (0);
 
         JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
 	}
 
+	/**
+	 * Rotate the globe to the required rotation
+	 */ 
 	private void rotateGlobeToRotation(float rotation) {
 		float rotate = rotation - gameObject.transform.rotation.eulerAngles.y;
 
 		transform.Rotate(0, rotate, 0, Space.Self);
 	}
 
+	/**
+	 * Exit the globe to street view
+	 */ 
 	public void exitGlobe() {
-		updateGlobe = false;
+		lockGlobe = false;
 		this.stopAmbientMusic ();
 	}
 
+	/**
+	 * Lock the globe rotation
+	 */ 
 	public void turnGlobeRotationOff() {
-		updateGlobe = false;
+		lockGlobe = false;
 	}
 
+	/**
+	 * Reset current pin
+	 */ 
 	public void resetPin() {
 		Place currentPlace = JourneySingleton.Instance.getCurrentPlace ();
 		if (currentPlace != null) {

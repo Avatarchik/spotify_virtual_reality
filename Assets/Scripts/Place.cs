@@ -2,10 +2,26 @@
 using System.Collections;
 
 public class Place {
+	/**
+	 * Code of this place
+	 */ 
 	string code;
+
+	/**
+	 * Y coordinate of the place position on the world globe
+	 */ 
 	float position;
+
+	/**
+	 * Audio clip, the music, of this place
+	 */ 
 	AudioClip audioClip;
+
+	/**
+	 * The streetview material of this place
+	 */ 
 	Material material;
+
 
 	string name;
 	string location;
@@ -13,9 +29,19 @@ public class Place {
 	string songTitle;
 	string songArtist;
 
+	/**
+	 * The initial street view camera rotation
+	 */
 	float initialCameraRotation;
+
+	/**
+	 * The max lenght of the song
+	 */ 
 	float songMaxTime;
 
+	/**
+	 * The rgb color of the leds
+	 */ 
 	string color;
 
 

@@ -3,24 +3,6 @@ using System.Collections;
 using UnityEngine.VR;
 
 public class JourneyControl : BaseMachine {
-	private AudioControl audioControl;
-	private PlaceControl placeControl;
-	public GlobeControl globeControl;
-	public CameraChanger cameraChanger;
-	public PlayMovieOnSpace movieControlGlobe;
-	public JourneyEndControl journeyEndControl;
-	public PlaceTextControl placeTextControl;
-
-
-	private float timeWhenJourneyStarts;
-	public float journeyMaxTime = 3*30;
-
-
-	int journeyCount = 0;
-
-	const int TOTAL_RANDOM_PLACES = 20;
-	private string []journeyPlaces = new string[TOTAL_RANDOM_PLACES];
-
 	private const string STATE_NAVIGATING = "STATE_NAVIGATING";
 	private const string STATE_PRE_SELECTED = "STATE_PRE_SELECTED";
 	private const string STATE_SELECTED_NOISE = "STATE_SELECTED_NOISE";
@@ -31,6 +13,41 @@ public class JourneyControl : BaseMachine {
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE = "STATE_PREPARE_TO_RETURN_TO_GLOBE";
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS = "STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS";
 
+	private AudioControl audioControl;
+	private PlaceControl placeControl;
+	public GlobeControl globeControl;
+	public CameraChanger cameraChanger;
+	public PlayMovieOnSpace movieControlGlobe;
+	public JourneyEndControl journeyEndControl;
+	public PlaceTextControl placeTextControl;
+
+	/**
+	 * Controls the serial port comunication. Leds rule! 
+	 */
+	private SerialController serialController;
+
+	/**
+	 * Time when the user starts the journey
+	 */ 
+	private float timeWhenJourneyStarts;
+
+	/**
+	 * How many places the user have been
+	 */
+	int journeyPlacesCount = 0;
+
+
+	/**
+	 * The journey max time
+	 */ 
+	public float journeyMaxTime = 3*30;
+
+	/**
+	 * Number of places to randomize
+	 */ 
+	const int TOTAL_RANDOM_PLACES = 32;
+	private string []journeyPlaces = new string[TOTAL_RANDOM_PLACES];
+
 	public JourneyControl(): base(false) {
 
 	}
@@ -40,16 +57,12 @@ public class JourneyControl : BaseMachine {
 		this.audioControl = GetComponent<AudioControl> ();
 		this.placeControl = GetComponent<PlaceControl> ();
 	}
-
+		
 	// Update is called once per frame
 	void Update () {
 		base.Update ();
 
-
-		if (Input.GetKeyUp(KeyCode.B)){
-			Debug.Log("VR Recenter");
-			InputTracking.Recenter();
-		}
+		checkMouseButtonAction ();
 
 
 		switch (this.getState ()) {
@@ -74,7 +87,7 @@ public class JourneyControl : BaseMachine {
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
 				this.startJourney ();
 				randomizeNext ();
-				cameraChanger.changeCamera ();
+				cameraChanger.changeToStreetView ();
 				this.state = STATE_JOURNEY_START;
                 timeWhenJourneyStarts = Time.time;
             }
@@ -86,7 +99,7 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
-				setJourneyPlace (JourneySingleton.Instance.getPlace (journeyPlaces [journeyCount]));
+				setCurrentJourneyPlace (JourneySingleton.Instance.getPlace (journeyPlaces [journeyPlacesCount]));
 				startJourney ();
 				this.state = STATE_JOURNEY_START;
 				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_INITIAL_POSITION);
@@ -109,14 +122,14 @@ public class JourneyControl : BaseMachine {
 		case STATE_JOURNEY:
 			if (audioControl.audioIsFinishing () || globeControl.isGlobeRotating()) {
                 float timeDiff = Time.time - timeWhenJourneyStarts;
-                journeyCount++;
-				if (journeyCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime) {
+				journeyPlacesCount++;
+				if (journeyPlacesCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime) {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
 				} else {
 					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
-					prepareToGoToGlobe ();
+					movieControlGlobe.fadeIn ();
 				}
 			}
 				
@@ -126,22 +139,48 @@ public class JourneyControl : BaseMachine {
 			break;
 		}
 	}
-
-	public void prepareToGoToGlobe() {
-		movieControlGlobe.fadeIn ();
+		
+	/**
+	 * Check if mouse button was clicked and do the correct actions
+	 */
+	private void checkMouseButtonAction() {
+		//button values are 0 for left button, 1 for right button, 2 for the middle button.
+		if (Input.GetMouseButton(1)){
+			Debug.Log("VR Recenter");
+			InputTracking.Recenter();
+		}
 	}
 
-	public void goToGlobe() {
-		
+	/**
+	 * Return to globe
+	 */ 
+	private void goToGlobe() {
 		globeControl.returnToGlobe ();
 		audioControl.stop ();
-		cameraChanger.changeCamera ();
+		cameraChanger.changeToGlobe();
 		placeTextControl.setActive (false);
 		this.state = STATE_NAVIGATING;
 	}
 
+	/**
+	 * Set the current place of our jorney
+	 */ 
+	private void setCurrentJourneyPlace(Place place) {
+		JourneySingleton.Instance.setCurrentPlace (place);
+
+		// start the audio of the selected index
+		this.audioControl.playAudio();
+		this.placeControl.setPlace (place.getCode());
+
+		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
+	}
+
+	/**
+	 * Set the initial place of our jorney
+	 */ 
 	public void setInitial(Place place) {
-		journeyCount = 0;
+		// reset the places counts
+		journeyPlacesCount = 0;
 		if (place == null) {
 			this.state = STATE_NAVIGATING;
 			audioControl.stop ();
@@ -149,12 +188,26 @@ public class JourneyControl : BaseMachine {
 			return;
 		}
         this.state = STATE_PRE_SELECTED;
-		setJourneyPlace (place);
+		setCurrentJourneyPlace (place);
 	}
 
+
+	/**
+	 * Start our jorney 
+	 */
+	public void startJourney() {
+		cameraChanger.updateCameraRotationStreetView ();
+		globeControl.exitGlobe ();
+		placeTextControl.setActive (true);
+		this.placeControl.applyMaterial ();
+		this.audioControl.playFullAudio ();
+	}
+
+	/**
+	 * Fill the places of journey user 
+	 */ 
 	public void randomizeNext() {
 		journeyPlaces [0] = JourneySingleton.Instance.getCurrentPlace ().getCode ();
-
 		for (int i = 1; i < TOTAL_RANDOM_PLACES; i++) {
 			addNewRandomizedPlace (i);
 		}
@@ -174,25 +227,5 @@ public class JourneyControl : BaseMachine {
 			}
 		}
 		journeyPlaces [index] = place.getCode ();
-	}
-
-
-
-	private void setJourneyPlace(Place place) {
-		JourneySingleton.Instance.setCurrentPlace (place);
-
-		// start the audio of the selected index
-		this.audioControl.playAudio();
-		this.placeControl.setPlace (place.getCode());
-
-		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
-	}
-
-	public void startJourney() {
-		cameraChanger.updateCameraRotationStreetView ();
-		globeControl.exitGlobe ();
-		placeTextControl.setActive (true);
-		this.placeControl.applyMaterial ();
-		this.audioControl.playFullAudio ();
 	}
 }

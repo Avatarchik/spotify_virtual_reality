@@ -2,7 +2,7 @@
 using System.Collections;
 using System.IO.Ports;
 
-public class SerialController : MonoBehaviour {
+public class SerialController {
 
     public enum ComPorts
     {

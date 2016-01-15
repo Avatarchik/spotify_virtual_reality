@@ -15,6 +15,10 @@ public class CameraChanger : MonoBehaviour {
 		
 	}
 
+	/**
+	 * Change camera position to street view
+	 * also change the scale *** Felipes hack ;)
+	 */ 
 	public void changeToStreetView() {
 		//0, 0, -4000
 		camera.transform.position = new Vector3(0, 7f, -4000);
@@ -24,18 +28,26 @@ public class CameraChanger : MonoBehaviour {
 
     }
 
+	/**
+	 * Change camera position to world globe
+	 * also change the scale *** Felipes hack ;)
+	 */ 
+	public void changeToGlobe() {
+		//0, 155, -51
+		camera.transform.position = new Vector3(0, 155, -51f);
+		camera.transform.localScale = new Vector3(100, 100, 100);
+		camera.transform.rotation = Quaternion.Euler(camera.transform.rotation.x, 0, camera.transform.rotation.z);
+	}
+
+	/**
+	 * Update camera rotation with the initial street view look
+	 */ 
 	public void updateCameraRotationStreetView() {
 		Place place = JourneySingleton.Instance.getCurrentPlace ();
 		camera.transform.rotation = Quaternion.Euler(camera.transform.rotation.x,place.getInitialCameraRotation (),camera.transform.rotation.z);
 	}
 
-	public void changeToGlobe() {
-		//0, 155, -51
-		camera.transform.position = new Vector3(0, 155, -51f);
-        camera.transform.localScale = new Vector3(100, 100, 100);
-        camera.transform.rotation = Quaternion.Euler(camera.transform.rotation.x, 0, camera.transform.rotation.z);
-    }
-
+	/*
 	public void changeCamera() {
 		if (isCameraOnGlobe) {
 			isCameraOnGlobe = false;
@@ -44,5 +56,5 @@ public class CameraChanger : MonoBehaviour {
 			isCameraOnGlobe = true;
 			changeToGlobe ();
 		}
-	}
+	}*/
 }
