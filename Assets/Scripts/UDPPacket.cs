@@ -37,6 +37,15 @@ public class UDPPacket
         this.putPlaceCode(placeCode);
     }
 
+    public UDPPacket(int type)
+    {
+        stream = new MemoryStream();
+        streamWriter = new BinaryWriter(stream);
+        streamWriter.Write(type);
+
+        this.type = type;
+    }
+
     public string getPlaceCode()
     {
         return placeCode;

@@ -83,8 +83,7 @@ public class UDPSend : MonoBehaviour
         print("UDPSend.init()");
 
         // define
-        IP = "127.0.0.1";
-        port = 8051;
+        IP = "10.0.1.85";
 
         // ----------------------------
         // Senden

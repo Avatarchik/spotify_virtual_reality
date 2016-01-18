@@ -13,10 +13,16 @@ public class ConfigControl : MonoBehaviour {
             GameObject gameObject = GameObject.Find("StreetViewSphere");
             gameObject.GetComponent<JourneyClientControl>().enabled = true;
             gameObject.GetComponent<JourneyControl>().enabled = false;
+            gameObject.GetComponent<UDPReceive>().enabled = true;
 
             gameObject = GameObject.Find("WorldGlobe");
             gameObject.GetComponent<GlobeControl>().enabled = false;
 
+        }
+        else
+        {
+            GameObject gameObject = GameObject.Find("StreetViewSphere");
+            gameObject.GetComponent<UDPSend>().enabled = true;
         }
     }
 	

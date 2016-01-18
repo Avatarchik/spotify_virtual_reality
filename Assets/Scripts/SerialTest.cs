@@ -20,7 +20,7 @@ public class SerialTest : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.S))
         {
             Debug.Log("testSerial");
-            serialController.testSerial(SerialController.ComPorts.FURNITURE_COM_PORT_1);
+            serialController.setColour(SerialController.ComPorts.FURNITURE_COM_PORT_1, "R100G150B255");
         }
 	}
 }

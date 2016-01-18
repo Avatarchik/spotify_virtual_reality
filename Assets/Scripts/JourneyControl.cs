@@ -188,7 +188,11 @@ public class JourneyControl : BaseMachine {
 		cameraChanger.changeToGlobe();
 		placeTextControl.setActive (false);
 		this.state = STATE_NAVIGATING;
-	}
+
+
+        UDPPacket packet = new UDPPacket(UDPPacket.GLOBE_PACKET);
+        udpSend.sendData(packet);
+    }
 
 	/**
 	 * Set the current place of our jorney

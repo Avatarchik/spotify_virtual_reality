@@ -5,6 +5,7 @@ public class JourneyClientControl : MonoBehaviour {
     private UDPReceive udpReceive;
     private PlaceControl placeControl;
     public CameraChanger cameraChanger;
+    public PlayMovieOFf movieOff;
 
     // Use this for initialization
     void Start () {
@@ -12,6 +13,7 @@ public class JourneyClientControl : MonoBehaviour {
         this.placeControl = GetComponent<PlaceControl>();
 
         cameraChanger.changeToStreetView();
+        movieOff.startMovie();
     }
 
     // Update is called once per frame
@@ -32,9 +34,10 @@ public class JourneyClientControl : MonoBehaviour {
                     }
 
                     cameraChanger.updateCameraRotation(packet.getQuarternion());
+                    movieOff.stopMovie();
                     break;
                 case UDPPacket.GLOBE_PACKET:
-
+                    movieOff.startMovie();
                     break;
             }
 
