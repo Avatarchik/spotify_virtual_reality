@@ -23,8 +23,7 @@ public class JourneyClientControl : MonoBehaviour {
         {
             UDPPacket packet = new UDPPacket(stream);
 
-            Debug.Log("udpReceive: " + stream);
-            switch (packet.getType())
+             switch (packet.getType())
             {
                 case UDPPacket.STREET_VIEW_PACKET:
                     if (packet.getPlaceCode().CompareTo(placeControl.getMaterialName()) != 0)

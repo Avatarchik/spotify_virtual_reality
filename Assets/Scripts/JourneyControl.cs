@@ -81,6 +81,8 @@ public class JourneyControl : BaseMachine {
         UDPPacket packet = new UDPPacket(UDPPacket.STREET_VIEW_PACKET, Camera.main.transform.rotation, placeCode);
         udpSend.sendData(packet);
     }
+
+    bool sendUpdateToClient = false;
 		
 	// Update is called once per frame
 	void Update () {
@@ -88,8 +90,11 @@ public class JourneyControl : BaseMachine {
 
         checkMouseButtonAction ();
 
-        sendCameraUpdate();
-
+        if (sendUpdateToClient)
+        {
+            sendCameraUpdate();
+        }
+        
         switch (this.getState ()) {
 		case STATE_PRE_SELECTED:
             if (audioControl.getState() == AudioControl.STATE_FADE_OUT) {
@@ -189,6 +194,7 @@ public class JourneyControl : BaseMachine {
 		placeTextControl.setActive (false);
 		this.state = STATE_NAVIGATING;
 
+        sendUpdateToClient = false;
 
         UDPPacket packet = new UDPPacket(UDPPacket.GLOBE_PACKET);
         udpSend.sendData(packet);
@@ -232,8 +238,7 @@ public class JourneyControl : BaseMachine {
 		globeControl.exitGlobe ();
 
 
-
-        //udpSend.sendString(UDPPacket.createGoToStreetView(JourneySingleton.Instance.getCurrentPlace().getCode()));
+        sendUpdateToClient = true;
 
         placeTextControl.setActive (true);
 		this.placeControl.applyMaterial ();

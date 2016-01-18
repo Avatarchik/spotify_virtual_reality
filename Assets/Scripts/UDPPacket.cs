@@ -57,8 +57,14 @@ public class UDPPacket
         streamReader = new BinaryReader(stream);
 
         this.type = streamReader.ReadInt32();
-        this.quaternion = new Quaternion(streamReader.ReadSingle(), streamReader.ReadSingle(), streamReader.ReadSingle(), streamReader.ReadSingle());
-        this.placeCode = streamReader.ReadString();
+        switch(this.type)
+        {
+            case STREET_VIEW_PACKET:
+                this.quaternion = new Quaternion(streamReader.ReadSingle(), streamReader.ReadSingle(), streamReader.ReadSingle(), streamReader.ReadSingle());
+                this.placeCode = streamReader.ReadString();
+                break;
+
+        }
     }
 
     private void putQuarternion(Quaternion quarternion) 
