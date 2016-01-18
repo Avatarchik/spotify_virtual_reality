@@ -127,6 +127,20 @@ public class UDPSend : MonoBehaviour
 
     }
 
+    public void sendData(UDPPacket packet)
+    {
+        try {
+            Byte[] bytes = packet.getByteArray();
+
+
+            client.Send(bytes, bytes.Length, remoteEndPoint);
+                    }
+        catch (Exception err)
+        {
+            print(err.ToString());
+        }
+    }
+
     // sendData
     public void sendString(string message)
     {

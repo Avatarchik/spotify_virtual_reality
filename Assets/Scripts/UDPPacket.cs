@@ -6,47 +6,76 @@ using System;
 public class UDPPacket
     {
     public const int INIT = 0x00;
-    public const int GO_TO_STREET_VIEW = 0x01;
-    public const int LOCK_SCREEN = 0x02;
-    public const int SHOW_MOVIE = 0x03;
-    public const int UPDATE_CAMERA = 0x04;
+    public const int STREET_VIEW_PACKET = 0x01;
+    public const int GLOBE_PACKET = 0x02;
 
-    public static int readPacket(string stream)
+
+    MemoryStream stream;
+    BinaryWriter streamWriter;
+    BinaryReader streamReader;
+
+    int type;
+    Quaternion quaternion;
+    string placeCode;
+
+    public int getType()
     {
-        return Convert.ToInt32(stream.Split('!')[0]);
+        return type;
     }
 
-    public static string createPacket(int code, string stream)
+    public UDPPacket(int type, Quaternion quaternion, string placeCode)
     {
-        return code + "!" + stream;
+        stream = new MemoryStream();
+        streamWriter = new BinaryWriter(stream);
+        streamWriter.Write(type);
+
+        this.type = type;
+        this.quaternion = quaternion;
+        this.placeCode = placeCode;
+
+        this.putQuarternion(quaternion);
+        this.putPlaceCode(placeCode);
     }
 
-    public static string createGoToStreetView(string code)
+    public string getPlaceCode()
     {
-        return createPacket(GO_TO_STREET_VIEW, code);
+        return placeCode;
     }
 
-    public static string getStreetViewCode(string stream)
+    public UDPPacket(byte[] bytes)
     {
-        return stream;
+        stream = new MemoryStream(bytes);
+        streamReader = new BinaryReader(stream);
+
+        this.type = streamReader.ReadInt32();
+        this.quaternion = new Quaternion(streamReader.ReadSingle(), streamReader.ReadSingle(), streamReader.ReadSingle(), streamReader.ReadSingle());
+        this.placeCode = streamReader.ReadString();
     }
 
-    //float rotationX, float rotationY, float rotationZ
-    public static string createUpdateCamera(Quaternion cameraRotation)
+    private void putQuarternion(Quaternion quarternion) 
     {
-        return createPacket(UPDATE_CAMERA, cameraRotation.x + "|" + cameraRotation.y + "|" + cameraRotation.z + "|" + cameraRotation.z);
+        streamWriter.Write(quarternion.x);
+        streamWriter.Write(quarternion.y);
+        streamWriter.Write(quarternion.z);
+        streamWriter.Write(quarternion.w);
     }
 
-    public static Quaternion readCameraUpdate(string stream)
+    public Quaternion getQuarternion()
     {
-        Quaternion cameraRotation = new Quaternion();
 
-        string[] streams = stream.Split('|');
-
-        cameraRotation.x = Convert.ToSingle(streams[0]);
-        cameraRotation.z = Convert.ToSingle(streams[1]);
-        cameraRotation.z = Convert.ToSingle(streams[2]);
-        cameraRotation.z = Convert.ToSingle(streams[3]);
-        return cameraRotation;
+        return quaternion; 
     }
+
+    private void putPlaceCode(String code)
+    {
+        streamWriter.Write(code);
+    }
+
+    public byte[] getByteArray()
+    {
+
+        streamWriter.Flush();
+        return stream.ToArray();
+    }
+
 }

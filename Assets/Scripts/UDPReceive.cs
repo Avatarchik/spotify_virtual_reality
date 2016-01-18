@@ -36,8 +36,8 @@ public class UDPReceive : MonoBehaviour
     public int port; // define > init
 
     // infos
-    public string lastReceivedUDPPacket = "";
-    public string allReceivedUDPPackets = ""; // clean up this from time to time!
+    byte[] lastReceivedUDPPacket;
+    byte[] allReceivedUDPPackets;
 
 
     // start from shell
@@ -116,14 +116,8 @@ public class UDPReceive : MonoBehaviour
                 // Bytes mit der UTF8-Kodierung in das Textformat kodieren.
                 string text = Encoding.UTF8.GetString(data);
 
-                // Den abgerufenen Text anzeigen.
-                print(">> " + text);
-
                 // latest UDPpacket
-                lastReceivedUDPPacket = text;
-
-                // ....
-                allReceivedUDPPackets = allReceivedUDPPackets + text;
+                lastReceivedUDPPacket = data;
 
             }
             catch (Exception err)
@@ -135,10 +129,14 @@ public class UDPReceive : MonoBehaviour
 
     // getLatestUDPPacket
     // cleans up the rest
-    public string getLatestUDPPacket()
+    public byte[] getLatestUDPPacket()
     {
-        allReceivedUDPPackets = "";
         return lastReceivedUDPPacket;
+    }
+
+    public void resetLastest()
+    {
+        lastReceivedUDPPacket = null;
     }
 
     void OnDisable()

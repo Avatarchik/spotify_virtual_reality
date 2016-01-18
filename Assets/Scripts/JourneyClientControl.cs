@@ -8,25 +8,39 @@ public class JourneyClientControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        udpReceive.enabled = true;
-
         this.udpReceive = GetComponent<UDPReceive>();
         this.placeControl = GetComponent<PlaceControl>();
 
         cameraChanger.changeToStreetView();
     }
-	
-	// Update is called once per frame
-	void Update () {
-        string stream = udpReceive.getLatestUDPPacket();
-        switch (UDPPacket.readPacket(stream))
+
+    // Update is called once per frame
+    void Update() {
+        byte[] stream = udpReceive.getLatestUDPPacket();
+        if (stream != null && stream.Length != 0)
         {
-            case UDPPacket.GO_TO_STREET_VIEW:
-                break;
-            case UDPPacket.UPDATE_CAMERA:
-                cameraChanger.updateCameraRotation(UDPPacket.readCameraUpdate(stream));
-                break;
-        }
+            UDPPacket packet = new UDPPacket(stream);
+
+            Debug.Log("udpReceive: " + stream);
+            switch (packet.getType())
+            {
+                case UDPPacket.STREET_VIEW_PACKET:
+                    if (packet.getPlaceCode().CompareTo(placeControl.getMaterialName()) != 0)
+                    {
+                        placeControl.setPlace(packet.getPlaceCode());
+                        placeControl.applyMaterial();
+                    }
+
+                    cameraChanger.updateCameraRotation(packet.getQuarternion());
+                    break;
+                case UDPPacket.GLOBE_PACKET:
+
+                    break;
+            }
+
+       
+            udpReceive.resetLastest();
+    }
     
 
     }

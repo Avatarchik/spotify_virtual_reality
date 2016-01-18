@@ -20,6 +20,11 @@ public class PlaceControl : MonoBehaviour {
 			this.materialName = materialName;
 		}
 	}
+
+    public string getMaterialName()
+    {
+        return materialName;
+    }
 		
 	// apply the texture of the selected place
 	public void applyMaterial() {

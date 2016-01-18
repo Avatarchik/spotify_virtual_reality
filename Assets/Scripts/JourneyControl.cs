@@ -70,8 +70,16 @@ public class JourneyControl : BaseMachine {
 
     private void sendCameraUpdate()
     {
-        udpSend.sendString(UDPPacket.createUpdateCamera(Camera.main.transform.rotation));
+        //udpSend.sendString(UDPPacket.createUpdateCamera(Camera.main.transform.rotation));
+        string placeCode = "";
+        if(JourneySingleton.Instance.getCurrentPlace() != null)
+        {
+            placeCode = JourneySingleton.Instance.getCurrentPlace().getCode();
 
+        }
+
+        UDPPacket packet = new UDPPacket(UDPPacket.STREET_VIEW_PACKET, Camera.main.transform.rotation, placeCode);
+        udpSend.sendData(packet);
     }
 		
 	// Update is called once per frame
@@ -218,7 +226,10 @@ public class JourneyControl : BaseMachine {
 	public void startJourney() {
 		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
-        udpSend.sendString(UDPPacket.createGoToStreetView(JourneySingleton.Instance.getCurrentPlace().getCode()));
+
+
+
+        //udpSend.sendString(UDPPacket.createGoToStreetView(JourneySingleton.Instance.getCurrentPlace().getCode()));
 
         placeTextControl.setActive (true);
 		this.placeControl.applyMaterial ();
