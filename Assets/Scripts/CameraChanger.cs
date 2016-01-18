@@ -48,5 +48,9 @@ public class CameraChanger : MonoBehaviour {
 		cameraRift.transform.rotation = Quaternion.Euler(cameraRift.transform.rotation.x,place.getInitialCameraRotation (),cameraRift.transform.rotation.z);
 	}
 
+    public void updateCameraRotation(Quaternion quarternion)
+    {
+        cameraRift.transform.rotation = quarternion;
+    }
 
 }

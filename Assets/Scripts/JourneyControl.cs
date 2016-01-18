@@ -20,6 +20,7 @@ public class JourneyControl : BaseMachine {
 	public PlayMovieOnSpace movieControlGlobe;
 	public JourneyEndControl journeyEndControl;
 	public PlaceTextControl placeTextControl;
+    public UDPSend udpSend;
 
 	/**
 	 * Controls the serial port comunication. Leds rule! 
@@ -66,15 +67,22 @@ public class JourneyControl : BaseMachine {
 		this.audioControl = GetComponent<AudioControl> ();
 		this.placeControl = GetComponent<PlaceControl> ();
 	}
+
+    private void sendCameraUpdate()
+    {
+        udpSend.sendString(UDPPacket.createUpdateCamera(Camera.main.transform.rotation));
+
+    }
 		
 	// Update is called once per frame
 	void Update () {
 		base.Update ();
 
-		checkMouseButtonAction ();
+        checkMouseButtonAction ();
 
+        sendCameraUpdate();
 
-		switch (this.getState ()) {
+        switch (this.getState ()) {
 		case STATE_PRE_SELECTED:
             if (audioControl.getState() == AudioControl.STATE_FADE_OUT) {
 				PinControl pinControl = JourneySingleton.Instance.getCurrentPin ();
@@ -129,6 +137,7 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		case STATE_JOURNEY:
+
 			if (audioControl.audioIsFinishing () || (canChangePlace && globeControl.isGlobeRotating() && audioControl.minTimeRespected() == true)) {
                 float timeDiff = Time.time - timeWhenJourneyStarts;
 				journeyPlacesCount++;
@@ -209,7 +218,9 @@ public class JourneyControl : BaseMachine {
 	public void startJourney() {
 		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
-		placeTextControl.setActive (true);
+        udpSend.sendString(UDPPacket.createGoToStreetView(JourneySingleton.Instance.getCurrentPlace().getCode()));
+
+        placeTextControl.setActive (true);
 		this.placeControl.applyMaterial ();
 		this.audioControl.playFullAudio ();
 	}
