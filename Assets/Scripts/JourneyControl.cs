@@ -66,7 +66,9 @@ public class JourneyControl : BaseMachine {
 	void Start () {
 		this.audioControl = GetComponent<AudioControl> ();
 		this.placeControl = GetComponent<PlaceControl> ();
-	}
+        this.serialController = new SerialController();
+
+    }
 
     private void sendCameraUpdate()
     {
@@ -184,13 +186,20 @@ public class JourneyControl : BaseMachine {
 			globeControl.lockGlobeRotation (false);
             RenderControl.setFogToDay();
 
+            
+
+
+
+            serialController.setColourAll(Utils.toSerialColor(colorInitial));
         }
 	}
 
-	/**
+    string colorInitial = "00FF00";
+
+    /**
 	 * Return to globe
-	 */ 
-	private void goToGlobe() {
+	 */
+    private void goToGlobe() {
 		globeControl.returnToGlobe ();
 		audioControl.stop ();
 		cameraChanger.changeToGlobe();
@@ -201,6 +210,8 @@ public class JourneyControl : BaseMachine {
 
         UDPPacket packet = new UDPPacket(UDPPacket.GLOBE_PACKET);
         udpSend.sendData(packet);
+
+        serialController.setColourAll(Utils.toSerialColor(colorInitial));
     }
 
 	/**
@@ -214,7 +225,9 @@ public class JourneyControl : BaseMachine {
 		this.placeControl.setPlace (place.getCode());
 
 		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
-	}
+
+        serialController.setColourAll(Utils.toSerialColor(place.getColor()));
+    }
 
 	/**
 	 * Set the initial place of our jorney

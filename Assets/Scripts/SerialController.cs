@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.IO.Ports;
+using System;
 
 public class SerialController
 {
@@ -12,12 +13,11 @@ public class SerialController
         FURNITURE_COM_PORT_3,
         FURNITURE_COM_PORT_4,
         FURNITURE_COM_PORT_5,
-        FURNITURE_COM_PORT_6,
-        FURNITURE_COM_PORT_7
+        FURNITURE_COM_PORT_6
     }
 
     int numComPorts = 7;
-    public string[] furnitureComPortName = {"COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7"};
+    public string[] furnitureComPortName = { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7" };
     SerialPort[] furnitureComPort = new SerialPort[6];
     int baudRate = 9600;
 
@@ -54,63 +54,6 @@ public class SerialController
             return false;
         }
         return true;
-
-        //switch (port)
-        //{
-        //    case SerialController.ComPorts.TOTEN_COM_PORT:
-        //    {
-        //        int i = 0;
-        //        for (i = 0; i < numPortsAvailable; i++) // Check if port is available
-        //            {
-        //                if (System.IO.Ports.SerialPort.GetPortNames()[i].Equals(totenComPortName))
-        //                    break;
-        //        }
-        //        if(i == numPortsAvailable)
-        //        {
-        //            return false;
-        //        }
-        //        totenComPort = new SerialPort(totenComPortName, baudRate, Parity.None, 8, StopBits.None);
-        //        try
-        //        {
-        //            totenComPort.Open();
-        //        }
-        //        catch (System.Exception ex)
-        //        {
-        //                // Handle exception
-        //                Debug.Log("Unable to open totenComPort!: " + ex.Message);
-        //                //System.Console.Error.WriteLine("Unable to open totenComPort! %s", ex.Message);
-        //                return false;
-        //        }
-        //        return true;
-        //    }
-        //    case SerialController.ComPorts.FURNITURE_COM_PORT:
-        //    {
-        //        int i = 0;
-        //        for (i = 0; i < numPortsAvailable; i++) // Check if port is available
-        //        {
-        //            if (System.IO.Ports.SerialPort.GetPortNames().Equals(furnitureComPort))
-        //                break;
-        //        }
-        //        if (i == numPortsAvailable)
-        //        {
-        //            return false;
-        //        }
-        //        totenComPort = new SerialPort(furnitureComPortName, baudRate, Parity.None, 8, StopBits.None);
-        //        try
-        //        {
-        //            totenComPort.Open();
-        //        }
-        //        catch (System.Exception ex)
-        //        {
-        //            // Handle exception
-        //            Debug.Log("Unable to open furnitureComPort!: " + ex.Message);
-        //            //System.Console.Error.WriteLine("Unable to open furnitureComPort! %s", ex.Message);
-        //            return false;
-        //        }
-        //        return true;
-        //    }
-        //}
-
     }
 
     public bool closeComPort(ComPorts port)
@@ -141,45 +84,6 @@ public class SerialController
         }
         return true;
 
-        //switch (port)
-        //{
-        //    case SerialController.ComPorts.TOTEN_COM_PORT:
-        //    {
-        //        if(totenComPort.IsOpen)
-        //        {
-        //            try
-        //            {
-        //                totenComPort.Close();
-        //            }
-        //            catch (System.Exception ex)
-        //            {
-        //                // Handle exception
-        //                System.Console.Error.WriteLine("Unable to close totenComPort! %s", ex.Message);
-        //                return false;
-        //            }
-        //        }
-        //        return true;
-        //    }
-        //    case SerialController.ComPorts.FURNITURE_COM_PORT:
-        //    {
-        //        if (furnitureComPort.IsOpen)
-        //        {
-        //            try
-        //            {
-        //                furnitureComPort.Close();
-        //            }
-        //            catch (System.Exception ex)
-        //            {
-        //                // Handle exception
-        //                System.Console.Error.WriteLine("Unable to close furnitureComPort! %s", ex.Message);
-        //                return false;
-        //            }
-        //        }
-        //        return true;
-        //    }
-        //}
-        //return false;
-
     }
 
 
@@ -204,44 +108,6 @@ public class SerialController
         }
         return true;
 
-        //switch (port)
-        //{
-        //    case SerialController.ComPorts.TOTEN_COM_PORT:
-        //        {
-        //            try
-        //            {
-        //                totenComPort.Write("0");
-        //                totenComPort.Write("F");
-        //            }
-        //            catch (System.Exception ex)
-        //            {
-        //                // Handle exception
-        //                Debug.Log("Unable to write on totenComPort on testSerial method!");
-        //                return false;
-        //            }
-        //            return true;
-        //        }
-        //    case SerialController.ComPorts.FURNITURE_COM_PORT:
-        //        {
-        //            try
-        //            {
-        //                totenComPort.Write("0");
-        //                totenComPort.Write("F");
-        //            }
-        //            catch (System.Exception ex)
-        //            {
-        //                // Handle exception
-        //                System.Console.Error.WriteLine("Unable to write on furnitureComPort on testSerial method! %s", ex.Message);
-        //                return false;
-        //            }
-        //            return true;
-        //        }
-        //    default:
-        //        {
-        //            System.Console.Error.WriteLine("Wrong parameters on setColour method!");
-        //            return false;
-        //        }
-        //}
 
     }
 
@@ -267,46 +133,6 @@ public class SerialController
         }
         return true;
 
-        //switch (port)
-        //{
-        //    case SerialController.ComPorts.TOTEN_COM_PORT:
-        //    {
-        //        try
-        //        {
-        //            totenComPort.Write("1");
-        //            totenComPort.Write("F");
-        //            // totenComPort.Write(rgbColor);
-        //            }
-        //        catch (System.Exception ex)
-        //        {
-        //            // Handle exception
-        //            Debug.Log("Unable to write on totenComPort on setColour method!");
-        //            //System.Console.Error.WriteLine("Unable to write on totenComPort on setColour method! %s", ex.Message);
-        //            return false;
-        //        }
-        //        return true;
-        //    }
-        //    case SerialController.ComPorts.FURNITURE_COM_PORT:
-        //    {
-        //        try
-        //        {
-        //            furnitureComPort.Write("1");
-        //            furnitureComPort.Write(rgbColor);
-        //        }
-        //        catch (System.Exception ex)
-        //        {
-        //            // Handle exception
-        //            System.Console.Error.WriteLine("Unable to write on furnitureComPort on setColour method! %s", ex.Message);
-        //            return false;
-        //        }
-        //        return true;
-        //    }
-        //    default:
-        //    {
-        //    System.Console.Error.WriteLine("Wrong parameters on setColour method!");
-        //    return false;
-        //    }
-        //}
 
     }
 
@@ -335,52 +161,6 @@ public class SerialController
         }
         return true;
 
-
-
-        //switch (port)
-        //{
-        //    case SerialController.ComPorts.TOTEN_COM_PORT:
-        //    {
-        //        try
-        //        {
-        //            totenComPort.Write("2");
-        //            totenComPort.Write(rgbColorInit);
-        //            totenComPort.Write(rgbColorEnd);
-        //            totenComPort.Write(fadeTime.ToString());
-        //            totenComPort.Write(delayTime.ToString());
-        //        }
-        //        catch (System.Exception ex)
-        //        {
-        //            // Handle exception
-        //            System.Console.Error.WriteLine("Unable to write on totenComPort on setColourWithFade method! %s", ex.Message);
-        //            return false;
-        //        }
-        //        return true;
-        //    }
-        //    case SerialController.ComPorts.FURNITURE_COM_PORT:
-        //    {
-        //        try
-        //        {
-        //            furnitureComPort.Write("2");
-        //            furnitureComPort.Write(rgbColorInit);
-        //            furnitureComPort.Write(rgbColorEnd);
-        //            furnitureComPort.Write(fadeTime.ToString());
-        //            furnitureComPort.Write(delayTime.ToString());
-        //        }
-        //        catch (System.Exception ex)
-        //        {
-        //            // Handle exception
-        //            System.Console.Error.WriteLine("Unable to write on furnitureComPort on setColourWithFade method! %s", ex.Message);
-        //            return false;
-        //        }
-        //        return true;
-        //    }
-        //    default:
-        //    {
-        //        System.Console.Error.WriteLine("Wrong parameters on setColour method!");
-        //        return false;
-        //    }
-        //}
     }
 
     public bool glitch(ComPorts port, string rgbColor, string glitchTime)
@@ -406,46 +186,40 @@ public class SerialController
         }
         return true;
     }
+
+    public void openAll()
+    {
+        foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
+        {
+            this.openComPort(port);
+        }
+    }
+
+    public void glitchAll(string rgbColor, string glitchTime)
+    {
+        foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
+        {
+            glitch(port, rgbColor, glitchTime);
+        }
+    }
+
+    public void setColourWithFadeAndDelayAll(string rgbColorInit, string rgbColorEnd, string fadeTime, string delayTime)
+    {
+        foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
+        {
+            setColourWithFadeAndDelay(port, rgbColorInit, rgbColorEnd, fadeTime, delayTime);
+        }
+
+    }
+
+
+    public void setColourAll(string rgbColor)
+    {
+        foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
+        {
+            setColour(port, rgbColor);
+        }
+    }
 }
 
-
-        //    switch (port)
-        //    {
-        //        case SerialController.ComPorts.TOTEN_COM_PORT:
-        //        {
-        //            try
-        //            {
-        //                totenComPort.Write("3");
-        //                totenComPort.Write(glitchTime.ToString());
-        //            }
-        //            catch (System.Exception ex)
-        //            {
-        //                // Handle exception
-        //                System.Console.Error.WriteLine("Unable to write on totenComPort on setColourWithFade method! %s", ex.Message);
-        //                return false;
-        //            }
-        //            return true;
-        //        }
-        //        case SerialController.ComPorts.FURNITURE_COM_PORT:
-        //        {
-        //            try
-        //            {
-        //                furnitureComPort.Write("3");
-        //                furnitureComPort.Write(glitchTime.ToString());
-        //            }
-        //            catch (System.Exception ex)
-        //            {
-        //                // Handle exception
-        //                System.Console.Error.WriteLine("Unable to write on furnitureComPort on setColourWithFade method! %s", ex.Message);
-        //                return false;
-        //            }
-        //            return true;
-        //        }
-        //        default:
-        //        {
-        //            System.Console.Error.WriteLine("Wrong parameters on setColour method!");
-        //            return false;
-        //        }
-        //    }
-        //}
-        
+     
