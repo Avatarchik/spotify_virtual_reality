@@ -120,8 +120,12 @@ public class AudioControl : BaseMachine {
 	/**
 	 * Checks if the current audio is finishing
 	 */
-	public bool audioIsFinishing() {
-		if (audioSource.time >= (currentPlace.getSongMaxTime() - fadeInTime - fadeOutTime)) {
+	public bool audioIsFinishing(bool isFirst) {
+		float timeToSub = 6;
+		if (isFirst) {
+			timeToSub = 0;
+		}
+		if (audioSource.time >= (currentPlace.getSongMaxTime() - fadeInTime - fadeOutTime - timeToSub)) {
 			return true;
 		}
 		return false;

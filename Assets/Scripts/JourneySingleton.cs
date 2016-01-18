@@ -19,7 +19,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	/**
 	 * Default song lenght
 	 */
-	private float defaultSongTime = 30;
+	private float defaultSongTime = 36;
 
 	protected JourneySingleton() {
 		addPlace ("Isla_Mujeres", 3, 199, defaultSongTime, "Museo Subacuatico de Arte", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder", "#E0E1E1");

@@ -151,7 +151,7 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_JOURNEY:
 
-			if (audioControl.audioIsFinishing () || (canChangePlace && globeControl.isGlobeRotating() && audioControl.minTimeRespected() == true)) {
+			if (audioControl.audioIsFinishing (journeyPlacesCount==0) || (canChangePlace && globeControl.isGlobeRotating() && audioControl.minTimeRespected() == true)) {
                 float timeDiff = Time.time - timeWhenJourneyStarts;
 				journeyPlacesCount++;
 				if (journeyPlacesCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime && journeyPlacesCount < totalPlacesOnJourney) {
