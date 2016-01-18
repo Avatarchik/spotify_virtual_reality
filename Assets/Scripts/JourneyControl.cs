@@ -47,6 +47,11 @@ public class JourneyControl : BaseMachine {
 	public float journeyMaxTime = 3*30;
 
 	/**
+	 * If user can change place rotating globe
+	 */ 
+	public bool canChangePlace = false;
+
+	/**
 	 * Number of places to randomize
 	 */ 
 	const int TOTAL_RANDOM_PLACES = 32;
@@ -124,7 +129,7 @@ public class JourneyControl : BaseMachine {
 			}
 			break;
 		case STATE_JOURNEY:
-			if (audioControl.audioIsFinishing () || (globeControl.isGlobeRotating() && audioControl.minTimeRespected() == true)) {
+			if (audioControl.audioIsFinishing () || (canChangePlace && globeControl.isGlobeRotating() && audioControl.minTimeRespected() == true)) {
                 float timeDiff = Time.time - timeWhenJourneyStarts;
 				journeyPlacesCount++;
 				if (journeyPlacesCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime && journeyPlacesCount < totalPlacesOnJourney) {
