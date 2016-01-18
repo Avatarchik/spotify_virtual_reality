@@ -32,7 +32,7 @@ public class UDPReceive : MonoBehaviour
     UdpClient client;
 
     // public
-    // public string IP = "127.0.0.1"; default local
+    public string IP = "10.0.1.255";
     public int port; // define > init
 
     // infos
@@ -63,7 +63,7 @@ public class UDPReceive : MonoBehaviour
     // OnGUI
     void OnGUI()
     {
-        Rect rectObj = new Rect(40, 10, 200, 400);
+        /*Rect rectObj = new Rect(40, 10, 200, 400);
         GUIStyle style = new GUIStyle();
         style.alignment = TextAnchor.UpperLeft;
         GUI.Box(rectObj, "# UDPReceive\n127.0.0.1 " + port + " #\n"
@@ -71,6 +71,7 @@ public class UDPReceive : MonoBehaviour
                     + "\nLast Packet: \n" + lastReceivedUDPPacket
                     + "\n\nAll Messages: \n" + allReceivedUDPPackets
                 , style);
+                */
     }
 
     // init
@@ -83,8 +84,7 @@ public class UDPReceive : MonoBehaviour
         port = 8051;
 
         // status
-        print("Sending to 127.0.0.1 : " + port);
-        print("Test-Sending to this Port: nc -u 127.0.0.1  " + port + "");
+        print("rcv : " + port);
 
 
         // ----------------------------
@@ -110,7 +110,7 @@ public class UDPReceive : MonoBehaviour
             try
             {
                 // Bytes empfangen.
-                IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, 0);
+                IPEndPoint anyIP = new IPEndPoint(IPAddress.Any, port);
                 byte[] data = client.Receive(ref anyIP);
 
                 // Bytes mit der UTF8-Kodierung in das Textformat kodieren.

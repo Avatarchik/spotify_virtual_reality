@@ -26,7 +26,7 @@ public class UDPSend : MonoBehaviour
     private static int localPort;
 
     // prefs
-    private string IP;  // define in init
+    private string IP = "10.0.1.255";  // define in init
     public int port;  // define in init
 
     // "connection" things
@@ -83,7 +83,7 @@ public class UDPSend : MonoBehaviour
         print("UDPSend.init()");
 
         // define
-        IP = "10.0.1.85";
+        //IP = "10.0.1.85";
 
         // ----------------------------
         // Senden

@@ -310,7 +310,7 @@ public class SerialController
 
     }
 
-    public bool setColourWithFadeAndDelay(ComPorts port, string rgbColorInit, string rgbColorEnd, Time fadeTime, Time delayTime)
+    public bool setColourWithFadeAndDelay(ComPorts port, string rgbColorInit, string rgbColorEnd, string fadeTime, string delayTime)
     {
         int portIndex = (int)port;
         if ((portIndex < 0) || (portIndex >= numComPorts))
@@ -383,7 +383,7 @@ public class SerialController
         //}
     }
 
-    public bool glitch(ComPorts port, string rgbColor, Time glitchTime)
+    public bool glitch(ComPorts port, string rgbColor, string glitchTime)
     {
         int portIndex = (int)port;
         if ((portIndex < 0) || (portIndex >= numComPorts))
