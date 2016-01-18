@@ -98,6 +98,11 @@ public class GlobeControl : MonoBehaviour {
 		}
 	}
 
+
+	public void setEnabled(bool enable) {
+		this.gameObject.SetActive (enable);
+	}
+
 	/**
 	 * Return if the globe is still in movement
 	 */
@@ -171,7 +176,7 @@ public class GlobeControl : MonoBehaviour {
 	 * Rotate the globe to the required rotation
 	 */ 
 	private void putGlobeOnRotation(float rotation) {
-		transform.Rotate(0, rotation, 0, Space.Self);
+		transform.eulerAngles = new Vector3 (transform.rotation.eulerAngles.x, rotation, transform.rotation.eulerAngles.z);
 	}
 
 	/**
