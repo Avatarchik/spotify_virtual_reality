@@ -20,9 +20,9 @@ public class SerialTest : MonoBehaviour {
         else if (Input.GetKeyUp(KeyCode.S))
         {
             Debug.Log("testSerial");
-            serialController.setColour(SerialController.ComPorts.FURNITURE_COM_PORT_1, "R100G150B255");
-            serialController.setColourWithFadeAndDelay(SerialController.ComPorts.FURNITURE_COM_PORT_1, "R100G150B255", "R000G000B000", "10000", "05555");
-            serialController.glitch(SerialController.ComPorts.FURNITURE_COM_PORT_1, "R100G150B255", "02000");
+            //serialController.setColour(SerialController.ComPorts.FURNITURE_COM_PORT_1, "R100G150B255");
+           // serialController.setColourWithFadeAndDelay(SerialController.ComPorts.FURNITURE_COM_PORT_1, "R155G185B224", "R010G040B100", "12345", "07890");
+            serialController.glitch(SerialController.ComPorts.FURNITURE_COM_PORT_1, "R123G456B789", "12345");
         }
 	}
 }

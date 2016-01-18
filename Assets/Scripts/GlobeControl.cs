@@ -150,7 +150,7 @@ public class GlobeControl : MonoBehaviour {
 		journeyControl.setInitial(null);
 		updatePin (currentPlace, null);
 
-		putGlobeOnRotation (0);
+		putGlobeOnRotation (20);
 
         JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();

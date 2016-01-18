@@ -22,10 +22,10 @@ public class JourneyControl : BaseMachine {
 	public PlaceTextControl placeTextControl;
     public UDPSend udpSend;
 
-	/**
+    /**
 	 * Controls the serial port comunication. Leds rule! 
 	 */
-	private SerialController serialController;
+    private SerialController serialController;
 
 	/**
 	 * Time when the user starts the journey
@@ -165,8 +165,9 @@ public class JourneyControl : BaseMachine {
 			}
 				
 			if (Input.GetKeyUp (KeyCode.Return)) {
-				goToGlobe ();
-			}
+                    this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
+                    movieControlGlobe.fadeIn();
+            }
 			break;
 		}
 	}
@@ -181,7 +182,9 @@ public class JourneyControl : BaseMachine {
 			InputTracking.Recenter();
 			PinControl.setAllPinsVisibility (true);
 			globeControl.lockGlobeRotation (false);
-		}
+            RenderControl.setFogToDay();
+
+        }
 	}
 
 	/**

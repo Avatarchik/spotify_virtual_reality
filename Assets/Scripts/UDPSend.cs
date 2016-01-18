@@ -59,7 +59,7 @@ public class UDPSend : MonoBehaviour
     // OnGUI
     void OnGUI()
     {
-        Rect rectObj = new Rect(40, 380, 200, 400);
+        /*Rect rectObj = new Rect(40, 380, 200, 400);
         GUIStyle style = new GUIStyle();
         style.alignment = TextAnchor.UpperLeft;
         GUI.Box(rectObj, "# UDPSend-Data\n127.0.0.1 " + port + " #\n"
@@ -73,7 +73,7 @@ public class UDPSend : MonoBehaviour
         if (GUI.Button(new Rect(190, 420, 40, 20), "send"))
         {
             sendString(strMessage + "\n");
-        }
+        }*/
     }
 
     // init

@@ -42,12 +42,13 @@ public class JourneyEndControl : MonoBehaviour {
 				setAlpha (alpha);
 			} else {
 				state = STATE_FADED;
-			}
+                    RenderControl.setFogToNight();
+                }
 			break;
 		case STATE_NEUTRAL:
 		case STATE_FADED:
 			setAlpha (0);
-			break;
+            break;
 		}
 	}
 
@@ -80,6 +81,6 @@ public class JourneyEndControl : MonoBehaviour {
 	}
 
 	public void end() {
-		showMessageFor (8);
+		showMessageFor (6);
 	}
 }
