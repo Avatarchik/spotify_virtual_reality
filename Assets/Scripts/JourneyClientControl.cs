@@ -6,6 +6,7 @@ public class JourneyClientControl : MonoBehaviour {
     private PlaceControl placeControl;
     public CameraChanger cameraChanger;
     public PlayMovieOFf movieOff;
+    public PlayMovieOnSpace movieControlGlobe;
 
     // Use this for initialization
     void Start () {
@@ -16,6 +17,8 @@ public class JourneyClientControl : MonoBehaviour {
         movieOff.startMovie();
     }
 
+    private bool videoIsFadeIn = false;
+
     // Update is called once per frame
     void Update() {
         byte[] stream = udpReceive.getLatestUDPPacket();
@@ -23,13 +26,14 @@ public class JourneyClientControl : MonoBehaviour {
         {
             UDPPacket packet = new UDPPacket(stream);
 
-             switch (packet.getType())
+            switch (packet.getType())
             {
                 case UDPPacket.STREET_VIEW_PACKET:
                     if (packet.getPlaceCode().CompareTo(placeControl.getMaterialName()) != 0)
                     {
                         placeControl.setPlace(packet.getPlaceCode());
                         placeControl.applyMaterial();
+                        cameraChanger.updatePublicCameraRotationStreetView(JourneySingleton.Instance.getPlace(packet.getPlaceCode()));
                     }
 
                     cameraChanger.updateCameraRotation(packet.getQuarternion());
@@ -38,12 +42,21 @@ public class JourneyClientControl : MonoBehaviour {
                 case UDPPacket.GLOBE_PACKET:
                     movieOff.startMovie();
                     break;
+                case UDPPacket.PLACE_TRANSITION_PACKET:
+                    movieControlGlobe.fadeIn();
+                    videoIsFadeIn = true;
+                    break;
             }
 
-       
-            udpReceive.resetLastest();
-    }
-    
 
+            udpReceive.resetLastest();
+
+            if (movieControlGlobe.getState() == PlayMovieOnSpace.STATE_FADED && videoIsFadeIn)
+            {
+                videoIsFadeIn = false;
+                movieControlGlobe.fadeOut();
+            }
+
+        }
     }
 }

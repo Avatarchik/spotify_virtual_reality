@@ -121,16 +121,13 @@ public class CubeAnimation : BaseMachine {
 
 				transform.position = finaPosition;
 				//transform.rotation.eulerAngles = finaRotation;
-
-				state = STATE_FINAL_POSITION_MOVE;
-
                 break;
             }
 		case STATE_FINAL_POSITION_MOVE:
             {
-				if (this.getTimeSinceStateWasSelected () > 5) {
+				//if (this.getTimeSinceStateWasSelected () > 5) {
 					state = STATE_INITIAL_POSITION_MOVE;
-				}
+				//}
                 break;
             }
 		case STATE_INITIAL_POSITION_MOVE:

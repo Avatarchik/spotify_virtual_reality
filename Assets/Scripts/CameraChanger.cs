@@ -46,11 +46,23 @@ public class CameraChanger : MonoBehaviour {
 	public void updateCameraRotationStreetView() {
 		Place place = JourneySingleton.Instance.getCurrentPlace ();
 		cameraRift.transform.rotation = Quaternion.Euler(cameraRift.transform.rotation.x,place.getInitialCameraRotation (),cameraRift.transform.rotation.z);
-	}
+    }
+
+    /**
+	 * Update camera rotation with the initial street view look
+	 */
+    public void updatePublicCameraRotationStreetView(Place place)
+    {
+        publicCamera.transform.rotation = Quaternion.Euler(publicCamera.transform.rotation.x, place.getInitialCameraRotation(), publicCamera.transform.rotation.z);
+
+    }
 
     public void updateCameraRotation(Quaternion quarternion)
     {
-        cameraRift.transform.rotation = quarternion;
+       
+        cameraRift.enabled = false;
+        publicCamera.enabled = true;
+        publicCamera.transform.rotation = quarternion;
     }
 
 }

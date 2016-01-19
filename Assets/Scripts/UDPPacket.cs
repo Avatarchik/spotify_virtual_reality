@@ -8,7 +8,7 @@ public class UDPPacket
     public const int INIT = 0x00;
     public const int STREET_VIEW_PACKET = 0x01;
     public const int GLOBE_PACKET = 0x02;
-
+    public const int PLACE_TRANSITION_PACKET = 0x03;
 
     MemoryStream stream;
     BinaryWriter streamWriter;

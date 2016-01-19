@@ -142,8 +142,10 @@ public class JourneyControl : BaseMachine {
 				goToGlobe ();
 				movieControlGlobe.fadeOut ();
 				journeyEndControl.end ();
-				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_FINAL_POSITION);
-			}
+
+
+                CubeAnimation.changeAllWallsStatus(CubeAnimation.STATE_FINAL_POSITION);
+            }
 			break;
 		case STATE_PREPARE_TO_RETURN_TO_GLOBE:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
@@ -160,7 +162,10 @@ public class JourneyControl : BaseMachine {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
-				} else {
+                        
+                    UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
+                    udpSend.sendData(packet);
+                } else {
 					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
 					movieControlGlobe.fadeIn ();
 				}
@@ -185,12 +190,9 @@ public class JourneyControl : BaseMachine {
 			PinControl.setAllPinsVisibility (true);
 			globeControl.lockGlobeRotation (false);
             RenderControl.setFogToDay();
-
-            
-
-
-
             serialController.setColourAll(Utils.toSerialColor(colorInitial));
+            CubeAnimation.changeAllWallsStatus(CubeAnimation.STATE_FINAL_POSITION_MOVE);
+            journeyEndControl.hideLogo(6);
         }
 	}
 

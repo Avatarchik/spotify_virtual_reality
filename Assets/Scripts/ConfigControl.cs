@@ -4,11 +4,12 @@ using System;
 
 public class ConfigControl : MonoBehaviour {
     public const string KEY_CLIENT = "Client";
-
-	// Use this for initialization
-	void Start () {
-        
-        if(isClient())
+    public OVRCameraRig ovrCameraRig;
+    public Camera publicCamera;
+    // Use this for initialization
+    void Start () {
+        Application.runInBackground = true;
+        if (isClient())
         {
             GameObject gameObject = GameObject.Find("StreetViewSphere");
             gameObject.GetComponent<JourneyClientControl>().enabled = true;
@@ -18,9 +19,19 @@ public class ConfigControl : MonoBehaviour {
             gameObject = GameObject.Find("WorldGlobe");
             gameObject.GetComponent<GlobeControl>().enabled = false;
 
+            gameObject = GameObject.Find("OVRCameraRigGlobe");
+            if (gameObject != null)
+            {
+                gameObject.SetActive(false);
+
+            }
+            publicCamera.gameObject.SetActive(true);
+
         }
         else
         {
+            ovrCameraRig.gameObject.SetActive(true);
+
             GameObject gameObject = GameObject.Find("StreetViewSphere");
             gameObject.GetComponent<UDPSend>().enabled = true;
         }

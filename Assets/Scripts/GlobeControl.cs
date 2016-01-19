@@ -155,7 +155,7 @@ public class GlobeControl : MonoBehaviour {
 		journeyControl.setInitial(null);
 		updatePin (currentPlace, null);
 
-		putGlobeOnRotation (20);
+		putGlobeOnRotation (0);
 
         JourneySingleton.Instance.setCurrentPlace ((Place)null);
 		this.startAmbientMusic ();
@@ -176,8 +176,10 @@ public class GlobeControl : MonoBehaviour {
 	 * Rotate the globe to the required rotation
 	 */ 
 	private void putGlobeOnRotation(float rotation) {
-		transform.eulerAngles = new Vector3 (transform.rotation.eulerAngles.x, rotation, transform.rotation.eulerAngles.z);
-	}
+        //transform.eulerAngles = new Vector3 (transform.rotation.eulerAngles.x, rotation, transform.rotation.eulerAngles.z);
+        transform.rotation = new Quaternion(transform.rotation.x, rotation, transform.rotation.z, transform.rotation.w);
+
+    }
 
 	/**
 	 * Exit the globe to street view
