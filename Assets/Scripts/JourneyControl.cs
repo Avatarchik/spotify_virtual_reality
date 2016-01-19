@@ -68,6 +68,8 @@ public class JourneyControl : BaseMachine {
 		this.placeControl = GetComponent<PlaceControl> ();
         this.serialController = new SerialController();
 
+        
+
     }
 
     private void sendCameraUpdate()
@@ -113,7 +115,10 @@ public class JourneyControl : BaseMachine {
 				movieControlGlobe.fadeIn ();
 				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_EXPAND_SPHERIC_MOVE);
 				this.state = STATE_SELECTED;
-			}
+
+                    UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
+                    udpSend.sendData(packet);
+                }
 			break;
 		case STATE_SELECTED:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
@@ -168,13 +173,18 @@ public class JourneyControl : BaseMachine {
                 } else {
 					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
 					movieControlGlobe.fadeIn ();
-				}
+                        UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
+                        udpSend.sendData(packet);
+                    }
 			}
 				
 			if (Input.GetKeyUp (KeyCode.Return)) {
                     this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
                     movieControlGlobe.fadeIn();
-            }
+
+                    UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
+                    udpSend.sendData(packet);
+                }
 			break;
 		}
 	}
