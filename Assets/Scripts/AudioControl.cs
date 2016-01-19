@@ -16,7 +16,7 @@ public class AudioControl : BaseMachine {
 	private Place currentPlace;
 
 
-	public AudioControl(): base(false) {
+	public AudioControl(): base(true) {
 
 	}
 
@@ -73,6 +73,8 @@ public class AudioControl : BaseMachine {
 		currentPlace = JourneySingleton.Instance.getCurrentPlace ();
 		AudioClip audioClip = currentPlace.getSound ();
 
+        this.reset();
+
 		state = STATE_FADE_IN;
 
 		isFullAudio = false;
@@ -87,8 +89,9 @@ public class AudioControl : BaseMachine {
 	 * starts to play the audio of the selected index (full audio version)
 	 */
 	public void playFullAudio() {
-		//AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
-		isFullAudio = true;
+        this.reset();
+        //AudioClip audioClip = JourneySingleton.Instance.getCurrentPlace ().getSound ();
+        isFullAudio = true;
 		state = STATE_FADE_IN;
 
 		//audioSource.clip = audioClip;

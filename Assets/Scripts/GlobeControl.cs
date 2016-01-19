@@ -34,6 +34,8 @@ public class GlobeControl : MonoBehaviour {
 	private AudioSource audioSource;
 	public JourneyControl journeyControl;
 
+    private Quaternion initialRotation;
+
 	/**
 	 * Globe rotation speed
 	 */ 
@@ -60,7 +62,9 @@ public class GlobeControl : MonoBehaviour {
 
 	void Start() {
 		this.audioSource = GetComponent<AudioSource>();
-	}
+        this.initialRotation = transform.rotation;
+
+    }
 
 
 
@@ -172,13 +176,15 @@ public class GlobeControl : MonoBehaviour {
 		transform.Rotate(0, rotate, 0, Space.Self);
 	}
 
-	/**
+    /**
 	 * Rotate the globe to the required rotation
-	 */ 
-	private void putGlobeOnRotation(float rotation) {
-        //transform.eulerAngles = new Vector3 (transform.rotation.eulerAngles.x, rotation, transform.rotation.eulerAngles.z);
-        transform.rotation = new Quaternion(transform.rotation.x, rotation, transform.rotation.z, transform.rotation.w);
+	 */
+    private void putGlobeOnRotation(float rotation)
+    {
+        //transform.localEulerAngles = new Vector3 (transform.rotation.eulerAngles.x, rotation, transform.rotation.eulerAngles.z);
+        //transform.rotation = new Quaternion(transform.rotation.x, rotation, transform.rotation.z, transform.rotation.w);
 
+        transform.rotation = this.initialRotation;
     }
 
 	/**

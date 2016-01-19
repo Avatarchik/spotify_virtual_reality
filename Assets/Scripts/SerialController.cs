@@ -191,7 +191,7 @@ public class SerialController
     {
         foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
         {
-            this.openComPort(port);
+            //this.openComPort(port);
         }
     }
 
@@ -199,7 +199,7 @@ public class SerialController
     {
         foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
         {
-            glitch(port, rgbColor, glitchTime);
+            //glitch(port, rgbColor, glitchTime);
         }
     }
 
@@ -207,7 +207,7 @@ public class SerialController
     {
         foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
         {
-            setColourWithFadeAndDelay(port, rgbColorInit, rgbColorEnd, fadeTime, delayTime);
+            //setColourWithFadeAndDelay(port, rgbColorInit, rgbColorEnd, fadeTime, delayTime);
         }
 
     }
@@ -217,7 +217,7 @@ public class SerialController
     {
         foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
         {
-            setColour(port, rgbColor);
+            //setColour(port, rgbColor);
         }
     }
 }

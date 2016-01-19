@@ -51,6 +51,11 @@ public class BaseMachine : MonoBehaviour {
 		timeSinceStateWasSelected = Time.time - timeWhenStateWasSelected;
 	}
 
+    public void reset()
+    {
+        oldState = null;
+    }
+
 	/**
 	 * Return how much time since the current staste is selected
 	 */ 
