@@ -9,17 +9,17 @@ public class RenderControl : MonoBehaviour {
     static Color fromColor;
     static Color toColor;
     static float t = 10;
-    static float time = 1;
+    static float fadeTime = 1;
 
     static float fromDensity;
     static float toDensity;
     // Update is called once per frame
     void Update () {
-		if (t < time) {
+		if (t < fadeTime) {
 			t += Time.deltaTime;
-			RenderSettings.fogColor = Color.Lerp (fromColor, toColor, t / time);
-			Camera.main.backgroundColor = Color.Lerp (fromColor, toColor, t / time);
-			RenderSettings.fogDensity = Mathf.Lerp (fromDensity, toDensity, t / time);
+			RenderSettings.fogColor = Color.Lerp (fromColor, toColor, t / fadeTime);
+			Camera.main.backgroundColor = Color.Lerp (fromColor, toColor, t / fadeTime);
+			RenderSettings.fogDensity = Mathf.Lerp (fromDensity, toDensity, t / fadeTime);
 		}
     }
 
@@ -44,9 +44,10 @@ public class RenderControl : MonoBehaviour {
         t = 0;
         fromColor = RenderSettings.fogColor;
         toColor = hexToColor("131638FF");
-        RenderSettings.fogDensity = 0.035f;
         fromDensity = RenderSettings.fogDensity;
         toDensity = 0.035f;
+
+		fadeTime = 15;
     }
 
     public static void setFogToDay()
@@ -56,5 +57,7 @@ public class RenderControl : MonoBehaviour {
         toColor = hexToColor("5A63C3FF");
         fromDensity = RenderSettings.fogDensity;
         toDensity = 0.0009f;
+
+		fadeTime = 1;
     }
 }

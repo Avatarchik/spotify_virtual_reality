@@ -159,6 +159,8 @@ public class JourneyControl : BaseMachine {
 				movieControlGlobe.fadeOut ();
 				journeyEndControl.end ();
 
+
+				RenderControl.setFogToNight();
 				this.state = STATE_JOURNEY_SHOW_END_MESSAGE;
 
                 CubeAnimation.changeAllWallsStatus(CubeAnimation.STATE_FINAL_POSITION);
@@ -201,7 +203,7 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_JOURNEY_SHOW_END_MESSAGE:
 			if (journeyEndControl.getState () == JourneyEndControl.STATE_FADED) {
-				RenderControl.setFogToNight();
+				
 				this.state = STATE_JOURNEY_END;
 			}
 			break;
