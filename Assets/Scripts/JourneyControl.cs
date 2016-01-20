@@ -232,6 +232,9 @@ public class JourneyControl : BaseMachine {
 
 			if (this.getTimeSinceStateWasSelected () > 6) {
 				RenderControl.setFogToDay();
+
+				globeControl.setEnabled (true);
+
 				this.state = STATE_NAVIGATING;
 			}
 

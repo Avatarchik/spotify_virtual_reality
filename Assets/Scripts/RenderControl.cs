@@ -5,16 +5,11 @@ public class RenderControl : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		globeControl = GameObject.Find ("WorldGlobe").GetComponent<GlobeControl> ();
 	}
-
-	static GlobeControl globeControl;
     static Color fromColor;
     static Color toColor;
     static float t = 10;
     static float time = 1;
-	static bool  changeGlobe = false;
-	static bool enableGlobe = false;
 
     static float fromDensity;
     static float toDensity;
@@ -25,9 +20,6 @@ public class RenderControl : MonoBehaviour {
 			RenderSettings.fogColor = Color.Lerp (fromColor, toColor, t / time);
 			Camera.main.backgroundColor = Color.Lerp (fromColor, toColor, t / time);
 			RenderSettings.fogDensity = Mathf.Lerp (fromDensity, toDensity, t / time);
-		} else if (changeGlobe) {
-			globeControl.setEnabled (enableGlobe);
-			changeGlobe = false;
 		}
     }
 
@@ -55,9 +47,6 @@ public class RenderControl : MonoBehaviour {
         RenderSettings.fogDensity = 0.035f;
         fromDensity = RenderSettings.fogDensity;
         toDensity = 0.035f;
-
-		changeGlobe = true;
-		enableGlobe = false;
     }
 
     public static void setFogToDay()
@@ -67,10 +56,5 @@ public class RenderControl : MonoBehaviour {
         toColor = hexToColor("5A63C3FF");
         fromDensity = RenderSettings.fogDensity;
         toDensity = 0.0009f;
-
-		changeGlobe = true;
-		enableGlobe = true;
-
-		globeControl.setEnabled (enableGlobe);
     }
 }

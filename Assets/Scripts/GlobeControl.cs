@@ -165,6 +165,9 @@ public class GlobeControl : MonoBehaviour {
 		this.startAmbientMusic ();
 
 		PinControl.setAllPinsVisibility (false);
+
+
+		this.gameObject.SetActive (false);
 	}
 
 	/**
