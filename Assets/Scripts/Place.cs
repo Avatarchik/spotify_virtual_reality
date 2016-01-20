@@ -44,8 +44,10 @@ public class Place {
 	 */ 
 	string color;
 
+	bool activeOnMap; 
 
-	public Place(string code, float position, float initialCameraRotation, float songMaxTime, string name, string location, string songTitle, string songArtist, string color) {
+
+	public Place(string code, float position, float initialCameraRotation, float songMaxTime, string name, string location, string songTitle, string songArtist, string color, bool activeOnMap) {
 		this.code = code;
 		this.position = position;
 		this.initialCameraRotation = initialCameraRotation;
@@ -55,6 +57,7 @@ public class Place {
 		this.songTitle = songTitle;
 		this.songArtist = songArtist;
 		this.color = color;
+		this.activeOnMap = activeOnMap;
 		loadSound ();
 		loadMaterial ();
 	}
@@ -105,5 +108,9 @@ public class Place {
 
 	public string getColor() {
 		return color;
+	}
+
+	public bool isActiveOnMap() {
+		return activeOnMap;
 	}
 }
