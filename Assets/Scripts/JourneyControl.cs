@@ -237,7 +237,7 @@ public class JourneyControl : BaseMachine {
 
 			if (this.getTimeSinceStateWasSelected () > 6) {
 				fogControl.setFogToDay();
-				GameObject.Find ("central light").GetComponent<LightsControl> ().restart ();
+				//GameObject.Find ("central light").GetComponent<LightsControl> ().restart ();
 
 				globeControl.setEnabled (true);
 
