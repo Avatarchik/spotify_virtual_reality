@@ -25,6 +25,10 @@ public class JourneyEndControl : MonoBehaviour {
 
     private int state = STATE_NEUTRAL;
 
+	public int getState() {
+		return state;
+	}
+
 	// Update is called once per frame
 	void Update () {
 		switch (state) {
@@ -46,7 +50,7 @@ public class JourneyEndControl : MonoBehaviour {
 				setAlpha (alpha);
 			} else {
 				state = STATE_FADED;
-                    RenderControl.setFogToNight();
+                    
                 }
 			break;
             case STATE_FADING_OUT_LOGO:

@@ -12,6 +12,10 @@ public class JourneyControl : BaseMachine {
 	private const string STATE_PREPARE_TO_NEXT_PLACE = "STATE_PREPARE_TO_NEXT_PLACE";
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE = "STATE_PREPARE_TO_RETURN_TO_GLOBE";
 	private const string STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS = "STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS";
+	private const string STATE_JOURNEY_END = "STATE_JOURNEY_END";
+	private const string STATE_JOURNEY_SHOW_END_MESSAGE = "STATE_JOURNEY_SHOW_END_MESSAGE";
+	private const string STATE_JOURNEY_PREPARE_TO_START = "STATE_JOURNEY_PREPARE_TO_START";
+
 
 	private AudioControl audioControl;
 	private PlaceControl placeControl;
@@ -92,7 +96,11 @@ public class JourneyControl : BaseMachine {
 	void Update () {
 		base.Update ();
 
-        checkMouseButtonAction ();
+		//button values are 0 for left button, 1 for right button, 2 for the middle button.
+		if (Input.GetMouseButton (1)) {
+			Debug.Log ("VR Recenter");
+			InputTracking.Recenter ();
+		}
 
         if (sendUpdateToClient)
         {
@@ -148,15 +156,10 @@ public class JourneyControl : BaseMachine {
 				movieControlGlobe.fadeOut ();
 				journeyEndControl.end ();
 
+				this.state = STATE_JOURNEY_SHOW_END_MESSAGE;
 
                 CubeAnimation.changeAllWallsStatus(CubeAnimation.STATE_FINAL_POSITION);
             }
-			break;
-		case STATE_PREPARE_TO_RETURN_TO_GLOBE:
-			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
-				goToGlobe ();
-				movieControlGlobe.fadeOut ();
-			}
 			break;
 		case STATE_JOURNEY:
 
@@ -173,39 +176,59 @@ public class JourneyControl : BaseMachine {
                 } else {
 					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
 					movieControlGlobe.fadeIn ();
-                        UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
-                        udpSend.sendData(packet);
-                    }
+                    
+					UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
+                    udpSend.sendData(packet);
+                }
 			}
-				
 			if (Input.GetKeyUp (KeyCode.Return)) {
                     this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
                     movieControlGlobe.fadeIn();
 
                     UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
                     udpSend.sendData(packet);
-                }
+            }
+			break;
+		case STATE_JOURNEY_SHOW_END_MESSAGE:
+			if (journeyEndControl.getState () == JourneyEndControl.STATE_FADED) {
+				RenderControl.setFogToNight();
+				this.state = STATE_JOURNEY_END;
+			}
+			break;
+		case STATE_JOURNEY_END:
+
+			/**
+	 		* Check if mouse button was clicked and do the correct actions
+	 		*/
+			//button values are 0 for left button, 1 for right button, 2 for the middle button.
+			if (Input.GetMouseButton(1)){
+				Debug.Log("VR Recenter");
+				InputTracking.Recenter();
+				PinControl.setAllPinsVisibility (true);
+				globeControl.lockGlobeRotation (false);
+
+				serialController.setColourAll(Utils.toSerialColor(colorInitial));
+
+				journeyEndControl.hideLogo(6);
+
+				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_FINAL_POSITION_MOVE);
+
+				this.state = STATE_JOURNEY_PREPARE_TO_START;
+			}
+			break;
+
+		case STATE_JOURNEY_PREPARE_TO_START:
+			
+
+			if (this.getTimeSinceStateWasSelected () > 6) {
+				RenderControl.setFogToDay();
+				this.state = STATE_NAVIGATING;
+			}
+
 			break;
 		}
 	}
 		
-	/**
-	 * Check if mouse button was clicked and do the correct actions
-	 */
-	private void checkMouseButtonAction() {
-		//button values are 0 for left button, 1 for right button, 2 for the middle button.
-		if (Input.GetMouseButton(1)){
-			Debug.Log("VR Recenter");
-			InputTracking.Recenter();
-			PinControl.setAllPinsVisibility (true);
-			globeControl.lockGlobeRotation (false);
-            RenderControl.setFogToDay();
-            serialController.setColourAll(Utils.toSerialColor(colorInitial));
-            CubeAnimation.changeAllWallsStatus(CubeAnimation.STATE_FINAL_POSITION_MOVE);
-            journeyEndControl.hideLogo(6);
-        }
-	}
-
     string colorInitial = "00FF00";
 
     /**
@@ -216,7 +239,7 @@ public class JourneyControl : BaseMachine {
 		audioControl.stop ();
 		cameraChanger.changeToGlobe();
 		placeTextControl.setActive (false);
-		this.state = STATE_NAVIGATING;
+
 
         sendUpdateToClient = false;
 

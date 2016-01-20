@@ -16,7 +16,7 @@ public class AudioControl : BaseMachine {
 	private Place currentPlace;
 
 
-	public AudioControl(): base(true) {
+	public AudioControl(): base(false) {
 
 	}
 
