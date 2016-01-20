@@ -51,8 +51,8 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Tartaruguinha", 267, 145, defaultSongTime, "Atol Pearl e Hermes", "Havaí, EUA", "Moonrise Swing", "La familia de Ukeleles", "#009b67");
 		addPlace ("Boiando", 271, 160, defaultSongTime, "Tafeu Cove", "Samoa Americana, EUA", "I'm Getting Ready", "Michael Kiwanuka", "#209CCF");
 		addPlace ("Volcano_Hawaii", 292, 180, defaultSongTime, "Vulcão Kilauea", "Havaí, EUA", "Lava", "Kuana Torres Kahele, Napua Greig, James Ford Murphy", "#ECF3EB");
-		addPlace ("Yosemite", 340, 180, defaultSongTime, "Parque Nacional de Yosemite", "Califórnia, EUA", "Hello", "Adele ", "#7CA0DC");
-		addPlace ("Bryce_Canyon", 350, 235, defaultSongTime, "Parque Nacional de Bryce Canyon", "Utah, EUA", "Flume", "Bon Iver", "#ED6938");
+		addPlace ("Yosemite", 335, 180, defaultSongTime, "Parque Nacional de Yosemite", "Califórnia, EUA", "Hello", "Adele ", "#7CA0DC");
+		addPlace ("Bryce_Canyon", 343, 235, defaultSongTime, "Parque Nacional de Bryce Canyon", "Utah, EUA", "Flume", "Bon Iver", "#ED6938");
 		addPlace ("Champion_Island", 357, 225, defaultSongTime, "Ilha Champion", "Galápagos, Equador", "Unknown Mortal Orchestra", " So Good at Being in Trouble", "#1485AF");
 
 	} // guarantee this will be always a singleton only - can't use the constructor!
