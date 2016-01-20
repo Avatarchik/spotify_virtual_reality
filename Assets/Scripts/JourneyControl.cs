@@ -25,6 +25,7 @@ public class JourneyControl : BaseMachine {
 	public JourneyEndControl journeyEndControl;
 	public PlaceTextControl placeTextControl;
     public UDPSend udpSend;
+	public FogControl fogControl;
 
     /**
 	 * Controls the serial port comunication. Leds rule! 
@@ -75,7 +76,7 @@ public class JourneyControl : BaseMachine {
         this.serialController = new SerialController();
 
         
-
+		this.state = STATE_JOURNEY_END;
     }
 
     private void sendCameraUpdate()
@@ -160,7 +161,7 @@ public class JourneyControl : BaseMachine {
 				journeyEndControl.end ();
 
 
-				RenderControl.setFogToNight();
+				fogControl.setFogToNight();
 				this.state = STATE_JOURNEY_SHOW_END_MESSAGE;
 
                 CubeAnimation.changeAllWallsStatus(CubeAnimation.STATE_FINAL_POSITION);
@@ -225,6 +226,8 @@ public class JourneyControl : BaseMachine {
 
 				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_FINAL_POSITION_MOVE);
 
+
+
 				this.state = STATE_JOURNEY_PREPARE_TO_START;
 			}
 			break;
@@ -233,7 +236,8 @@ public class JourneyControl : BaseMachine {
 			
 
 			if (this.getTimeSinceStateWasSelected () > 6) {
-				RenderControl.setFogToDay();
+				fogControl.setFogToDay();
+				GameObject.Find ("central light").GetComponent<LightsControl> ().restart ();
 
 				globeControl.setEnabled (true);
 

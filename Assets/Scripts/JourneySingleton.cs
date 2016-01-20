@@ -16,6 +16,8 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	 */
 	private PinControl currentPin;
 
+	public const int SCENE_CHANGE_TIME = 10;
+
 	/**
 	 * Default song lenght
 	 */
