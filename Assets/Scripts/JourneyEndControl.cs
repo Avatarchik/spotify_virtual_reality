@@ -6,11 +6,13 @@ public class JourneyEndControl : MonoBehaviour {
     public RawImage logo;
 
     Color logoColor;
+	Color colorClear;
 
 	// Use this for initialization
 	void Start () {
         logoColor = logo.color;
-        logo.color = Color.clear;
+		colorClear = new Color (logo.color.a, logo.color.r, logo.color.b, logo.color.a);
+		logo.color = colorClear;
     }
 
 	float fadeTime = 0;
@@ -37,7 +39,7 @@ public class JourneyEndControl : MonoBehaviour {
 				t += Time.deltaTime;
 				float alpha = Mathf.Lerp (0, 1, t / fadeTime);
 				setAlpha (alpha);
-                    logo.color = Color.Lerp(Color.clear, logoColor, t / (fadeTime/2));
+				logo.color = Color.Lerp(colorClear, logoColor, t / (fadeTime/2));
                 } else {
 				state = STATE_FADING_OUT;
 				t = 0;

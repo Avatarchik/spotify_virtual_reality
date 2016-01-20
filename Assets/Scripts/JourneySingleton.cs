@@ -25,24 +25,14 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Isla_Mujeres", 3, 199, defaultSongTime, "Museo Subacuatico de Arte", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder", "#E0E1E1");
 		addPlace ("Times", 14, 325, defaultSongTime, "Times Square", "Nova Iorque, EUA", "Empire State of Mind", "Jay Z, Alicia Keys", "#5be9ff", true);
 		addPlace ("Salar", 30, 270, defaultSongTime, "Salar de Uyuni", "Bolívia", "White", "Frank Ocean, John Mayer", "#FEFFC5");
-
-
 		addPlace ("Paulista", 0, 0, defaultSongTime, "", "", "", "", "");
-
 		addPlace ("Rio", 48, 0, defaultSongTime, "", "", "", "", "", true);
-	
-
-
 		addPlace ("Geleira", 45, 230, defaultSongTime, "Geleira de Ilulissat", "Groenlândia", "Easy", "Son Lux", "#E8DACD");
 		addPlace ("Natal_Arte", 55, 270, defaultSongTime, "Natal na Copa", "Natal, Brasil", "Eu Quero é Botar Meu Bloco na Rua", "Sérgio Sampaio", "#10B0A1", true);
 		addPlace ("Islandia", 75, 190, defaultSongTime, "Skógafoss", "Islândia", "Elephant Gun", "Beirut", "#808A24"); //-- music missing
-
-
 		addPlace ("London", 90, 0, defaultSongTime, "", "", "", "", "", true);
 		addPlace ("Barcelona", 0, 0, defaultSongTime, "", "", "", "", "");
-
 		addPlace ("Veneza", 97, 180, defaultSongTime, "Canal de Veneza", "Veneza, Itália", "James Bond Theme", "Moby", "#db3469");
-
 		addPlace ("Congo", 105, 0, defaultSongTime, "", "", "", "", "", true);
 		addPlace ("Victoria", 0, 0, defaultSongTime, "", "", "", "", "");
 		addPlace ("Northern_Lights", 101, 180, defaultSongTime, "Lago Pitkäjärvi", "Finlândia", "Runaway", "Aurora", "#31d6af");
@@ -53,7 +43,6 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Kaindy", 152, 200, defaultSongTime, "Lago Kaindy", "Cazaquistão", "Into The Wild", "LP", "#358993", true);
 		addPlace ("India", 170, 280, defaultSongTime, "Man Singh Observatório", "Índia", "Mumford & Sons, Dharohar Project", "Mehendi Rachi", "#cc6a1a", true);
 		addPlace ("Ta_Prohm", 193, 90, defaultSongTime, "Ta Prohm", "Siem Reap, Camboja", "Entrance", "Washed Out", "#d69335", true);
-
 		addPlace ("China", 0, 0, defaultSongTime, "", "", "", "", "");
 		addPlace ("Montanhas_Laranjas", 212, 170, defaultSongTime, "Parque Nacional Karlamilyi", "Austrália", "Elephant", "Tame Impala", "#F46E3C", true);
 		addPlace ("Takinoue", 227, 0, defaultSongTime, "Parque Takinoue", "Hokkaidou , Japão", "Zelda's Lullaby", "Taylor Davis", "#D673B6", true);

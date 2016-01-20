@@ -314,7 +314,7 @@ public class JourneyControl : BaseMachine {
 	 */ 
 	public void randomizeNext() {
 		journeyPlaces [0] = JourneySingleton.Instance.getCurrentPlace ().getCode ();
-		for (int i = 1; i < TOTAL_RANDOM_PLACES; i++) {
+		for (int i = 1; i < totalPlacesOnJourney; i++) {
 			addNewRandomizedPlace (i);
 		}
 	}
