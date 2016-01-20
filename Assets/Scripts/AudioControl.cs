@@ -148,4 +148,15 @@ public class AudioControl : BaseMachine {
 		return false;
 	}
 
+
+	public float audioTimeToFinish(bool isFirst) {
+		float timeToSub = 6;
+		if (isFirst) {
+			timeToSub = 0;
+		}
+		float totalMusicTime = (currentPlace.getSongMaxTime () - timeToSub);
+		float currentTime = audioSource.time;
+
+		return totalMusicTime - currentTime;
+	}
 }

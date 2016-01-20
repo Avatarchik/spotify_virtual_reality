@@ -56,6 +56,8 @@ public class JourneyControl : BaseMachine {
 	 */ 
 	public bool canChangePlace = false;
 
+	public float timeWhenInfoShow = 10;
+
 	/**
 	 * Number of places to randomize
 	 */ 
@@ -140,6 +142,7 @@ public class JourneyControl : BaseMachine {
 		case STATE_JOURNEY_START:
 			movieControlGlobe.fadeOut ();
 			placeControl.fadeIn ();
+			placeTextControl.setActive (true);
 			this.state = STATE_JOURNEY;
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
@@ -162,10 +165,17 @@ public class JourneyControl : BaseMachine {
             }
 			break;
 		case STATE_JOURNEY:
+			if (audioControl.audioTimeToFinish (journeyPlacesCount==0) < timeWhenInfoShow && placeTextControl.getState() == PlaceTextControl.STATE_NEUTRAL) {
+				placeTextControl.setState (PlaceTextControl.STATE_FADING_IN);
+			}
+
 
 			if (audioControl.audioIsFinishing (journeyPlacesCount==0) || (canChangePlace && globeControl.isGlobeRotating() && audioControl.minTimeRespected() == true)) {
                 float timeDiff = Time.time - timeWhenJourneyStarts;
 				journeyPlacesCount++;
+
+				placeTextControl.setState (PlaceTextControl.STATE_NEUTRAL);
+
 				if (journeyPlacesCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime && journeyPlacesCount < totalPlacesOnJourney) {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
@@ -290,8 +300,6 @@ public class JourneyControl : BaseMachine {
 
 
         sendUpdateToClient = true;
-
-        placeTextControl.setActive (true);
 		this.placeControl.applyMaterial ();
 		this.audioControl.playFullAudio ();
 	}
