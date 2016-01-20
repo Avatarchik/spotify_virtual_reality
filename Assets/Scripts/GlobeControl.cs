@@ -36,6 +36,8 @@ public class GlobeControl : MonoBehaviour {
 
     private Quaternion initialRotation;
 
+	public GameObject meridiano;
+
 	/**
 	 * Globe rotation speed
 	 */ 
@@ -105,6 +107,7 @@ public class GlobeControl : MonoBehaviour {
 
 	public void setEnabled(bool enable) {
 		this.gameObject.SetActive (enable);
+		this.meridiano.SetActive (enable);
 	}
 
 	/**
@@ -168,6 +171,7 @@ public class GlobeControl : MonoBehaviour {
 
 
 		this.gameObject.SetActive (false);
+		this.meridiano.SetActive (false);
 	}
 
 	/**
