@@ -1,11 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using UnityEngine.UI;
 public class PlayMovieOFf : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
+		this.startMovie();
 	}
 	
 	// Update is called once per frame
@@ -17,8 +17,8 @@ public class PlayMovieOFf : MonoBehaviour {
 
     public void startMovie()
     {
-        Renderer r = GetComponent<Renderer>();
-        MovieTexture movie = (MovieTexture)r.material.mainTexture;
+		RawImage r = GetComponent<RawImage>();
+        MovieTexture movie = (MovieTexture)r.mainTexture;
         movie.loop = true;
         if (movie.isPlaying == false)
         {
@@ -29,8 +29,8 @@ public class PlayMovieOFf : MonoBehaviour {
 
     public void stopMovie()
     {
-        Renderer r = GetComponent<Renderer>();
-        MovieTexture movie = (MovieTexture)r.material.mainTexture;
+		RawImage r = GetComponent<RawImage>();
+        MovieTexture movie = (MovieTexture)r.mainTexture;
         if (movie.isPlaying)
         {
             movie.Stop();

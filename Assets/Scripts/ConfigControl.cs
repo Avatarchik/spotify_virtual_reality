@@ -6,6 +6,7 @@ public class ConfigControl : MonoBehaviour {
     public const string KEY_CLIENT = "Client";
     public OVRCameraRig ovrCameraRig;
     public Camera publicCamera;
+	public Canvas canvas;
     // Use this for initialization
     void Start () {
         Application.runInBackground = true;
@@ -26,6 +27,8 @@ public class ConfigControl : MonoBehaviour {
 
             }
             publicCamera.gameObject.SetActive(true);
+
+			canvas.gameObject.SetActive (true);
 
         }
         else
