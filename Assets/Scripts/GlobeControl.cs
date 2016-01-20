@@ -124,13 +124,13 @@ public class GlobeControl : MonoBehaviour {
 	 * Update the current selected pin
 	 */ 
 	private void updatePin(Place oldPlace, Place currentPlace) {
-		if (oldPlace != null) {
+		if (oldPlace != null && oldPlace.isActiveOnMap()) {
 			GameObject oldPin = GameObject.Find ("Pin_" + oldPlace.getCode());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOffPinLight ();
 		}
 
-		if (currentPlace != null) {
+		if (currentPlace != null && currentPlace.isActiveOnMap()) {
 			GameObject oldPin = GameObject.Find ("Pin_" + currentPlace.getCode());
 			PinControl pinControl = oldPin.GetComponent<PinControl> ();
 			pinControl.turnOnPinLight ();
