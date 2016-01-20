@@ -27,7 +27,7 @@ public class PlaceTextControl : MonoBehaviour {
 		placeLocation.text = location;
 
 		setAllAlpha (0);
-		state = STATE_FADING_IN;
+		state = STATE_NEUTRAL;
 		t = 0;
 	}
 
@@ -36,7 +36,7 @@ public class PlaceTextControl : MonoBehaviour {
 	 */ 
 	public void setActive(bool active) {
 		this.gameObject.SetActive (active);
-		state = STATE_FADING_IN;
+		state = STATE_NEUTRAL;
 		t = 0;
 	}
 
@@ -45,13 +45,15 @@ public class PlaceTextControl : MonoBehaviour {
 
 	public const int STATE_NEUTRAL = 0;
 	public const int STATE_FADING_IN = 1;
-	public const int STATE_FADING_OUT = 2;
-	public const int STATE_FADED = 3;
+	public const int STATE_FULL = 2;
+	public const int STATE_FADING_OUT = 3;
+	public const int STATE_FADED = 4;
 
 	private int state = STATE_NEUTRAL;
 
-	public float fadeInTime = 5;
-	public float fadeOutTime = 5;
+	public float fadeInTime = 1;
+	public float fullInTime = 5;
+	public float fadeOutTime = 1;
 
 	// Update is called once per frame
 	void Update () {
@@ -63,11 +65,16 @@ public class PlaceTextControl : MonoBehaviour {
 				setAllAlpha (alpha);
 
 			} else {
+				state = STATE_FULL;
+				t = 0;
+			}
+		} else if (state == STATE_FULL) {
+			if (t < fullInTime) {
+				t += Time.deltaTime;
+			} else {
 				state = STATE_FADING_OUT;
 				t = 0;
 			}
-
-
 		}
 		else if (state == STATE_FADING_OUT)
 		{
@@ -105,5 +112,9 @@ public class PlaceTextControl : MonoBehaviour {
 	private void setAlpha(MaskableGraphic graphic, float alpha) {
 		graphic.color = new Color (graphic.color.r, graphic.color.g, graphic.color.b, alpha);
 
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 }
