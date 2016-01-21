@@ -179,6 +179,8 @@ public class JourneyControl : BaseMachine {
 
 				placeTextControl.setState (PlaceTextControl.STATE_NEUTRAL);
 
+                    Debug.Log("Place[" + journeyPlacesCount + "] - " + JourneySingleton.Instance.getCurrentPlace().getCode());
+
 				if (journeyPlacesCount < TOTAL_RANDOM_PLACES && timeDiff < journeyMaxTime && journeyPlacesCount < totalPlacesOnJourney) {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();

@@ -150,6 +150,10 @@ public class FogControl : BaseMachine {
 	}
 		
 	public void changeFog(bool isRed) {
+        if (this.state != STATE_NORMAL)
+        {
+            return;
+        }
 		if (isRed) {
 			toRed ();
 		} else {

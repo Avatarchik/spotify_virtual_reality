@@ -30,6 +30,9 @@ public class ConfigControl : MonoBehaviour {
 
 			canvas.gameObject.SetActive (true);
 
+
+            gameObject = GameObject.Find("RenderSettings");
+            gameObject.SetActive(false);
         }
         else
         {
