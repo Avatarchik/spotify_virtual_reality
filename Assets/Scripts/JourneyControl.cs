@@ -62,7 +62,7 @@ public class JourneyControl : BaseMachine {
 	/**
 	 * Number of places to randomize
 	 */ 
-	const int TOTAL_RANDOM_PLACES = 32;
+	const int TOTAL_RANDOM_PLACES = 34;
 	private string []journeyPlaces = new string[TOTAL_RANDOM_PLACES];
 
 	public JourneyControl(): base(false) {

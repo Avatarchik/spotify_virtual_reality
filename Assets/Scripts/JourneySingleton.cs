@@ -43,12 +43,12 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Elefantinhos", 122, 190, defaultSongTime, "Samburu National Reserve", "Quênia", "Circle of Life", "Carmen Twillie, Lebo M.", "#A89786");
 		addPlace ("Castle", 143, 0, defaultSongTime, "Castelo de Saryazd", "Irã", "Bad Girls", "M.I.A", "#AAA5A0", true);
 		addPlace ("Kaindy", 152, 200, defaultSongTime, "Lago Kaindy", "Cazaquistão", "Into The Wild", "LP", "#358993", true);
-		addPlace ("India", 170, 280, defaultSongTime, "Man Singh Observatório", "Índia", "Mumford & Sons, Dharohar Project", "Mehendi Rachi", "#cc6a1a", true);
+		addPlace ("India", 170, 280, defaultSongTime, "Man Singh Observatório", "Índia", "Mehendi Rachi", "Mumford & Sons, Dharohar Project", "#cc6a1a", true);
 		addPlace ("Ta_Prohm", 193, 90, defaultSongTime, "Ta Prohm", "Siem Reap, Camboja", "Entrance", "Washed Out", "#d69335", true);
-		addPlace ("China", 0, 0, defaultSongTime, "Taierzhuang", "Shandong, China", "China girl", "David Bowie", "#fb532c");
+		addPlace ("China", 0, 0, defaultSongTime, "Taierzhuang", "Shandong, China", "China Girl", "David Bowie", "#fb532c");
 		addPlace ("Montanhas_Laranjas", 212, 170, defaultSongTime, "Parque Nacional Karlamilyi", "Austrália", "Elephant", "Tame Impala", "#F46E3C", true);
 		addPlace ("Takinoue", 227, 0, defaultSongTime, "Parque Takinoue", "Hokkaidou , Japão", "Zelda's Lullaby", "Taylor Davis", "#D673B6", true);
-		addPlace ("Cachu_Verdao", 230, 180, defaultSongTime, "Wes Beckett Falls", "Tasmânia, Austrália", "Lupa J", "Quiet Here", "#2CAE24");
+		addPlace ("Cachu_Verdao", 230, 180, defaultSongTime, "Wes Beckett Falls", "Tasmânia, Austrália", "Quiet Here", "Lupa J", "#2CAE24");
 		addPlace ("Heron_Island", 244, 180, defaultSongTime, "Ilha Heron", "Queensland, Austrália", "Pure Shores", "All Saints", "#5A92C1", true);
 		addPlace ("Praia_Com_Estrelas", 245, 0, defaultSongTime, "Ilha de Lord Howe", "Tasmânia, Austrália", "True to myself ", "Ziggy Marley", "#F1FBFE");
 		addPlace ("Pinguins", 250, 245, defaultSongTime, "Cape Royds", "Ilha de Ross, Antártida", "I Like To Move It", "Will.I.Am", "#E9E9EB");
@@ -57,7 +57,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Hawaii", 292, 180, defaultSongTime, "Kauai", "Havaí, EUA", "Shine", "Wild Belle", "#ECF3EB "); 
 		addPlace ("Yosemite", 330, 180, defaultSongTime, "Parque Nacional de Yosemite", "Califórnia, EUA", "Hello", "Adele ", "#7CA0DC", true);
 		addPlace ("Bryce_Canyon", 343, 235, defaultSongTime, "Parque Nacional de Bryce Canyon", "Utah, EUA", "Flume", "Bon Iver", "#ED6938");
-		addPlace ("Champion_Island", 359, 225, defaultSongTime, "Ilha Champion", "Galápagos, Equador", "Unknown Mortal Orchestra", "So Good at Being in Trouble", "#1485AF", true);
+		addPlace ("Champion_Island", 359, 225, defaultSongTime, "Ilha Champion", "Galápagos, Equador", "So Good at Being in Trouble", "Unknown Mortal Orchestra", "#1485AF", true);
 		addPlace ("huskies", 0, 0, defaultSongTime, "Iqaluit", "Nunavut, Canadá", "Wake Up", "Arcade Fire", "#1485AF");
 	} // guarantee this will be always a singleton only - can't use the constructor!
 
