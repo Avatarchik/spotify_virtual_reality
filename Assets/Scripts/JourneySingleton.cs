@@ -26,7 +26,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	protected JourneySingleton() {
 		addPlace ("Isla_Mujeres", 3, 199, defaultSongTime, "Museo Subacuatico de Arte", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder", "#E0E1E1");
 		addPlace ("Times", 14, 325, defaultSongTime, "Times Square", "Nova Iorque, EUA", "NY is killing me", "Gil Scott-Heron & Jamie xx", "#5be9ff", true);
-		addPlace ("Salar", 30, 270, defaultSongTime, "Salar de Uyuni", "Bolívia", "White", "Frank Ocean, John Mayer", "#FEFFC5");
+		addPlace ("Salar", 30, 270, defaultSongTime, "Salar de Uyuni", "Potosí, Bolívia", "White", "Frank Ocean, John Mayer", "#FEFFC5");
 		addPlace ("Paulista", 0, 0, defaultSongTime, "Avenida Paulista", "São Paulo, Brasil", "Mais que nada", "Sergio Mendes & Brasil ’66", "#7d7e8e");
 		addPlace ("Rio", 48, 0, defaultSongTime, "Cristo Redentor", "Rio de Janeiro, Brasil", "Eu só quero ser feliz", "MC Marcinho", "#637100", true);
 		addPlace ("Geleira", 45, 230, defaultSongTime, "Geleira de Ilulissat", "Groenlândia", "Easy", "Son Lux", "#E8DACD");
