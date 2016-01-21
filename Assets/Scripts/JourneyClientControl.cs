@@ -19,11 +19,18 @@ public class JourneyClientControl : MonoBehaviour {
 
     private bool videoIsFadeIn = false;
 
+    private float lastPacketTime;
+
     // Update is called once per frame
     void Update() {
+        if(Time.time - lastPacketTime > 5)
+        {
+            movieOff.startMovie();
+        }
         byte[] stream = udpReceive.getLatestUDPPacket();
         if (stream != null && stream.Length != 0)
         {
+            lastPacketTime = Time.time;
             UDPPacket packet = new UDPPacket(stream);
 
             switch (packet.getType())

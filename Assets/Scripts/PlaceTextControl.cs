@@ -9,6 +9,8 @@ public class PlaceTextControl : MonoBehaviour {
 	public Text placeLocation;
 	public RawImage image1;
 	public RawImage image2;
+    public CanvasMover mover1;
+    public CanvasMover mover2;
 
 	// Use this for initialization
 	void Start () {
@@ -73,6 +75,8 @@ public class PlaceTextControl : MonoBehaviour {
 				t += Time.deltaTime;
 			} else {
 				state = STATE_FADING_OUT;
+                mover1.reverse();
+                mover2.reverse();
 				t = 0;
 			}
 		}
@@ -117,4 +121,11 @@ public class PlaceTextControl : MonoBehaviour {
 	public void setState(int state) {
 		this.state = state;
 	}
+
+    public void show()
+    {
+        this.state = STATE_FADING_IN;
+        mover1.run();
+        mover2.run();
+    }
 }

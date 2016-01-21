@@ -12,6 +12,8 @@ public class ConfigControl : MonoBehaviour {
         Application.runInBackground = true;
         if (isClient())
         {
+            //Screen.SetResolution(1920, 1080, false);
+
             GameObject gameObject = GameObject.Find("StreetViewSphere");
             gameObject.GetComponent<JourneyClientControl>().enabled = true;
             gameObject.GetComponent<JourneyControl>().enabled = false;

@@ -169,7 +169,7 @@ public class JourneyControl : BaseMachine {
 			break;
 		case STATE_JOURNEY:
 			if (audioControl.audioTimeToFinish (journeyPlacesCount==0) < timeWhenInfoShow && placeTextControl.getState() == PlaceTextControl.STATE_NEUTRAL) {
-				placeTextControl.setState (PlaceTextControl.STATE_FADING_IN);
+                    placeTextControl.show();
 			}
 
 
