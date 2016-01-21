@@ -8,7 +8,7 @@ public class FogControl : BaseMachine {
 
 	// Use this for initialization
 	void Start () {
-		this.state = STATE_INITIAL;
+		this.state = STATE_NORMAL;
 	}
     Color fromColor;
     Color toColor;
@@ -23,8 +23,6 @@ public class FogControl : BaseMachine {
 
 	float ambientFromDensity;
 	float ambientToDensity;
-
-	bool isBlue = true;
 
     // Update is called once per frame
     void Update () {
@@ -57,12 +55,6 @@ public class FogControl : BaseMachine {
 				RenderSettings.ambientLight = Color.Lerp (ambientLightFromColor, ambientLightToColor, t / fadeTime);
 				RenderSettings.ambientIntensity = Mathf.Lerp (ambientFromDensity, ambientToDensity, t / fadeTime);
 
-			} else {
-				if (isBlue) {
-					toRed ();
-				} else {
-					toBlue();
-				}
 			}
 			break;
 		}
@@ -112,7 +104,7 @@ public class FogControl : BaseMachine {
 		this.state = STATE_FOG_DAY;
     }
 
-	public void toBlue() {
+	private void toBlue() {
 		/*Fog
 		Color: 5A63C3FF
 		Density: 0.0009*/
@@ -126,18 +118,15 @@ public class FogControl : BaseMachine {
 		fromDensity = RenderSettings.fogDensity;
 		toDensity = 0.0009f;
 		fadeTime = JourneySingleton.SCENE_CHANGE_TIME;
-		this.state = STATE_NORMAL;
 
 		ambientFromDensity = RenderSettings.ambientIntensity;
 		ambientLightFromColor = RenderSettings.ambientLight;
 
 		ambientToDensity = 0.55f;
 		ambientLightToColor = hexToColor("9FFFEBFF");
-
-		isBlue = true;
 	}
 
-	public void toRed() {
+	private void toRed() {
 		/*Fog
 		Color: C43269FF
 		Density: 0.0009*/
@@ -158,14 +147,13 @@ public class FogControl : BaseMachine {
 
 		ambientToDensity = 0.55f;
 		ambientLightToColor = hexToColor("FFF6B2FF");
-
-		this.state = STATE_NORMAL;
-
-		isBlue = false;
 	}
-
-	public void restart() {
-		this.state = STATE_NORMAL;
-		toRed ();
+		
+	public void changeFog(bool isRed) {
+		if (isRed) {
+			toRed ();
+		} else {
+			toBlue ();
+		}
 	}
 }

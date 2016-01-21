@@ -166,5 +166,18 @@ public class CubeAnimation : BaseMachine {
 			wall.gameObject.GetComponent<CubeAnimation> ().setMovement (status);
 		}
 	}
+
+
+	public static void changeAllWallsColor(bool isRed) {
+		GameObject[] walls = GameObject.FindGameObjectsWithTag("Walls");
+
+		foreach (GameObject wall in walls) {
+			if (isRed) {
+				wall.gameObject.GetComponent<MaterialTransition> ().toRed ();
+			} else {
+				wall.gameObject.GetComponent<MaterialTransition> ().toBlue ();
+			}
+		}
+	}
 }
 
