@@ -1,3 +1,0 @@
-Powered by StreetViewConverter v1.5.17 from https://www.assetstore.unity3d.com/en/#!/content/28512
-Support: sss1024@gmail.com 
-https://www.google.com.br/maps/place/Av.+Paulista,+S%C3%A3o+Paulo+-+SP/@-23.5629637,-46.6554453,3a,75y,97.99h,88.87t/data=!3m8!1e1!3m6!1s-MeLpIsVnj24%2FViWwUWTl8NI%2FAAAAAAAApvs%2FBmYYivFFZaM!2e4!3e11!6s%2F%2Flh6.googleusercontent.com%2F-MeLpIsVnj24%2FViWwUWTl8NI%2FAAAAAAAApvs%2FBmYYivFFZaM%2Fw203-h101-n-k-no%2F!7i8000!8i4000!4m2!3m1!1s0x94ce59c8da0aa315:0xd59f9431f2c9776a?hl=pt-BR
