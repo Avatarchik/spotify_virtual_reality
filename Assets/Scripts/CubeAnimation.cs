@@ -97,7 +97,11 @@ public class CubeAnimation : BaseMachine {
 
 // TODO - Calculate angle with expandingDirection vector, then animate the rotation with parametric speed.
 
-                this.transform.position += (Time.deltaTime * expansionSpeed * expandingDirection);
+
+
+				float easy = Mathfx.Berp(1, 0, getTimeSinceStateWasSelected ()/2.5f);
+
+				this.transform.position += (Time.deltaTime * expansionSpeed * expandingDirection * easy);
 
 /*
                 if((Time.time - timeAux) > 3)

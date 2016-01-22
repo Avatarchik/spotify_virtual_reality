@@ -38,6 +38,7 @@ public class PlayMovieOnSpace : MonoBehaviour {
 		MovieTexture movie = (MovieTexture)r.material.mainTexture;
 
 		if (state == STATE_FADING_IN) {
+			GetComponent<AudioSource> ().volume = 0.2f;
 			if (t < fadeInTime) {
 				t += Time.deltaTime;
 				float alpha = Mathf.Lerp (currentAlpha, goToAlpha, t / fadeInTime);
@@ -63,6 +64,9 @@ public class PlayMovieOnSpace : MonoBehaviour {
                 float alpha = Mathf.Lerp(currentAlpha, goToAlpha, t / fadeOutTime);
                 setAlpha(alpha);
 
+				if (t > 2 * fadeOutTime / 3) {
+					GetComponent<AudioSource> ().volume = Mathf.Lerp (GetComponent<AudioSource> ().volume, 0, t / fadeOutTime);
+				}
                 if (alpha < 0.1)
                 {
                     r.enabled = false;
