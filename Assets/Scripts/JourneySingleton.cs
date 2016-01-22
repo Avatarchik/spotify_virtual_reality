@@ -27,8 +27,7 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Isla_Mujeres", 3, 199, defaultSongTime, "Museo Subacuatico de Arte", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder", "#E0E1E1");
 		addPlace ("Times", 14, 325, defaultSongTime, "Times Square", "Nova Iorque, EUA", "NY is killing me", "Gil Scott-Heron & Jamie xx", "#5be9ff", true);
 		addPlace ("Salar", 30, 270, defaultSongTime, "Salar de Uyuni", "Potosí, Bolívia", "White", "Frank Ocean, John Mayer", "#FEFFC5");
-		addPlace ("Paulista", 0, 0, defaultSongTime, "Avenida Paulista", "São Paulo, Brasil", "Mais que nada", "Sergio Mendes & Brasil ’66", "#7d7e8e");
-		addPlace ("Rio", 48, 0, defaultSongTime, "Cristo Redentor", "Rio de Janeiro, Brasil", "Eu só quero ser feliz", "MC Marcinho", "#637100", true);
+		addPlace ("Rio", 48, 90, defaultSongTime, "Cristo Redentor", "Rio de Janeiro, Brasil", "Eu só quero ser feliz", "MC Marcinho", "#637100", true);
 		addPlace ("Geleira", 45, 230, defaultSongTime, "Geleira de Ilulissat", "Ilulissat, Groenlândia", "Easy", "Son Lux", "#E8DACD");
 		addPlace ("Natal_Arte", 55, 270, defaultSongTime, "Natal na Copa", "Natal, Brasil", "Oba, lá vem ela", "Jorge Ben Jor", "#10B0A1", true);
 		addPlace ("Islandia", 75, 190, defaultSongTime, "Skógafoss", "Skógar, Islândia", "Elephant Gun", "Beirut", "#808A24");
@@ -38,7 +37,6 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Congo", 105, 0, defaultSongTime, "Parque Nacional Queen Elizabeth", "Fort Portal-Mpondwe Road, Uganda", "African Drums", "african tribal orchestra", "#b19ab1", true);
 		addPlace ("Victoria", 0, 0, defaultSongTime, "Victoria Falls", "Livingstone, Zâmbia", "Zombie", "Fela Kuti", "#7c7b30");
 		addPlace ("Northern_Lights", 101, 180, defaultSongTime, "Lago Pitkäjärvi", "Espoo, Finlândia", "Runaway", "Aurora", "#31d6af");
-		addPlace ("Grecia", 102, 0, defaultSongTime, "Ilha de Hidra", "Hidra, Grécia", "Hanging on", "Ellie Goulding", "#e8b47d");
 		addPlace ("Egito", 119, 335, defaultSongTime, "Pirâmides de Gizé", "Cairo, Egito", "Walk Like an Egyptian", "The Bangles", "#a3580e", true);
 		addPlace ("Elefantinhos", 122, 190, defaultSongTime, "Samburu National Reserve", "Samburu, Quênia", "Circle of Life", "Carmen Twillie, Lebo M.", "#A89786");
 		addPlace ("Castle", 143, 0, defaultSongTime, "Castelo de Saryazd", "Yazd, Irã", "Bad Girls", "M.I.A", "#AAA5A0", true);
@@ -58,7 +56,10 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Yosemite", 330, 180, defaultSongTime, "Parque Nacional de Yosemite", "Califórnia, EUA", "Hello", "Adele ", "#7CA0DC", true);
 		addPlace ("Bryce_Canyon", 343, 235, defaultSongTime, "Parque Nacional de Bryce Canyon", "Utah, EUA", "Flume", "Bon Iver", "#ED6938");
 		addPlace ("Champion_Island", 359, 225, defaultSongTime, "Ilha Champion", "Galápagos, Equador", "So Good at Being in Trouble", "Unknown Mortal Orchestra", "#1485AF", true);
-		addPlace ("huskies", 0, 0, defaultSongTime, "Iqaluit", "Nunavut, Canadá", "Wake Up", "Arcade Fire", "#1485AF");
+		addPlace ("Huskies", 0, 90, defaultSongTime, "Iqaluit", "Nunavut, Canadá", "Wake Up", "Arcade Fire", "#1485AF");
+		addPlace ("Alemanha", 0, 0, defaultSongTime, "Castelo de Neuschwanstein", "Schwangau, Alemanha", "Cello Suite no. 1 in G Major", "J. S. Bach", "#1485AF");
+		addPlace ("Salvador", 0, 0, defaultSongTime, "Elevador Lacerda", "Salvador, Brasil", "Meia Lua Inteira", "Caetano Veloso", "#1485AF");
+
 	} // guarantee this will be always a singleton only - can't use the constructor!
 
 	/**
