@@ -12,12 +12,11 @@ public class SerialController
         FURNITURE_COM_PORT_2,
         FURNITURE_COM_PORT_3,
         FURNITURE_COM_PORT_4,
-        FURNITURE_COM_PORT_5,
-        FURNITURE_COM_PORT_6
+        FURNITURE_COM_PORT_5
     }
 
-    int numComPorts = 7;
-    public string[] furnitureComPortName = { "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7" };
+    int numComPorts = 5;
+    public string[] furnitureComPortName = { "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8" };
     SerialPort[] furnitureComPort = new SerialPort[6];
     int baudRate = 9600;
 
@@ -46,6 +45,7 @@ public class SerialController
             // TODO - Test this overload construction, if fails, set all propreties by hand and only open, dont use "new".
             furnitureComPort[portIndex] = new SerialPort(furnitureComPortName[portIndex], baudRate, Parity.None, 8, StopBits.None);
             furnitureComPort[portIndex].Open();
+            Debug.Log("open ok furnitureComPort[" + portIndex + "] (" + furnitureComPortName[portIndex] + ")");
         }
         catch (System.Exception ex)
         {
@@ -191,7 +191,7 @@ public class SerialController
     {
         foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
         {
-            //this.openComPort(port);
+           this.openComPort(port);
         }
     }
 
@@ -217,7 +217,8 @@ public class SerialController
     {
         foreach (ComPorts port in Enum.GetValues(typeof(ComPorts)))
         {
-            //setColour(port, rgbColor);
+            
+            setColour(port, rgbColor);
         }
     }
 }

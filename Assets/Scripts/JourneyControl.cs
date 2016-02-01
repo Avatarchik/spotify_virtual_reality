@@ -75,8 +75,11 @@ public class JourneyControl : BaseMachine {
 		this.placeControl = GetComponent<PlaceControl> ();
         this.serialController = new SerialController();
 
-        
-		this.state = STATE_JOURNEY_END;
+
+        this.serialController.openAll();
+        serialController.setColourAll(Utils.toSerialColor("#00FF00"));
+
+        this.state = STATE_JOURNEY_END;
     }
 
     private void sendCameraUpdate()
@@ -94,6 +97,14 @@ public class JourneyControl : BaseMachine {
     }
 
     bool sendUpdateToClient = false;
+    bool isOnGlobe = true;
+
+    //string[] colorsGlobe = new string[3] { "#59fff1", "#ff5442", "#0bff78" };
+    string[] colorsGlobe = new string[3] { "#ff0000", "#00ff00", "#0000ff" };
+
+    int currentColorGlobe = 0;
+    float timeOnColor = 10.1f;
+    float currentTimeOnColor = 0;
 		
 	// Update is called once per frame
 	void Update () {
@@ -109,6 +120,27 @@ public class JourneyControl : BaseMachine {
         {
             sendCameraUpdate();
         }
+
+        /*if(isOnGlobe)
+        {
+            if(currentTimeOnColor > timeOnColor)
+            {
+                int previousColor = currentColorGlobe;
+                currentTimeOnColor = 0;
+
+                 currentColorGlobe++;
+                if(currentColorGlobe >= 3)
+                {
+                    currentColorGlobe = 0;
+                }
+                this.serialController.setColourWithFadeAndDelayAll(Utils.toSerialColor(colorsGlobe[previousColor]), Utils.toSerialColor(colorsGlobe[currentColorGlobe]), "10000", "00000");
+            }
+            else
+            {
+                currentTimeOnColor += Time.deltaTime;
+            }
+           
+        }*/
         
         switch (this.getState ()) {
 		case STATE_PRE_SELECTED:
@@ -144,11 +176,21 @@ public class JourneyControl : BaseMachine {
 			movieControlGlobe.fadeOut ();
 			placeControl.fadeIn ();
 			placeTextControl.setActive (true);
-			this.state = STATE_JOURNEY;
+
+                //serialController.setColourWithFadeAndDelayAll(Utils.toSerialColor(colorsGlobe[currentColorGlobe]), JourneySingleton.Instance.getCurrentPlace().getColor(), "04000", "00000");
+                //serialController.setColourAll(JourneySingleton.Instance.getCurrentPlace().getColor());
+                serialController.setColour(SerialController.ComPorts.FURNITURE_COM_PORT_1, JourneySingleton.Instance.getCurrentPlace().getColor());
+                serialController.setColour(SerialController.ComPorts.FURNITURE_COM_PORT_4, JourneySingleton.Instance.getCurrentPlace().getColor());
+
+
+                this.state = STATE_JOURNEY;
 			break;
 		case STATE_PREPARE_TO_NEXT_PLACE:
 			if (movieControlGlobe.getState () == PlayMovieOnSpace.STATE_FADED) {
-				setCurrentJourneyPlace (JourneySingleton.Instance.getPlace (journeyPlaces [journeyPlacesCount]));
+                Place place = JourneySingleton.Instance.getPlace(journeyPlaces[journeyPlacesCount]);
+                
+                setCurrentJourneyPlace (place);
+         
 				startJourney ();
 				this.state = STATE_JOURNEY_START;
 				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_INITIAL_POSITION);
@@ -185,8 +227,10 @@ public class JourneyControl : BaseMachine {
 					movieControlGlobe.fadeIn ();
 					audioControl.fadeOut ();
 					this.state = STATE_PREPARE_TO_NEXT_PLACE;
-                        
-                    UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
+
+                        serialController.setColourWithFadeAndDelayAll(JourneySingleton.Instance.getCurrentPlace().getColor(), JourneySingleton.Instance.getPlace(journeyPlaces[journeyPlacesCount]).getColor(), "4000", "0");
+
+                        UDPPacket packet = new UDPPacket(UDPPacket.PLACE_TRANSITION_PACKET);
                     udpSend.sendData(packet);
                 } else {
 					this.state = STATE_PREPARE_TO_RETURN_TO_GLOBE_SUCCESS;
@@ -221,16 +265,15 @@ public class JourneyControl : BaseMachine {
 				InputTracking.Recenter();
 				PinControl.setAllPinsVisibility (true);
 				globeControl.lockGlobeRotation (false);
-
-				serialController.setColourAll(Utils.toSerialColor(colorInitial));
+                    
 
 				journeyEndControl.hideLogo(6);
 
 				CubeAnimation.changeAllWallsStatus (CubeAnimation.STATE_FINAL_POSITION_MOVE);
 
+                    serialController.setColourAll(Utils.toSerialColor("#00FF00"));
 
-
-				this.state = STATE_JOURNEY_PREPARE_TO_START;
+                    this.state = STATE_JOURNEY_PREPARE_TO_START;
 			}
 			break;
 
@@ -250,8 +293,6 @@ public class JourneyControl : BaseMachine {
 		}
 	}
 		
-    string colorInitial = "00FF00";
-
     /**
 	 * Return to globe
 	 */
@@ -260,20 +301,21 @@ public class JourneyControl : BaseMachine {
 		audioControl.stop ();
 		cameraChanger.changeToGlobe();
 		placeTextControl.setActive (false);
-
+        isOnGlobe = true;
 
         sendUpdateToClient = false;
 
         UDPPacket packet = new UDPPacket(UDPPacket.GLOBE_PACKET);
         udpSend.sendData(packet);
 
-        serialController.setColourAll(Utils.toSerialColor(colorInitial));
+        serialController.setColourAll(Utils.toSerialColor("#00FF00"));
+
     }
 
-	/**
+    /**
 	 * Set the current place of our jorney
-	 */ 
-	private void setCurrentJourneyPlace(Place place) {
+	 */
+    private void setCurrentJourneyPlace(Place place) {
 		JourneySingleton.Instance.setCurrentPlace (place);
 
 		// start the audio of the selected index
@@ -281,8 +323,6 @@ public class JourneyControl : BaseMachine {
 		this.placeControl.setPlace (place.getCode());
 
 		placeTextControl.setText (place.getName (), place.getLocation (), place.getSongTitle (), place.getSongArtist ());
-
-        serialController.setColourAll(Utils.toSerialColor(place.getColor()));
     }
 
 	/**
@@ -309,7 +349,7 @@ public class JourneyControl : BaseMachine {
 		cameraChanger.updateCameraRotationStreetView ();
 		globeControl.exitGlobe ();
 
-
+        isOnGlobe = false;
         sendUpdateToClient = true;
 		this.placeControl.applyMaterial ();
 		this.audioControl.playFullAudio ();

@@ -24,14 +24,13 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 	private float defaultSongTime = 31;
 
 	protected JourneySingleton() {
-		addPlace ("Isla_Mujeres", 3, 199, defaultSongTime, "Museo Subacuatico de Arte", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder", "#E0E1E1");
+        addPlace ("Isla_Mujeres", 3, 199, defaultSongTime, "Museo Subacuatico de Arte", "Isla Mujeres, México", "Dream a Little Dream", "Eddie Vedder", "#E0E1E1");
 		addPlace ("Times", 14, 325, defaultSongTime, "Times Square", "Nova Iorque, EUA", "NY is killing me", "Gil Scott-Heron & Jamie xx", "#5be9ff", true);
 		addPlace ("Salar", 30, 270, defaultSongTime, "Salar de Uyuni", "Potosí, Bolívia", "White", "Frank Ocean, John Mayer", "#FEFFC5");
 		addPlace ("Rio", 48, 270, defaultSongTime, "Cristo Redentor", "Rio de Janeiro, Brasil", "Eu só quero ser feliz", "MC Marcinho", "#637100", true);
 		addPlace ("Geleira", 45, 230, defaultSongTime, "Geleira de Ilulissat", "Ilulissat, Groenlândia", "Easy", "Son Lux", "#E8DACD");
 		addPlace ("Natal_Arte", 55, 270, defaultSongTime, "Natal na Copa", "Natal, Brasil", "Oba, lá vem ela", "Jorge Ben Jor", "#10B0A1", true);
 		addPlace ("Islandia", 75, 190, defaultSongTime, "Skógafoss", "Skógar, Islândia", "Elephant Gun", "Beirut", "#808A24");
-		addPlace ("London", 90, 0, defaultSongTime, "Abbey Road", "Londres, Inglaterra", "Come together", "The Beatles", "#a03e05", true);
 		addPlace ("Barcelona", 0, 0, defaultSongTime, "Parque Güell", "Barcelona, Espanha", "Barcelona", "Giulia Y Los Tellarini", "#dcb06e");
 		addPlace ("Veneza", 97, 180, defaultSongTime, "Canal de Veneza", "Veneza, Itália", "James Bond Theme", "Moby", "#db3469");
 		addPlace ("Congo", 105, 0, defaultSongTime, "Parque Nacional Queen Elizabeth", "Fort Portal-Mpondwe Road, Uganda", "African Drums", "african tribal orchestra", "#b19ab1", true);
@@ -56,9 +55,10 @@ public class JourneySingleton : Singleton<JourneySingleton>  {
 		addPlace ("Yosemite", 330, 180, defaultSongTime, "Parque Nacional de Yosemite", "Califórnia, EUA", "Hello", "Adele ", "#7CA0DC", true);
 		addPlace ("Bryce_Canyon", 343, 235, defaultSongTime, "Parque Nacional de Bryce Canyon", "Utah, EUA", "Flume", "Bon Iver", "#ED6938");
 		addPlace ("Champion_Island", 359, 225, defaultSongTime, "Ilha Champion", "Galápagos, Equador", "So Good at Being in Trouble", "Unknown Mortal Orchestra", "#1485AF", true);
-		addPlace ("Huskies", 0, 90, defaultSongTime, "Iqaluit", "Nunavut, Canadá", "Wake Up", "Arcade Fire", "#1485AF");
-		addPlace ("Alemanha", 0, 0, defaultSongTime, "Castelo de Neuschwanstein", "Schwangau, Alemanha", "Cello Suite no. 1 in G Major", "J. S. Bach", "#1485AF");
-		addPlace ("Salvador", 0, 0, defaultSongTime, "Elevador Lacerda", "Salvador, Brasil", "Meia Lua Inteira", "Caetano Veloso", "#1485AF");
+		addPlace("London", 90, 270, defaultSongTime, "Abbey Road", "Londres, Inglaterra", "Come together", "The Beatles", "#a03e05", true);
+        addPlace("Huskies", 0, 270, defaultSongTime, "Iqaluit", "Nunavut, Canadá", "Wake Up", "Arcade Fire", "#1485AF");
+		addPlace ("Alemanha", 0, 270, defaultSongTime, "Castelo de Neuschwanstein", "Schwangau, Alemanha", "Cello Suite no. 1 in G Major", "J. S. Bach", "#1485AF");
+		addPlace ("Salvador", 0, 180, defaultSongTime, "Elevador Lacerda", "Salvador, Brasil", "Meia Lua Inteira", "Caetano Veloso", "#1485AF");
 
 	} // guarantee this will be always a singleton only - can't use the constructor!
 

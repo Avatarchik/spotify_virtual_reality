@@ -26,7 +26,7 @@ public class UDPSend : MonoBehaviour
     private static int localPort;
 
     // prefs
-    private string IP = "10.0.1.255";  // define in init
+    private string IP = "127.0.0.1";  // define in init
     public int port;  // define in init
 
     // "connection" things
@@ -128,12 +128,22 @@ public class UDPSend : MonoBehaviour
 
     public void sendData(UDPPacket packet)
     {
-        try {
+        try
+        {
             Byte[] bytes = packet.getByteArray();
 
+            if (packet.getType() == UDPPacket.PLACE_TRANSITION_PACKET)
+            {
+                for(int i = 0; i < 10; i++)
+                {
+                    client.Send(bytes, bytes.Length, remoteEndPoint);
+                }
+            }
+            else {
+                client.Send(bytes, bytes.Length, remoteEndPoint);
 
-            client.Send(bytes, bytes.Length, remoteEndPoint);
-                    }
+            }
+        }
         catch (Exception err)
         {
             print(err.ToString());

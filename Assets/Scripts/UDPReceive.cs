@@ -32,7 +32,7 @@ public class UDPReceive : MonoBehaviour
     UdpClient client;
 
     // public
-    public string IP = "10.0.1.255";
+    public string IP = "127.0.0.1";
     public int port; // define > init
 
     // infos

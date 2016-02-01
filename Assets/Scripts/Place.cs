@@ -107,7 +107,7 @@ public class Place {
 	}
 
 	public string getColor() {
-		return color;
+		return Utils.toSerialColor(color);
 	}
 
 	public bool isActiveOnMap() {

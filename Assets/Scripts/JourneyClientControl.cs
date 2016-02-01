@@ -20,7 +20,9 @@ public class JourneyClientControl : MonoBehaviour {
     private bool videoIsFadeIn = false;
 
     private float lastPacketTime;
-
+    private float lastTransitionTime;
+    private bool isOnGlobe = true;
+    private int journeyCount = 0;
     // Update is called once per frame
     void Update() {
         if(Time.time - lastPacketTime > 5)
@@ -41,13 +43,18 @@ public class JourneyClientControl : MonoBehaviour {
                         placeControl.setPlace(packet.getPlaceCode());
                         placeControl.applyMaterial();
                         cameraChanger.updatePublicCameraRotationStreetView(JourneySingleton.Instance.getPlace(packet.getPlaceCode()));
+                        lastTransitionTime = Time.time;
+                        journeyCount++;
                     }
 
                     cameraChanger.updateCameraRotation(packet.getQuarternion());
                     movieOff.stopMovie();
+                    isOnGlobe = false;
                     break;
                 case UDPPacket.GLOBE_PACKET:
                     movieOff.startMovie();
+                    isOnGlobe = true;
+                    journeyCount = 0;
                     break;
                 case UDPPacket.PLACE_TRANSITION_PACKET:
                     movieControlGlobe.fadeIn();
@@ -62,6 +69,18 @@ public class JourneyClientControl : MonoBehaviour {
             {
                 videoIsFadeIn = false;
                 movieControlGlobe.fadeOut();
+            }
+
+            float timeToCheck = 24;
+            if(journeyCount == 1)
+            {
+                timeToCheck = 19;
+            }
+
+            if ((Time.time - lastTransitionTime) >= timeToCheck && videoIsFadeIn == false && isOnGlobe == false)
+            {
+                movieControlGlobe.fadeIn();
+                videoIsFadeIn = true;
             }
 
         }
